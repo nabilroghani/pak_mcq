@@ -1,0 +1,19 @@
+# 1. Dependency folders (Bohot bhari hote hain)
+node_modules/
+
+# 2. Environment variables (Sensitive data - NEVER upload this)
+.env
+.env.local
+
+# 3. Local Uploads 
+uploads/
+temp/
+
+# 4. OS metadata
+.DS_Store
+Thumbs.db
+
+# 5. Log files
+npm-debug.log*
+yarn-error.log*
+logs/
