@@ -7,7 +7,6 @@ const { addMcq, getAllMcqs, deleteMcq, updateMcq } = require('../controllers/mcq
 const { protect, isAdmin } = require('../middleware/auth');
 const MCQ = require('../models/Mcq');
 
-// ✅ Vercel Fix: Memory storage use karein taake folder na banana paray
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
