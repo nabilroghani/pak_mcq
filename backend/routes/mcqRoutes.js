@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const { storage } = require('../config/cloudinaryConfig');
 const csv = require('csv-parser');
 const fs = require('fs');
 const { addMcq, getAllMcqs, deleteMcq, updateMcq } = require('../controllers/mcqController');
