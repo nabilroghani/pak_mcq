@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { storage } = require('../config/cloudinaryConfig');
 const csv = require('csv-parser');
-const fs = require('fs');
+const { Readable } = require('stream');
 const { addMcq, getAllMcqs, deleteMcq, updateMcq } = require('../controllers/mcqController');
 const { protect, isAdmin } = require('../middleware/auth');
-const MCQ = require('../models/Mcq'); 
+const MCQ = require('../models/Mcq');
 
-const upload = multer({ dest: 'uploads/' });
+const storageMemory = multer.memoryStorage();
+const upload = multer({ storage: storageMemory });
 
 router.post('/add', protect, isAdmin, addMcq);
 router.get('/all', getAllMcqs);
@@ -17,19 +17,22 @@ router.put('/update/:id', protect, isAdmin, updateMcq);
 
 router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, res) => {
     const results = [];
-    if (!req.file) return res.status(400).json({ message: "Please upload a file" });
+    
+    if (!req.file) {
+        return res.status(400).json({ message: "Please upload a file" });
+    }
 
-    fs.createReadStream(req.file.path)
+    const stream = Readable.from(req.file.buffer.toString());
+
+    stream
         .pipe(csv())
         .on('data', (data) => {
-            // Check if essential fields exist in the row
             if (data.question && data.correctAnswer && data.category) {
                 
-                // Data Cleaning Logic
                 const cleanCategory = data.category
-                    .replace(/-/g, ' ')     // Hyphens ko spaces mein badlo
-                    .replace(/\s+/g, ' ')  // Extra spaces ko single space banao
-                    .trim();               // Shuru aur aakhir ki spaces khatam karo
+                    .replace(/-/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
 
                 results.push({
                     question: data.question.trim(),
@@ -50,23 +53,28 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
         .on('end', async () => {
             try {
                 if (results.length === 0) {
-                    if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
                     return res.status(400).json({ 
-                        message: "CSV file is empty or formatted incorrectly. Ensure columns are: question, option1, option2, option3, option4, correctAnswer, category" 
+                        message: "CSV file is empty or formatted incorrectly." 
                     });
                 }
                 
-                // Bulk Insert
                 await MCQ.insertMany(results);
                 
-                // File delete after success
-                fs.unlinkSync(req.file.path); 
-                res.json({ success: true, message: `${results.length} MCQs uploaded and cleaned successfully!` });
+                res.json({ 
+                    success: true, 
+                    message: `${results.length} MCQs uploaded and cleaned successfully!` 
+                });
             } catch (err) {
                 console.error("Upload Error:", err);
-                if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
-                res.status(500).json({ success: false, message: "Database Error. Check if question is unique or fields are correct." });
+                res.status(500).json({ 
+                    success: false, 
+                    message: "Database Error. Check if questions are unique." 
+                });
             }
+        })
+        .on('error', (error) => {
+            console.error("Stream Error:", error);
+            res.status(500).json({ message: "Error parsing CSV file." });
         });
 });
 
