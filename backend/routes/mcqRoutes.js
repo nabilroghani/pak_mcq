@@ -15,7 +15,6 @@ router.get('/all', getAllMcqs);
 router.delete('/delete/:id', protect, isAdmin, deleteMcq);
 router.put('/update/:id', protect, isAdmin, updateMcq);
 
-// ✅ CSV Upload Route
 router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, res) => {
     const results = [];
     
@@ -23,28 +22,28 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
         return res.status(400).json({ message: "Please upload a file" });
     }
 
-    // ✅ File buffer ko stream mein convert karein
     const stream = Readable.from(req.file.buffer.toString());
 
     stream
-        .pipe(csv())
+        .pipe(csv({
+            mapHeaders: ({ header }) => header.trim().toLowerCase() 
+        }))
         .on('data', (data) => {
-            if (data.question && data.correctAnswer && data.category) {
-                const cleanCategory = data.category
-                    .replace(/-/g, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
+            const q = data.question;
+            const ans = data.correctanswer; 
+            const cat = data.category;
 
+            if (q && ans && cat) {
                 results.push({
-                    question: data.question.trim(),
+                    question: q.trim(),
                     options: [
                         data.option1?.trim(), 
                         data.option2?.trim(), 
                         data.option3?.trim(), 
                         data.option4?.trim()
                     ].filter(Boolean), 
-                    correctAnswer: data.correctAnswer.trim(),
-                    category: cleanCategory,
+                    correctAnswer: ans.trim(),
+                    category: cat.trim().replace(/-/g, ' ').replace(/\s+/g, ' '),
                     difficulty: data.difficulty?.trim() || 'Medium',
                     explanation: data.explanation?.trim() || '',
                     createdBy: req.user.id 
@@ -55,19 +54,22 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
             try {
                 if (results.length === 0) {
                     return res.status(400).json({ 
-                        message: "CSV is empty or columns are wrong (Required: question, correctAnswer, category)" 
+                        message: "Validation Failed: Check if your CSV headers are: question, option1, option2, option3, option4, correctAnswer, category" 
                     });
                 }
                 
-                await MCQ.insertMany(results);
+                await MCQ.insertMany(results, { ordered: false });
                 res.json({ success: true, message: `${results.length} MCQs uploaded successfully!` });
             } catch (err) {
-                console.error("Upload Error:", err);
-                res.status(500).json({ success: false, message: "Database Error. Check for duplicate questions." });
+                if (err.code === 11000) {
+                    return res.status(200).json({ success: true, message: "Upload finished (Some duplicates were skipped)." });
+                }
+                console.log("Detailed DB Error:", JSON.stringify(err, null, 2));
+                res.status(500).json({ success: false, message: "Database Error. Ensure all required fields are present.",details: err.message });
             }
         })
         .on('error', (err) => {
-            res.status(500).json({ message: "CSV Parsing Error" });
+            res.status(500).json({ message: "Error reading CSV file." });
         });
 });
 

@@ -29,6 +29,7 @@ import MCQManager from "./pages/Admin/McqManager";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import JobManager from "./pages/Admin/JobManager";
 import QuizPage from "./pages/QuizPage";
+import CategoryManager from "./pages/Admin/CategoryManager";
 
 const App = () => {
   const location = useLocation();
@@ -79,6 +80,7 @@ const App = () => {
           <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/mcqs" element={<ProtectedRoute><MCQManager /></ProtectedRoute>} />
           <Route path="/admin/jobs" element={<ProtectedRoute><JobManager /></ProtectedRoute>} />
+          <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
 
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />

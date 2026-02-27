@@ -1,6 +1,5 @@
 import React from 'react';
 import quizBanner from "../assets/quiz.png"; 
-import { mcqsData } from "../Data/Questions"; 
 
 const PastPapers = () => {
   return (
@@ -21,56 +20,6 @@ const PastPapers = () => {
           </div>
         </div>
 
-        {/* MCQS LIST - Automatically Generated */}
-        <div className="space-y-8">
-          {mcqsData.map((item, index) => (
-            <div 
-              key={item.id} 
-              className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
-            >
-              {/* Question Header */}
-              <div className="p-6 md:p-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="bg-blue-950 text-white px-4 py-1 rounded-full text-xs font-black tracking-widest">
-                    QUESTION {index + 1}
-                  </span>
-                  <span className="text-cyan-600 text-xs font-bold uppercase tracking-widest bg-cyan-50 px-3 py-1 rounded-full">
-                    {item.category}
-                  </span>
-                </div>
-
-                <h2 className="text-xl md:text-2xl font-bold text-blue-950 leading-tight mb-8">
-                  {item.question}
-                </h2>
-
-                {/* Options Grid */}
-                <div className="grid grid-cols-1 gap-4">
-                  {item.options.map((option, optIndex) => {
-                    const label = String.fromCharCode(65 + optIndex); // A, B, C, D
-                    return (
-                      <div 
-                        key={optIndex} 
-                        className="group flex items-center p-4 bg-gray-50 border-2 border-transparent hover:border-cyan-500 hover:bg-cyan-50 rounded-2xl transition-all cursor-pointer"
-                      >
-                        <span className="w-10 h-10 flex items-center justify-center bg-blue-950 text-white rounded-xl font-bold mr-4 group-hover:bg-cyan-500 transition-colors">
-                          {label}
-                        </span>
-                        <p className="text-gray-700 font-semibold md:text-lg">{option}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              
-              {/* Show Answer Section (Optional) */}
-              <div className="bg-blue-50/50 p-4 border-t border-gray-50 text-center">
-                 <button className="text-blue-950/40 text-xs font-black uppercase tracking-[0.2em] hover:text-cyan-600 transition-colors">
-                    Click to show correct answer
-                 </button>
-              </div>
-            </div>
-          ))}
-        </div>
 
         {/* BOTTOM FOOTER */}
         <div className="text-center pt-10">

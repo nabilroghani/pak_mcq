@@ -11,7 +11,7 @@ exports.addMcq = async (req, res) => {
             correctAnswer,
             category,
             explanation,
-            createdBy: req.user.id // Ye protect middleware se aayega
+            createdBy: req.user.id 
         });
 
         await newMcq.save();
