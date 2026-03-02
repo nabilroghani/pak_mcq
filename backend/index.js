@@ -25,6 +25,7 @@ app.use('/api/mcqs', mcqRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/quizzes', require('./routes/quizRoutes'));
 
 app.get('/', (req, res) => {
     res.send("Backend Server is Running...");

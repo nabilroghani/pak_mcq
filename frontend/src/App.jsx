@@ -17,9 +17,10 @@ import JobUpdates from "./pages/JobUpdates";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import EBooks from "./pages/EBook";
 
+
 // --- DYNAMIC COMPONENT ---
 // Ab aapko GK_MCQs, Biology, PakStudy ki alag files ki zaroorat nahi
-import MCQS_cart from "./Components/MCQS_cart"; 
+import MCQS_cart from "./Components/MCQS_cart";
 
 // Auth & Admin Pages
 import Signup from "./pages/Auth/Signup";
@@ -30,6 +31,9 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import JobManager from "./pages/Admin/JobManager";
 import QuizPage from "./pages/QuizPage";
 import CategoryManager from "./pages/Admin/CategoryManager";
+import CreateQuiz from "./pages/Admin/CreateQuiz";
+import SharedQuiz from "./pages/SharedQuiz";
+
 
 const App = () => {
   const location = useLocation();
@@ -41,7 +45,7 @@ const App = () => {
 
   return (
     <div className={`min-h-screen ${showAdminUI ? "flex bg-white" : "bg-gray-50"}`}>
-      
+
       {showAdminUI ? (
         <AdminSidebar />
       ) : (
@@ -64,11 +68,12 @@ const App = () => {
           <Route path="/past-papers" element={<PastPapers />} />
           <Route path="/submit" element={<SubmitMcqs />} />
           <Route path="/e-book" element={<EBooks />} />
+          <Route path="/quiz-challenge/:slug" element={<SharedQuiz />} />
 
           {/* --- THE POWER OF DYNAMIC ROUTING --- */}
           {/* Ye aik line saare subjects (Biology, Pak Study, etc.) ko handle karegi */}
           <Route path="/category/:categoryName" element={<MCQS_cart />} />
-          
+
           {/* Quiz Route */}
           <Route path="/quiz/:id" element={<QuizPage />} />
 
@@ -81,6 +86,11 @@ const App = () => {
           <Route path="/admin/mcqs" element={<ProtectedRoute><MCQManager /></ProtectedRoute>} />
           <Route path="/admin/jobs" element={<ProtectedRoute><JobManager /></ProtectedRoute>} />
           <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
+          <Route
+            path="/admin/quiz-builder"
+            element={<ProtectedRoute><CreateQuiz /></ProtectedRoute>}
+          />
+
 
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />

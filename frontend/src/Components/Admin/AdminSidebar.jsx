@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LuLayoutDashboard, LuBookOpen, LuBriefcase, LuFileText, LuLogOut } from "react-icons/lu";
+import { LuLayoutDashboard, LuBookOpen, LuBriefcase, LuFileText, LuLogOut, LuShare2, LuLayers } from "react-icons/lu";
 
 const AdminSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Nabil, yahan maine naye items add kar diye hain
   const menuItems = [
     { name: 'Dashboard', icon: <LuLayoutDashboard />, path: '/admin/dashboard' },
+    { name: 'Categories', icon: <LuLayers />, path: '/admin/categories' }, // Category Manager link
     { name: 'MCQs Manager', icon: <LuBookOpen />, path: '/admin/mcqs' },
+    { name: 'Quiz Builder', icon: <LuShare2 />, path: '/admin/quiz-builder' }, // Naya Feature!
     { name: 'Govt Jobs', icon: <LuBriefcase />, path: '/admin/jobs' },
     { name: 'Blog & News', icon: <LuFileText />, path: '/admin/blogs' },
   ];
@@ -27,7 +30,7 @@ const AdminSidebar = () => {
         </h1>
       </div>
 
-      <nav className="flex-1 px-4">
+      <nav className="flex-1 px-4 overflow-y-auto"> {/* Scrollable if list gets long */}
         {menuItems.map((item) => (
           <Link
             key={item.name}

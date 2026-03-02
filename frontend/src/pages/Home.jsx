@@ -66,83 +66,93 @@ const handleQuizSwitch = () => {
           ہر پیپر میں بار بار آنے والے اہم ترین ایم سی کیوز ہیں۔
         </div>
 
-        {/* --- Table / Links Section --- */}
-        <div className="mb-10 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-sm">
-          <table className="w-full text-left   border-collapse">
-            <thead>
-              <tr className="bg-emerald-50">
-                <th
-                  colSpan="2"
-                  className="p-4 text-emerald-900 font-black text-sm md:text-base uppercase tracking-tight"
-                >
-                  🔥 Past Papers & Most Important Repeated MCQs
-                </th>
-              </tr>
-            </thead>
-            <tbody className="text-sm md:text-base">
-              <tr className="border-b border-emerald-50">
-                <td className="p-4 hover:bg-emerald-50 transition-colors">
-                  <Link
-                    to="#"
-                    className="text-slate-700 font-bold hover:text-emerald-600 flex items-center gap-2"
-                  >
-                    <span className="text-emerald-500">▶</span> Pak Study (1000)
-                    MCQs
-                  </Link>
-                </td>
-                <td className="p-4 hover:bg-emerald-50 transition-colors border-l border-emerald-50">
-                  <Link
-                    to="#"
-                    className="text-slate-700 font-bold hover:text-emerald-600 flex items-center gap-2"
-                  >
-                    <span className="text-emerald-500">▶</span> Islamic Study
-                    (1000) MCQs
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td className="p-4 hover:bg-emerald-50 transition-colors">
-                  <Link
-                    to="#"
-                    className="text-slate-700 font-bold hover:text-emerald-600 flex items-center gap-2"
-                  >
-                    <span className="text-emerald-500">▶</span> General
-                    Knowledge (1000) MCQs
-                  </Link>
-                </td>
-                <td className="p-4 hover:bg-emerald-50 transition-colors border-l border-emerald-50">
-                  <Link
-                    to="#"
-                    className="text-slate-700 font-bold hover:text-emerald-600 flex items-center gap-2"
-                  >
-                    <span className="text-emerald-500">▶</span> World Affairs
-                    (1000) MCQs
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td className="p-4 hover:bg-emerald-50 transition-colors">
-                  <Link
-                    to="#"
-                    className="text-slate-700 font-bold hover:text-emerald-600 flex items-center gap-2"
-                  >
-                    <span className="text-emerald-500">▶</span> General
-                    Knowledge (MCQs)
-                  </Link>
-                </td>
-                <td className="p-4 hover:bg-emerald-50 transition-colors border-l border-emerald-50">
-                  <Link
-                    to="#"
-                    className="text-slate-700 font-bold hover:text-emerald-600 flex items-center gap-2"
-                  >
-                    <span className="text-emerald-500">▶</span> World Affairs
-                    (MCQs)
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+{/* --- Table / Links Section --- */}
+<div className="mb-10 overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-md">
+  {/* Header with Gradient */}
+  <div className="bg-gradient-to-r from-cyan-400 to-blue-500 p-5 text-center">
+    <h2 className="text-white font-black text-xl md:text-2xl uppercase tracking-wide">
+      Past Papers & Most Important Repeated MCQs
+    </h2>
+  </div>
+
+  <div className="p-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      {/* Pak Study Link */}
+      <Link
+        to="/category/pak-study-mcqs"
+        className="flex items-center justify-between p-4 border-2 border-blue-300 rounded-full hover:bg-blue-50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="h-4 w-4 rounded-full bg-green-500"></span>
+          <span className="text-slate-700 font-bold text-lg">Pak Study (1000) MCQs</span>
         </div>
+        <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
+      </Link>
+
+      {/* general knowledge */}
+      <Link
+        to="/category/General-Knowledge-MCQs"
+        className="flex items-center justify-between p-4 border-2 border-blue-300 rounded-full hover:bg-blue-50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="h-4 w-4 bg-yellow-500"></span>
+          <span className="text-slate-700 font-bold text-lg">General Knowledge (1000) MCQs</span>
+        </div>
+        <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
+      </Link>
+
+      {/* everyday science Link */}
+      <Link
+        to="/category/Everyday-Science-MCQs"
+        className="flex items-center justify-between p-4 border-2 border-blue-300 rounded-full hover:bg-blue-50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-black text-xs">▲</span>
+          <span className="text-slate-700 font-bold text-lg">Everyday Science Important MCQs</span>
+        </div>
+        <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
+      </Link>
+
+      {/* Islamic Study Link */}
+      <Link
+        to="/category/Islamic-Studies-MCQs"
+        className="flex items-center justify-between p-4 border-2 border-blue-300 rounded-full hover:bg-blue-50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-blue-600 rotate-45 text-lg">◆</span>
+          <span className="text-slate-700 font-bold text-lg">Islamic Study (1000) MCQs</span>
+        </div>
+        <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
+      </Link>
+
+      {/* World Affairs mcqs */}
+      <Link
+        to="/category/World-Current-Affairs"
+        className="flex items-center justify-between p-4 border-2 border-blue-300 rounded-full hover:bg-blue-50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-black text-xs">▲</span>
+          <span className="text-slate-700 font-bold text-lg">World Affairs (MCQs)</span>
+        </div>
+        <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
+      </Link>
+
+      {/* computer science */}
+      <Link
+        to="/category/Computer-MCQs"
+        className="flex items-center justify-between p-4 border-2 border-blue-300 rounded-full hover:bg-blue-50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-blue-600 rotate-45 text-lg">◆</span>
+          <span className="text-slate-700 font-bold text-lg">Computer Science Important (1000) MCQs</span>
+        </div>
+        <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
+      </Link>
+
+    </div>
+  </div>
+</div>
 
         {/* --- Category Header --- */}
         <div className="flex items-center justify-end gap-4 mb-6 ">
