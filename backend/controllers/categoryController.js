@@ -10,25 +10,33 @@ exports.getCategories = async (req, res) => {
     }
 };
 
-// ADD NEW (Slug Logic Included)
+// ADD NEW
 exports.addCategory = async (req, res) => {
     try {
         const { name, parent } = req.body;
-        if (!name) return res.status(400).json({ success: false, message: "Name is required" });
-
         const slug = name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-
-        const newCategory = new Category({
-            name,
-            slug,
-            parent: parent || null
-        });
-
+        const newCategory = new Category({ name, slug, parent: parent || null });
         await newCategory.save();
         res.status(201).json({ success: true, data: newCategory });
     } catch (err) {
-        if (err.code === 11000) return res.status(400).json({ success: false, message: "Already exists!" });
         res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
+
+// UPDATE (Final Fix)
+exports.updateCategory = async (req, res) => {
+    try {
+        const { name, parent } = req.body;
+        const slug = name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        
+        const category = await Category.findByIdAndUpdate(
+            req.params.id,
+            { name, slug, parent: parent || null },
+            { new: true }
+        );
+        res.status(200).json({ success: true, data: category });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Update failed" });
     }
 };
 

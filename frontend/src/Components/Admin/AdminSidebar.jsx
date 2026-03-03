@@ -1,19 +1,27 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LuLayoutDashboard, LuBookOpen, LuBriefcase, LuFileText, LuLogOut, LuShare2, LuLayers } from "react-icons/lu";
+import { 
+  LuLayoutDashboard, 
+  LuBookOpen, 
+  LuBriefcase, 
+  LuLogOut, 
+  LuShare2, 
+  LuLayers, 
+  LuMessageSquare // Naya icon messages ke liye
+} from "react-icons/lu";
 
 const AdminSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Nabil, yahan maine naye items add kar diye hain
+  // Blog & News hata kar 'User Messages' add kar diya gaya hai
   const menuItems = [
     { name: 'Dashboard', icon: <LuLayoutDashboard />, path: '/admin/dashboard' },
-    { name: 'Categories', icon: <LuLayers />, path: '/admin/categories' }, // Category Manager link
+    { name: 'Categories', icon: <LuLayers />, path: '/admin/categories' },
     { name: 'MCQs Manager', icon: <LuBookOpen />, path: '/admin/mcqs' },
-    { name: 'Quiz Builder', icon: <LuShare2 />, path: '/admin/quiz-builder' }, // Naya Feature!
+    { name: 'Quiz Builder', icon: <LuShare2 />, path: '/admin/quiz-builder' },
     { name: 'Govt Jobs', icon: <LuBriefcase />, path: '/admin/jobs' },
-    { name: 'Blog & News', icon: <LuFileText />, path: '/admin/blogs' },
+    { name: 'Messages', icon: <LuMessageSquare />, path: '/admin/messages' }, // Contact wala data yahan show hoga
   ];
 
   const handleLogout = () => {
@@ -28,9 +36,10 @@ const AdminSidebar = () => {
         <h1 className="text-white text-2xl font-bold flex items-center gap-2">
           EduAdmin
         </h1>
+        <p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">Management Suite</p>
       </div>
 
-      <nav className="flex-1 px-4 overflow-y-auto"> {/* Scrollable if list gets long */}
+      <nav className="flex-1 px-4 overflow-y-auto mt-4"> 
         {menuItems.map((item) => (
           <Link
             key={item.name}
@@ -41,19 +50,21 @@ const AdminSidebar = () => {
               : 'hover:bg-[#111d3a] hover:text-white'
             }`}
           >
-            {item.icon}
-            <span>{item.name}</span>
+            <span className="text-xl">{item.icon}</span>
+            <span className="font-medium">{item.name}</span>
           </Link>
         ))}
       </nav>
 
-      <button 
-        onClick={handleLogout}
-        className="m-4 flex items-center gap-3 p-3 text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
-      >
-        <LuLogOut />
-        <span>Logout</span>
-      </button>
+      <div className="p-4 border-t border-gray-800">
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 p-3 text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
+        >
+          <LuLogOut size={20} />
+          <span className="font-bold">Logout</span>
+        </button>
+      </div>
     </div>
   );
 };

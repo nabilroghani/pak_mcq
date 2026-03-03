@@ -52,14 +52,14 @@ const handleQuizSwitch = () => {
         </div>
 
         {/* --- Quiz Mode Toggle --- */}
-        <div className="flex justify-start mb-10">
+        {/* <div className="flex justify-start mb-10">
           <button
             onClick={handleQuizSwitch}
             className="flex items-center gap-2 bg-[#1565C0] text-white px-6 py-2 rounded-xl text-sm font-black shadow-md transition-all active:scale-95 hover:bg-[#1254a1]"
           >
             <span>Switch to Quiz Mode</span>
           </button>
-        </div>
+        </div> */}
 
         <div class="bg-gray-50/50 mb-5 p-2 px-8 rounded shadow-md  text-end mx-auto text-gray-700 text-base md:text-xl leading-relaxed">
           یہ وہ ایم سی کیوز ہیں جو پاسٹ پیپرز (گزشتہ پرچوں) سے لیے گئے ہیں اور

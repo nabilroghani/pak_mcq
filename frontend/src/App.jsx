@@ -1,11 +1,12 @@
 import React from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate, useNavigate } from "react-router-dom";
+import { FaPlayCircle } from "react-icons/fa";
 
 // Layout Components
 import Navbar from "./Layout/Navbar";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
-import AdminSidebar from "./Components/admin/AdminSidebar";
+import AdminSidebar from "./Components/Admin/AdminSidebar";
 
 // Public Pages
 import Home from "./pages/Home";
@@ -17,12 +18,8 @@ import JobUpdates from "./pages/JobUpdates";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import EBooks from "./pages/EBook";
 
-
-// --- DYNAMIC COMPONENT ---
-// Ab aapko GK_MCQs, Biology, PakStudy ki alag files ki zaroorat nahi
+// Components
 import MCQS_cart from "./Components/MCQS_cart";
-
-// Auth & Admin Pages
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
@@ -33,15 +30,21 @@ import QuizPage from "./pages/QuizPage";
 import CategoryManager from "./pages/Admin/CategoryManager";
 import CreateQuiz from "./pages/Admin/CreateQuiz";
 import SharedQuiz from "./pages/SharedQuiz";
-
+import AdminMessages from "./pages/Admin/AdminMessages"; 
 
 const App = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
 
   const isAdminPath = location.pathname.startsWith("/admin");
   const isUserAdmin = user?.role === 'admin';
   const showAdminUI = isUserAdmin && isAdminPath;
+
+  // Check current category from URL for the Floating Button
+  const categoryInUrl = location.pathname.startsWith("/category/") 
+    ? location.pathname.split("/").pop() 
+    : "General";
 
   return (
     <div className={`min-h-screen ${showAdminUI ? "flex bg-white" : "bg-gray-50"}`}>
@@ -59,7 +62,6 @@ const App = () => {
 
       <main className={showAdminUI ? "flex-1 h-screen overflow-y-auto" : "max-w-7xl mx-auto px-4 mt-8 pb-10 w-full"}>
         <Routes>
-          {/* Static Pages */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -69,33 +71,36 @@ const App = () => {
           <Route path="/submit" element={<SubmitMcqs />} />
           <Route path="/e-book" element={<EBooks />} />
           <Route path="/quiz-challenge/:slug" element={<SharedQuiz />} />
-
-          {/* --- THE POWER OF DYNAMIC ROUTING --- */}
-          {/* Ye aik line saare subjects (Biology, Pak Study, etc.) ko handle karegi */}
           <Route path="/category/:categoryName" element={<MCQS_cart />} />
 
-          {/* Quiz Route */}
-          <Route path="/quiz/:id" element={<QuizPage />} />
+          {/* Quiz Route Fix: Now accepts categoryName */}
+          <Route path="/quiz/:categoryName" element={<QuizPage />} />
 
-          {/* Authentication */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
-          {/* Admin Protected Routes */}
           <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/mcqs" element={<ProtectedRoute><MCQManager /></ProtectedRoute>} />
           <Route path="/admin/jobs" element={<ProtectedRoute><JobManager /></ProtectedRoute>} />
           <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
-          <Route
-            path="/admin/quiz-builder"
-            element={<ProtectedRoute><CreateQuiz /></ProtectedRoute>}
-          />
-
+          <Route path="/admin/quiz-builder" element={<ProtectedRoute><CreateQuiz /></ProtectedRoute>} />
+          <Route path="/admin/messages" element={<ProtectedRoute><AdminMessages /></ProtectedRoute>} />
 
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+
+      {/* --- FLOATING QUIZ BUTTON --- */}
+      {!isAdminPath && !location.pathname.startsWith("/quiz") && location.pathname !== "/login" && (
+        <button 
+          onClick={() => navigate(`/quiz/${categoryInUrl}`)}
+          className="fixed bottom-10 right-10 bg-gradient-to-r from-blue-700 to-cyan-500 text-white px-7 py-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50 flex items-center gap-3 font-black uppercase tracking-tighter border-4 border-white"
+        >
+          <FaPlayCircle size={28} />
+          <span>Start {categoryInUrl.replace(/-/g, ' ')} Quiz</span>
+        </button>
+      )}
 
       {!isAdminPath && <Footer />}
     </div>
