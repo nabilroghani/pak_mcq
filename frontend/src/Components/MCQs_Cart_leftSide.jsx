@@ -14,44 +14,40 @@ export default function MCQs_Cart_leftSide({ className = "" }) {
   const { categoryName } = useParams();
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchMCQs = async () => {
-      try {
-        setLoading(true);
-        const searchParams = new URLSearchParams(location.search);
-        const searchQuery = searchParams.get("q");
+useEffect(() => {
+  const fetchMCQs = async () => {
+    try {
+      setLoading(true);
+      // Data load hone se pehle purana data clear karein
+      setMcqs([]); 
 
-        const params = {};
+      const searchParams = new URLSearchParams(location.search);
+      const searchQuery = searchParams.get("q");
+      const params = {};
 
-        // 1. Agar Search Query hai (Priority)
-        if (searchQuery && searchQuery.trim() !== "") {
-          params.search = searchQuery.trim();
-        } 
-        // 2. Agar Search nahi hai aur Subject page par hain
-        else if (categoryName && categoryName !== "search") {
-          // Hyphens khatam karke extra spaces clean karna zaroori hai
-          const cleanCategory = categoryName
-            .replace(/-/g, ' ')
-            .replace(/\s+/g, ' ') 
-            .trim();
-          params.category = cleanCategory;
-        }
-
-        const res = await axios.get(`http://localhost:5000/api/mcqs/all`, { params });
-
-        if (res.data.success) {
-          setMcqs(res.data.data);
-          setCurrentPage(1);
-        }
-      } catch (err) {
-        console.error("Fetch Error:", err);
-      } finally {
-        setLoading(false);
+      if (searchQuery && searchQuery.trim() !== "") {
+        params.search = searchQuery.trim();
+      } 
+      else if (categoryName && categoryName !== "search") {
+        // FIXED: Category ko slug ki shakal mein hi bhejein (lowercase)
+        params.category = categoryName.toLowerCase().trim();
       }
-    };
 
-    fetchMCQs();
-  }, [categoryName, location.search]);
+      const res = await axios.get(`http://localhost:5000/api/mcqs/all`, { params });
+
+      if (res.data.success) {
+        setMcqs(res.data.data);
+        setCurrentPage(1);
+      }
+    } catch (err) {
+      console.error("Fetch Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMCQs();
+}, [categoryName, location.search]);
 
   // Pagination Logic
   const indexOfLastMCQ = currentPage * mcqsPerPage;

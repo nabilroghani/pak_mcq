@@ -1,4 +1,5 @@
 const Mcq = require('../models/Mcq');
+const Category = require('../models/Category');
 
 // Add New MCQ
 exports.addMcq = async (req, res) => {
@@ -22,26 +23,47 @@ exports.addMcq = async (req, res) => {
 };
 
 // Get All MCQs 
+
 exports.getAllMcqs = async (req, res) => {
     try {
         const { category, search } = req.query;
         let filter = {};
 
-        // 1. Agar user ne Search bar mein kuch likha hai (Priority Search)
         if (search && search.trim() !== "") {
             filter.question = { $regex: search, $options: 'i' };
         } 
-        // 2. Agar Search nahi hai, tab Category filter check karein
-        else if (category && category !== "undefined" && category !== "") {
-            // Hyphens ko spaces mein badlein (e.g. computer-science -> computer science)
-            const formattedCategory = category.replace(/-/g, ' ');
-            filter.category = { $regex: new RegExp(`^${formattedCategory}$`, 'i') };
+        else if (category && category !== "undefined") {
+            const currentCat = await Category.findOne({ 
+                slug: { $regex: new RegExp(`^${category}$`, 'i') } 
+            });
+
+            if (currentCat) {
+                const childCategories = await Category.find({ parent: currentCat._id });
+                
+                const allSlugs = [currentCat.slug, ...childCategories.map(c => c.slug)];
+                
+                const allNames = [currentCat.name, ...childCategories.map(c => c.name)];
+                
+                const combinedValues = [...allSlugs, ...allNames];
+
+                filter.category = { 
+                    $in: combinedValues.map(val => new RegExp(`^${val}$`, 'i')) 
+                };
+
+            } else {
+                const cleanName = category.replace(/-/g, ' ');
+                filter.category = { 
+                    $in: [
+                        new RegExp(`^${category}$`, 'i'), 
+                        new RegExp(`^${cleanName}$`, 'i')
+                    ] 
+                };
+            }
         }
 
-        // Agar dono nahi hain, toh saaray MCQs mil jayenge
         const mcqs = await Mcq.find(filter).sort({ createdAt: -1 });
-        
-        console.log("Applied Filter:", filter); // Debugging ke liye terminal mein dekhein
+
+        // console.log("Final Filter Applied:", JSON.stringify(filter));
 
         res.status(200).json({
             success: true,
@@ -49,6 +71,7 @@ exports.getAllMcqs = async (req, res) => {
             data: mcqs
         });
     } catch (err) {
+        console.error("Fetch Error:", err);
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };

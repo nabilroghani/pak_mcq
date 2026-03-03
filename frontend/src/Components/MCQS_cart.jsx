@@ -19,7 +19,6 @@
 //     </div>
 //   );
 // }
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
@@ -27,93 +26,73 @@ import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 
 export default function MCQS_cart() {
-  const { categoryName } = useParams(); // Ye slug lega, e.g., 'pak-study'
+  const { categoryName } = useParams(); 
   const [subCats, setSubCats] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSubCategories = async () => {
+      setLoading(true);
+      setSubCats([]); 
       try {
-        setLoading(true);
-        // 1. Pehle sari categories mangwao
-        const res = await axios.get("http://localhost:5000/api/categories/all");
-        const allCats = res.data;
-
-        // 2. Current category find karo slug ke zariye
-        const currentCat = allCats.find(c => c.slug === categoryName);
-        
-        if (currentCat) {
-          // 3. Wo sari categories nikalen jinka parent is current category ki ID hai
-          const filtered = allCats.filter(c => c.parent === currentCat._id);
-          setSubCats(filtered);
+        if (categoryName) { // Sirf tabhi fetch karein jab category ho
+          const res = await axios.get("http://localhost:5000/api/categories/all");
+          const currentCat = res.data.find(c => c.slug.toLowerCase() === categoryName?.toLowerCase());
+          if (currentCat) {
+            const filtered = res.data.filter(c => c.parent === currentCat._id);
+            setSubCats(filtered);
+          }
         }
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching sub-categories:", err);
-        setLoading(false);
-      }
+      } catch (err) { console.error(err); }
+      setLoading(false);
     };
     fetchSubCategories();
   }, [categoryName]);
 
-  // Banner Images Mapping
   const bannerImages = {
-    "math": "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=1000&auto=format&fit=crop",
-    "pak-study": "https://images.unsplash.com/photo-1527359443443-84a48abc7dfd?q=80&w=1000&auto=format&fit=crop",
-    "default": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop"
+    "math": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1000",
+    "pak-study": "https://images.unsplash.com/photo-1527359443443-84a48abc7dfd?auto=format&fit=crop&w=1000",
+    "default": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000"
   };
-
-  const currentBanner = bannerImages[categoryName?.toLowerCase()] || bannerImages["default"];
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6">
-
-        {/* Banner Section */}
-        <div className="relative w-full h-[200px] rounded-lg overflow-hidden mb-6 shadow-md">
-          <img src={currentBanner} className="w-full h-full object-cover" alt="Banner" />
-          <div className="absolute inset-0 bg-black/20 flex items-center pl-10">
-             <h1 className="text-white text-4xl font-black uppercase drop-shadow-md">
-                {categoryName?.replace(/-/g, ' ')}
-             </h1>
-          </div>
-        </div>
-
-        {/* Header Text */}
-        <div className="mb-6">
-          <p className="text-gray-700 text-sm leading-relaxed">
-            {categoryName?.replace(/-/g, ' ')} Mcqs, Get Complete Mcqs of this category for NTS, FPSC, PPSC, SPSC, CSS, PMS Test Preparation.
-          </p>
-        </div>
-
-        {/* --- DYNAMIC DATABASE MENU TABLE (PakMcqs Style) --- */}
-        {!loading && subCats.length > 0 && (
-          <div className="border border-gray-200 rounded-md overflow-hidden mb-10 shadow-sm">
-            <div className="bg-gray-100 border-b border-gray-200 py-2.5 text-center">
-              <h2 className="text-sm font-black text-gray-700 uppercase tracking-widest">
-                {categoryName?.replace(/-/g, ' ')} MENU
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              {subCats.map((item, index) => (
-                <Link
-                  key={item._id}
-                  to={`/category/${item.slug}`}
-                  className={`flex items-center p-3 border-b border-gray-100 hover:bg-blue-50 transition-all ${index % 2 === 0 ? 'md:border-r' : ''}`}
-                >
-                  <span className="text-gray-400 text-xs w-6 font-bold">{index + 1}.</span>
-                  <span className="text-blue-900 font-bold text-sm hover:underline">{item.name}</span>
-                </Link>
-              ))}
+        
+        {/* --- BANNER SECTION (Only shows on Category Pages) --- */}
+        {categoryName && (
+          <div className="relative w-full h-[200px] rounded-lg overflow-hidden mb-6 shadow-md">
+            <img 
+              src={bannerImages[categoryName?.toLowerCase()] || bannerImages["default"]} 
+              className="w-full h-full object-cover" 
+              alt="Banner" 
+            />
+            <div className="absolute inset-0 bg-black/30 flex items-center pl-10">
+               <h1 className="text-white text-4xl font-black uppercase">
+                 {categoryName?.replace(/-/g, ' ')}
+               </h1>
             </div>
           </div>
         )}
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1.3fr] gap-8">
+        {/* --- SUB-CATEGORY MENU TABLE --- */}
+        {!loading && subCats.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 border mb-10 rounded-lg overflow-hidden">
+                 <div className="md:col-span-2 bg-gray-50 p-2 text-center font-bold border-b text-gray-700 uppercase text-xs tracking-widest">
+                    {categoryName?.replace(/-/g, ' ')} Sub Categories
+                 </div>
+                 {subCats.map((item, index) => (
+                    <Link key={item._id} to={`/category/${item.slug}`} className="p-3 border-b hover:bg-blue-50 text-blue-900 font-medium text-sm">
+                        {index + 1}. {item.name}
+                    </Link>
+                 ))}
+            </div>
+        )}
+
+        {/* --- MAIN CONTENT --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1.3fr] gap-8 items-start">
           <div className="w-full">
-            <MCQs_Cart_leftSide />
+            <MCQs_Cart_leftSide key={categoryName || "home"} categorySlug={categoryName} />
           </div>
           <div className="w-full">
             <MCQs_cart_RightSide />
