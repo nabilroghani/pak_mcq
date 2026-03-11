@@ -167,25 +167,30 @@ const AdminDashboard = () => {
   };
 
   // --- BULK UPLOAD ---
-  const handleCsvUpload = async (e) => {
+const handleCsvUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    const token = localStorage.getItem('token'); 
+
     const formData = new FormData();
     formData.append("file", file);
+
     try {
       Swal.fire({ title: "Uploading...", didOpen: () => Swal.showLoading() });
       await axios.post("http://localhost:5000/api/mcqs/upload-csv", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, 
         },
       });
       Swal.fire("Success!", "Bulk MCQs added!", "success");
       fetchData();
     } catch (err) {
-      Swal.fire("Error", "CSV upload failed", "error");
+      console.error(err);
+      Swal.fire("Error", err.response?.data?.message || "CSV upload failed", "error");
     }
-  };
+};
 
   // --- JOB ACTIONS ---
   const handleJobSubmit = async (e) => {

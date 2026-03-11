@@ -18,25 +18,25 @@ const Header = () => {
   };
 
   const mainLinks = [
-    { name: "Pak Study", path: "/category/Pak-Study-MCQs" },
-    { name: "Islamic Studies", path: "/category/Islamic-Studies-MCQs" },
-    { name: "GK Mcqs", path: "/category/General-Knowledge-MCQs" },
-    { name: "Everyday Science", path: "/category/Everyday-Science-MCQs" },
+    { name: "Pak Study", path: "/category/pak-study" },
+    { name: "Islamic Studies", path: "/category/islamic-studies" },
+    { name: "GK Mcqs", path: "/category/general-knowledge" },
+    { name: "Everyday Science", path: "/category/everyday-science" },
   ];
 
   const dropdownLinks = [
-    { name: "Biology", path: "/category/Biology-MCQs" },
-    { name: "Chemistry", path: "/category/Chemistry-MCQs" },
-    { name: "Physics", path: "/category/Physics-MCQs" },
-    { name: "Pedagogy", path: "/category/Pedagogy-MCQs" },
-    { name: "Computer", path: "/category/Computer-MCQs" },
-    { name: "Maths", path: "/category/Maths-MCQs" },
-    { name: "English", path: "/category/English-MCQs" },
-    { name: "Urdu", path: "/category/Urdu-MCQs" },
+    { name: "Biology", path: "/category/biology" },
+    { name: "Chemistry", path: "/category/chemistry" },
+    { name: "Physics", path: "/category/physics" },
+    { name: "Pedagogy", path: "/category/pedagogy" },
+    { name: "Computer", path: "/category/computer" },
+    { name: "Maths", path: "/category/math" },
+    { name: "English", path: "/category/english" },
+    { name: "Urdu", path: "/category/urdu" },
   ];
 
   const currentAffairsLinks = [
-    { name: "Pakistan Current Affairs", path: "/category/Pakistan-Current-Affairs" },
+    { name: "Pakistan Current Affairs", path: "/category/Pak-Current-Affairs" },
     { name: "World Current Affairs", path: "/category/World-Current-Affairs" },
   ];
 

@@ -7,21 +7,23 @@ import {
   LuLogOut, 
   LuShare2, 
   LuLayers, 
-  LuMessageSquare // Naya icon messages ke liye
+  LuMessageSquare,
+  LuBook // Naya icon E-Books ke liye
 } from "react-icons/lu";
 
 const AdminSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Blog & News hata kar 'User Messages' add kar diya gaya hai
+  // Sab purane items barkarar hain, 'E-Books Manager' add kar diya gaya hai
   const menuItems = [
     { name: 'Dashboard', icon: <LuLayoutDashboard />, path: '/admin/dashboard' },
     { name: 'Categories', icon: <LuLayers />, path: '/admin/categories' },
     { name: 'MCQs Manager', icon: <LuBookOpen />, path: '/admin/mcqs' },
     { name: 'Quiz Builder', icon: <LuShare2 />, path: '/admin/quiz-builder' },
     { name: 'Govt Jobs', icon: <LuBriefcase />, path: '/admin/jobs' },
-    { name: 'Messages', icon: <LuMessageSquare />, path: '/admin/messages' }, // Contact wala data yahan show hoga
+    { name: 'E-Books', icon: <LuBook />, path: '/admin/ebooks' }, // Naya Route
+    { name: 'Messages', icon: <LuMessageSquare />, path: '/admin/messages' }, 
   ];
 
   const handleLogout = () => {

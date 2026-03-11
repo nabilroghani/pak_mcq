@@ -30,7 +30,7 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
         }))
         .on('data', (data) => {
             const q = data.question;
-            const ans = data.correctanswer; 
+            const ans = data.correctanswer || data.correctAnswer; 
             const cat = data.category;
 
             if (q && ans && cat) {

@@ -14,16 +14,16 @@ export default function MCQs_cart_RightSide({ className = "" }) {
         const res = await axios.get("http://localhost:5000/api/categories/all");
         const dbData = res.data;
 
-        // --- FIXED LOGIC ---
-        // 1. Pehle wo nikalen jinka parent null hai (Main Headings)
-        const parents = dbData.filter(cat => !cat.parent);
+        
+        const sortedData = [...dbData].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-        // 2. Phir har parent ke andar uski sub-categories match karen using ID
+        const parents = sortedData.filter(cat => !cat.parent);
+
         const formatted = parents.map((parent) => ({
           id: parent._id,
           name: parent.name,
-          subCategories: dbData
-            .filter(child => child.parent === parent._id) // ID comparison fixed
+          subCategories: sortedData
+            .filter(child => child.parent === parent._id)
             .map((child) => ({
               id: child._id,
               name: child.name,
@@ -33,7 +33,6 @@ export default function MCQs_cart_RightSide({ className = "" }) {
 
         setMcqDataCategory(formatted);
 
-        // Sab menus ko shuru mein open rakhne ke liye
         const initialOpenState = {};
         formatted.forEach((cat) => {
           initialOpenState[cat.name] = true;

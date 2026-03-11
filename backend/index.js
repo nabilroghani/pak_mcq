@@ -10,6 +10,7 @@ const jobRoutes = require('./routes/jobRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/quizzes', require('./routes/quizRoutes'));
 app.use('/api/contacts', contactRoutes)
+app.use('/api/books', bookRoutes);
 
 app.get('/', (req, res) => {
     res.send("Backend Server is Running...");
