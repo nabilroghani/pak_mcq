@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaShieldAlt, FaLock, FaUserSecret, FaCookieBite, FaFileContract, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const PrivacyPolicy = () => {
   return (
@@ -92,9 +93,11 @@ const PrivacyPolicy = () => {
                 <h3 className="text-xl font-black text-blue-900">Koi Sawal Hai?</h3>
                 <p className="text-blue-700 font-medium">Agar aapko koi confusion hai toh rabta karein.</p>
               </div>
-              <a href="mailto:support@paklearners.com" className="flex items-center gap-3 bg-blue-900 text-white px-8 py-4 rounded-2xl font-black hover:bg-cyan-600 transition-all shadow-lg shadow-blue-200 active:scale-95">
+                <Link to={"/contact"}>
+                <a href="mailto:support@paklearners.com" className="flex items-center gap-3 bg-blue-900 text-white px-8 py-4 rounded-2xl font-black hover:bg-cyan-600 transition-all shadow-lg shadow-blue-200 active:scale-95">
                 <FaEnvelope /> CONTACT US
               </a>
+                </Link>
             </div>
           </div>
         </div>

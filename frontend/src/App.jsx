@@ -23,6 +23,7 @@ import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import MCQManager from "./pages/Admin/McqManager";
+import AdminReviewMCQs from "./pages/Admin/AdminReviewMCQs"; // Naya Import
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import JobManager from "./pages/Admin/JobManager";
 import QuizPage from "./pages/QuizPage";
@@ -41,9 +42,7 @@ const App = () => {
   const showAdminUI = isUserAdmin && isAdminPath;
 
   return (
-    <div
-      className={`min-h-screen ${showAdminUI ? "flex bg-white" : "bg-gray-50"}`}
-    >
+    <div className={`min-h-screen ${showAdminUI ? "flex bg-white" : "bg-gray-50"}`}>
       {showAdminUI ? (
         <AdminSidebar />
       ) : (
@@ -95,6 +94,17 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          
+          {/* NAYA ROUTE: Admin Review MCQs */}
+          <Route
+            path="/admin/review-mcqs"
+            element={
+              <ProtectedRoute>
+                <AdminReviewMCQs />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/admin/jobs"
             element={
@@ -128,16 +138,6 @@ const App = () => {
             }
           />
 
-          <Route
-            path="/admin/ebooks"
-            element={
-              <ProtectedRoute>
-                <EBookManager />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Naya E-Book Admin Route */}
           <Route
             path="/admin/ebooks"
             element={

@@ -5,6 +5,19 @@ const Category = require('../models/Category');
 exports.addMcq = async (req, res) => {
     try {
         const { question, options, correctAnswer, category, explanation } = req.body;
+        const newMcq = new Mcq({
+            question, options, correctAnswer, category, explanation,
+            createdBy: req.user.id,
+            status: 'approved' // Admin add kare toh direct approve
+        });
+        await newMcq.save();
+        res.status(201).json({ success: true, message: "MCQ added successfully!" });
+    } catch (err) { res.status(500).json({ success: false, message: "Error" }); }
+};
+
+exports.submitUserMcq = async (req, res) => {
+    try {
+        const { question, options, correctAnswer, category, explanation } = req.body;
         
         const newMcq = new Mcq({
             question,
@@ -12,22 +25,27 @@ exports.addMcq = async (req, res) => {
             correctAnswer,
             category,
             explanation,
-            createdBy: req.user.id 
+            status: 'pending', // By default pending
+            submittedBy: req.user ? req.user.name : 'Guest User'
         });
 
         await newMcq.save();
-        res.status(201).json({ success: true, message: "MCQ added successfully!" });
+        res.status(201).json({ success: true, message: "MCQ submitted for review!" });
     } catch (err) {
-        res.status(500).json({ success: false, message: "Error adding MCQ" });
+        res.status(500).json({ success: false, message: "Error submitting MCQ" });
     }
 };
 
 // Get All MCQs 
-
 exports.getAllMcqs = async (req, res) => {
     try {
-        const { category, search } = req.query;
-        let filter = {};
+        const { category, search, status } = req.query;
+        let filter = { status: 'approved' }; 
+
+        if (status === 'pending') {
+            filter.status = 'pending';
+            filter.createdBy = { $exists: false }; 
+        }
 
         if (search && search.trim() !== "") {
             filter.question = { $regex: search, $options: 'i' };
@@ -41,9 +59,7 @@ exports.getAllMcqs = async (req, res) => {
                 const childCategories = await Category.find({ parent: currentCat._id });
                 
                 const allSlugs = [currentCat.slug, ...childCategories.map(c => c.slug)];
-                
                 const allNames = [currentCat.name, ...childCategories.map(c => c.name)];
-                
                 const combinedValues = [...allSlugs, ...allNames];
 
                 filter.category = { 
@@ -62,8 +78,6 @@ exports.getAllMcqs = async (req, res) => {
         }
 
         const mcqs = await Mcq.find(filter).sort({ createdAt: -1 });
-
-        // console.log("Final Filter Applied:", JSON.stringify(filter));
 
         res.status(200).json({
             success: true,

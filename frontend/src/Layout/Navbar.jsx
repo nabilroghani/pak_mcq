@@ -28,7 +28,7 @@ const Navbar = () => {
     { name: 'Contact Us', path: '/contact' },
     { name: 'Privacy Policy', path: '/privacy-policy' },
     { name: 'Job Updates', path: '/job-updates' },
-    { name: 'PAST Papers', path: '/past-papers' },
+    { name: 'Past Papers', path: '/past-papers' },
     { name: 'Submit Mcqs', path: '/submit' },
     { name: 'E Book', path: '/E-Book'},
   ];

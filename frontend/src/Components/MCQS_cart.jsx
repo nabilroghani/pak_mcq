@@ -4,13 +4,18 @@ import axios from "axios";
 import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 
-export default function MCQS_cart() {
+// defaultSlug prop add ki gayi hai
+export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
   const [subCats, setSubCats] = useState([]);
   const [loading, setLoading] = useState(true);
 
-const getSubjectName = () => {
-    if (!categoryName) return "All Categories";
+  // Home page ke liye defaultSlug use hoga, warna URL wala slug
+  const activeSlug = categoryName || defaultSlug || "pak-current-affairs";
+
+  const getSubjectName = () => {
+    // Agar categoryName nahi hai toh Home page ke liye relevant title
+    if (!categoryName) return "Latest MCQs";
     
     const cleanSlug = categoryName.toLowerCase().trim().replace(/-/g, " ");
 
@@ -27,7 +32,6 @@ const getSubjectName = () => {
       "asf ad": "Assistant Director & Airports Security Force"
     };
 
-    // 2. Map mein check karein
     if (subjectMap[cleanSlug]) {
       return subjectMap[cleanSlug];
     }
@@ -37,18 +41,22 @@ const getSubjectName = () => {
 
   useEffect(() => {
     const fetchSubCategories = async () => {
+      // Logic: Agar categoryName nahi hai (yani Home page), toh fetch skip karo
+      if (!categoryName) {
+        setSubCats([]);
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
-      setSubCats([]);
       try {
-        if (categoryName) {
-          const res = await axios.get("http://localhost:5000/api/categories/all");
-          const currentCat = res.data.find(
-            (c) => c.slug.toLowerCase() === categoryName?.toLowerCase()
-          );
-          if (currentCat) {
-            const filtered = res.data.filter((c) => c.parent === currentCat._id);
-            setSubCats(filtered);
-          }
+        const res = await axios.get("http://localhost:5000/api/categories/all");
+        const currentCat = res.data.find(
+          (c) => c.slug.toLowerCase() === categoryName?.toLowerCase()
+        );
+        if (currentCat) {
+          const filtered = res.data.filter((c) => c.parent === currentCat._id);
+          setSubCats(filtered);
         }
       } catch (err) {
         console.error(err);
@@ -68,7 +76,7 @@ const getSubjectName = () => {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6">
         
-        {/* --- BANNER SECTION --- */}
+        {/* --- BANNER SECTION: Sirf Category pages par dikhega --- */}
         {categoryName && (
           <div className="relative w-full h-[200px] rounded-lg overflow-hidden mb-6 shadow-md">
             <img
@@ -84,9 +92,9 @@ const getSubjectName = () => {
           </div>
         )}
 
-        {!loading && subCats.length > 0 && (
+        {/* --- SUB-CATEGORIES TABLE: Home page par categoryName khali hoga toh ye hide rahega --- */}
+        {categoryName && !loading && subCats.length > 0 && (
           <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden mb-10">
-            {/* Header with Subject Name */}
             <div className="bg-gradient-to-r from-[#00c6ff] to-[#0072ff] p-4 text-center">
               <h2 className="text-white font-bold uppercase tracking-widest text-lg">
                 {getSubjectName()}
@@ -118,8 +126,8 @@ const getSubjectName = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1.3fr] gap-8 items-start">
           <div className="w-full">
             <MCQs_Cart_leftSide
-              key={categoryName || "home"}
-              categorySlug={categoryName}
+              key={activeSlug}
+              categorySlug={activeSlug}
             />
           </div>
           <div className="w-full">

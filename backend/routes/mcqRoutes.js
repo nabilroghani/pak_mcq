@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const csv = require('csv-parser');
 const { Readable } = require('stream'); 
-const { addMcq, getAllMcqs, deleteMcq, updateMcq } = require('../controllers/mcqController');
+const { addMcq, getAllMcqs, deleteMcq, updateMcq, submitUserMcq } = require('../controllers/mcqController');
 const { protect, isAdmin } = require('../middleware/auth');
 const MCQ = require('../models/Mcq');
 
@@ -12,6 +12,7 @@ const upload = multer({ storage: storage });
 
 router.post('/add', protect, isAdmin, addMcq);
 router.get('/all', getAllMcqs);
+router.post('/submit-user', submitUserMcq);
 router.delete('/delete/:id', protect, isAdmin, deleteMcq);
 router.put('/update/:id', protect, isAdmin, updateMcq);
 

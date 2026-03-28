@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
 import MCQComments from "../pages/MCQComments";
 
-export default function MCQs_Cart_leftSide({ className = "" }) {
+export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
   const [mcqs, setMcqs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,10 +25,14 @@ export default function MCQs_Cart_leftSide({ className = "" }) {
         const searchQuery = searchParams.get("q");
         const params = {};
 
+        // logic: Priority search ko do, phir URL category ko, phir prop slug ko
         if (searchQuery && searchQuery.trim() !== "") {
           params.search = searchQuery.trim();
-        } else if (categoryName && categoryName !== "search") {
-          params.category = categoryName.toLowerCase().trim();
+        } else {
+          const finalCategory = categoryName || categorySlug;
+          if (finalCategory && finalCategory !== "search") {
+            params.category = finalCategory.toLowerCase().trim();
+          }
         }
 
         const res = await axios.get(`http://localhost:5000/api/mcqs/all`, { params });
@@ -43,7 +47,7 @@ export default function MCQs_Cart_leftSide({ className = "" }) {
       }
     };
     fetchMCQs();
-  }, [categoryName, location.search]);
+  }, [categoryName, categorySlug, location.search]); // categorySlug dependency zaroori hai
 
   const handleOptionClick = (mcqId, label) => {
     if (!quizMode || userAnswers[mcqId]) return;
@@ -58,7 +62,7 @@ export default function MCQs_Cart_leftSide({ className = "" }) {
   const goToPage = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 400); // Thora scroll down karega content par
     }
   };
 
@@ -160,7 +164,7 @@ export default function MCQs_Cart_leftSide({ className = "" }) {
         </div>
       )}
 
-      {/* Pagination Section - FIXED LOCATION */}
+      {/* Pagination Section */}
       {totalPages > 1 && (
         <div className="mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

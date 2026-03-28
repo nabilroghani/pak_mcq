@@ -7,9 +7,17 @@ const McqSchema = new mongoose.Schema({
         validate: [arrayLimit, '{PATH} must have exactly 4 options']
     },
     correctAnswer: { type: String, required: true },
-    category: { type: String, required: true }, // e.g., Pak Study, Islamiyat
+    category: { type: String, required: true },
     explanation: { type: String }, 
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // Admin ka reference
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    // User submission ke liye (Agar login nahi hai toh String save hogi)
+    submittedBy: { type: String, default: 'Guest' },
+
+    status: { 
+        type: String, 
+        enum: ['pending', 'approved', 'rejected'], 
+        default: 'pending' 
+    }
 }, { timestamps: true });
 
 function arrayLimit(val) {
