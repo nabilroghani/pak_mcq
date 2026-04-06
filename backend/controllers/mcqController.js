@@ -37,44 +37,88 @@ exports.submitUserMcq = async (req, res) => {
 };
 
 // Get All MCQs 
+// exports.getAllMcqs = async (req, res) => {
+//     try {
+//         const { category, search, status } = req.query;
+//         let filter = { status: 'approved' }; 
+
+//         if (status === 'pending') {
+//             filter.status = 'pending';
+//             filter.createdBy = { $exists: false }; 
+//         }
+
+//         if (search && search.trim() !== "") {
+//             filter.question = { $regex: search, $options: 'i' };
+//         } 
+//         else if (category && category !== "undefined") {
+//             const currentCat = await Category.findOne({ 
+//                 slug: { $regex: new RegExp(`^${category}$`, 'i') } 
+//             });
+
+//             if (currentCat) {
+//                 const childCategories = await Category.find({ parent: currentCat._id });
+                
+//                 const allSlugs = [currentCat.slug, ...childCategories.map(c => c.slug)];
+//                 const allNames = [currentCat.name, ...childCategories.map(c => c.name)];
+//                 const combinedValues = [...allSlugs, ...allNames];
+
+//                 filter.category = { 
+//                     $in: combinedValues.map(val => new RegExp(`^${val}$`, 'i')) 
+//                 };
+
+//             } else {
+//                 const cleanName = category.replace(/-/g, ' ');
+//                 filter.category = { 
+//                     $in: [
+//                         new RegExp(`^${category}$`, 'i'), 
+//                         new RegExp(`^${cleanName}$`, 'i')
+//                     ] 
+//                 };
+//             }
+//         }
+
+//         const mcqs = await Mcq.find(filter).sort({ createdAt: -1 });
+
+//         res.status(200).json({
+//             success: true,
+//             count: mcqs.length,
+//             data: mcqs
+//         });
+//     } catch (err) {
+//         console.error("Fetch Error:", err);
+//         res.status(500).json({ success: false, message: "Server Error" });
+//     }
+// };
+
 exports.getAllMcqs = async (req, res) => {
     try {
         const { category, search, status } = req.query;
+        
+        // Base Filter
         let filter = { status: 'approved' }; 
 
+        // 1. Pending status logic
         if (status === 'pending') {
             filter.status = 'pending';
             filter.createdBy = { $exists: false }; 
         }
 
+        // 2. Search logic (priority)
         if (search && search.trim() !== "") {
             filter.question = { $regex: search, $options: 'i' };
         } 
+        // 3. Category logic (overlap fix)
         else if (category && category !== "undefined") {
-            const currentCat = await Category.findOne({ 
-                slug: { $regex: new RegExp(`^${category}$`, 'i') } 
-            });
-
-            if (currentCat) {
-                const childCategories = await Category.find({ parent: currentCat._id });
-                
-                const allSlugs = [currentCat.slug, ...childCategories.map(c => c.slug)];
-                const allNames = [currentCat.name, ...childCategories.map(c => c.name)];
-                const combinedValues = [...allSlugs, ...allNames];
-
-                filter.category = { 
-                    $in: combinedValues.map(val => new RegExp(`^${val}$`, 'i')) 
-                };
-
-            } else {
-                const cleanName = category.replace(/-/g, ' ');
-                filter.category = { 
-                    $in: [
-                        new RegExp(`^${category}$`, 'i'), 
-                        new RegExp(`^${cleanName}$`, 'i')
-                    ] 
-                };
-            }
+            // Hum complex logic ki bajaye direct category match karenge
+            // Taake Main Category aur Sub-category mix na hon
+            const cleanName = category.replace(/-/g, ' ');
+            
+            filter.category = { 
+                $in: [
+                    new RegExp(`^${category}$`, 'i'), 
+                    new RegExp(`^${cleanName}$`, 'i')
+                ] 
+            };
         }
 
         const mcqs = await Mcq.find(filter).sort({ createdAt: -1 });
@@ -106,22 +150,29 @@ exports.deleteMcq = async (req, res) => {
     }
 };
 
-// Update MCQ
 exports.updateMcq = async (req, res) => {
     try {
-        let mcq = await Mcq.findById(req.params.id);
-
+        const { id } = req.params;
+        
+        // Find existing MCQ
+        let mcq = await Mcq.findById(id);
         if (!mcq) {
             return res.status(404).json({ success: false, message: "MCQ not found" });
         }
 
-        mcq = await Mcq.findByIdAndUpdate(req.params.id, req.body, {
+        // Update with explanation from req.body
+        mcq = await Mcq.findByIdAndUpdate(id, req.body, {
             new: true,
             runValidators: true
         });
 
-        res.status(200).json({ success: true, data: mcq, message: "MCQ updated!" });
+        res.status(200).json({ 
+            success: true, 
+            data: mcq, 
+            message: "MCQ updated successfully!" 
+        });
     } catch (err) {
-        res.status(500).json({ success: false, message: "Server Error" });
+        console.error("Update Error:", err);
+        res.status(500).json({ success: false, message: "Server Error during update" });
     }
 };

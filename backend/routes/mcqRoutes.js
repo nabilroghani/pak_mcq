@@ -35,6 +35,12 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
             const cat = data.category;
 
             if (q && ans && cat) {
+                const formattedCategory = cat
+                    .trim()
+                    .toLowerCase()
+                    .replace(/[^a-zA-Z0-9\s]/g, '')
+                    .replace(/\s+/g, '-');
+
                 results.push({
                     question: q.trim(),
                     options: [
@@ -44,10 +50,12 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
                         data.option4?.trim()
                     ].filter(Boolean), 
                     correctAnswer: ans.trim(),
-                    category: cat.trim().replace(/-/g, ' ').replace(/\s+/g, ' '),
+                    category: formattedCategory, 
                     difficulty: data.difficulty?.trim() || 'Medium',
                     explanation: data.explanation?.trim() || '',
-                    createdBy: req.user.id 
+                    createdBy: req.user.id,
+                    // FIX: Admin upload kar raha hai toh direct approve hona chahiye
+                    status: 'approved' 
                 });
             }
         })
@@ -55,18 +63,20 @@ router.post('/upload-csv', protect, isAdmin, upload.single('file'), async (req, 
             try {
                 if (results.length === 0) {
                     return res.status(400).json({ 
-                        message: "Validation Failed: Check if your CSV headers are: question, option1, option2, option3, option4, correctAnswer, category" 
+                        message: "Validation Failed: CSV columns check karein." 
                     });
                 }
                 
                 await MCQ.insertMany(results, { ordered: false });
-                res.json({ success: true, message: `${results.length} MCQs uploaded successfully!` });
+                res.json({ success: true, message: `${results.length} MCQs uploaded and approved successfully!` });
             } catch (err) {
-                if (err.code === 11000) {
-                    return res.status(200).json({ success: true, message: "Upload finished (Some duplicates were skipped)." });
+                if (err.code === 11000 || (err.writeErrors && err.writeErrors.some(e => e.code === 11000))) {
+                    return res.status(200).json({ 
+                        success: true, 
+                        message: "Upload finished. Duplicates were skipped." 
+                    });
                 }
-                console.log("Detailed DB Error:", JSON.stringify(err, null, 2));
-                res.status(500).json({ success: false, message: "Database Error. Ensure all required fields are present.",details: err.message });
+                res.status(500).json({ success: false, message: "Database Error", details: err.message });
             }
         })
         .on('error', (err) => {

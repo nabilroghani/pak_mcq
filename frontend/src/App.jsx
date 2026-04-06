@@ -26,7 +26,6 @@ import MCQManager from "./pages/Admin/McqManager";
 import AdminReviewMCQs from "./pages/Admin/AdminReviewMCQs"; // Naya Import
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import JobManager from "./pages/Admin/JobManager";
-import QuizPage from "./pages/QuizPage";
 import CategoryManager from "./pages/Admin/CategoryManager";
 import CreateQuiz from "./pages/Admin/CreateQuiz";
 import SharedQuiz from "./pages/SharedQuiz";
@@ -73,7 +72,6 @@ const App = () => {
           <Route path="/e-book" element={<EBooks />} />
           <Route path="/quiz-challenge/:slug" element={<SharedQuiz />} />
           <Route path="/category/:categoryName" element={<MCQS_cart />} />
-          <Route path="/quiz/:categoryName" element={<QuizPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 

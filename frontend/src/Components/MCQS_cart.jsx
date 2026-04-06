@@ -10,11 +10,9 @@ export default function MCQS_cart({ defaultSlug }) {
   const [subCats, setSubCats] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Home page ke liye defaultSlug use hoga, warna URL wala slug
   const activeSlug = categoryName || defaultSlug || "pak-current-affairs";
 
   const getSubjectName = () => {
-    // Agar categoryName nahi hai toh Home page ke liye relevant title
     if (!categoryName) return "Latest MCQs";
     
     const cleanSlug = categoryName.toLowerCase().trim().replace(/-/g, " ");
@@ -26,7 +24,7 @@ export default function MCQS_cart({ defaultSlug }) {
       "pak-study": "Pakistan Studies",
       "ca": "Current Affairs",
       "is": "Islamiat Studies",
-      "eng": "English Grammar",
+      "eng": "English Grammar", 
       "cs": "Computer Science",
       "math": "Mathematics",
       "asf ad": "Assistant Director & Airports Security Force"
@@ -101,7 +99,7 @@ export default function MCQS_cart({ defaultSlug }) {
               </h2>
             </div>
 
-            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
               {[...subCats]
                 .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                 .map((item, index) => (

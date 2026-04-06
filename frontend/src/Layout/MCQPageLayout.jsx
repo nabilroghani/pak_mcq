@@ -2,7 +2,6 @@ import React from "react";
 import MCQs_cart_RightSide from "../Components/MCQs_cart_RightSide";
 import MCQs_Cart_leftSide from "../Components/MCQs_Cart_leftSide";
 
-// Humne props pass kiye hain: title, description, image, aur quizLink
 export default function MCQPageLayout({ title, description, image, quizLink }) {
   return (
     <div className="min-h-screen">
