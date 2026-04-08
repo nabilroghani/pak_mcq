@@ -4,7 +4,12 @@ import axios from "axios";
 import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 
-// defaultSlug prop add ki gayi hai
+// Images Import (Make sure paths are correct relative to this file)
+import pakCurrentAffairs from "../../public/images/2.png";
+import GK from "../../public/images/3.png";
+import islamicStudy from "../../public/images/6.png";
+import pakStudy from "../../public/images/9.png";
+
 export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
   const [subCats, setSubCats] = useState([]);
@@ -12,90 +17,86 @@ export default function MCQS_cart({ defaultSlug }) {
 
   const activeSlug = categoryName || defaultSlug || "pak-current-affairs";
 
+  // Banner Images Mapping
+  const bannerImages = {
+    "gk": GK,
+    "general-knowledge": GK,
+    "pak-study": pakStudy,
+    "pak-current-affairs": pakCurrentAffairs,
+    "is": islamicStudy,
+    "islamic-studies": islamicStudy,
+    "islamiat-studies": islamicStudy,
+  };
+
+  // Check: Agar categoryName 'bannerImages' object ki kisi bhi key se match kare
+  const currentCategoryLower = categoryName?.toLowerCase();
+  const showBanner = currentCategoryLower && bannerImages[currentCategoryLower];
+
   const getSubjectName = () => {
     if (!categoryName) return "Latest MCQs";
-    
-    const cleanSlug = categoryName.toLowerCase().trim().replace(/-/g, " ");
-
+    const cleanSlug = categoryName.toLowerCase().trim();
     const subjectMap = {
+      "general-knowledge": "General Knowledge",
       "gk": "General Knowledge",
-      "gk mcqs": "General Knowledge",
-      "pak study": "Pakistan Studies",
       "pak-study": "Pakistan Studies",
-      "ca": "Current Affairs",
+      "islamic-studies": "Islamiat Studies",
       "is": "Islamiat Studies",
-      "eng": "English Grammar", 
-      "cs": "Computer Science",
-      "math": "Mathematics",
-      "asf ad": "Assistant Director & Airports Security Force"
+      "english": "English", 
+      "computer-science": "Computer Science",
+      "math": "Mathematics"
     };
-
-    if (subjectMap[cleanSlug]) {
-      return subjectMap[cleanSlug];
-    }
-
-    return categoryName.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    return subjectMap[cleanSlug] || categoryName.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
   useEffect(() => {
     const fetchSubCategories = async () => {
-      // Logic: Agar categoryName nahi hai (yani Home page), toh fetch skip karo
       if (!categoryName) {
         setSubCats([]);
         setLoading(false);
         return;
       }
-
       setLoading(true);
       try {
         const res = await axios.get("http://localhost:5000/api/categories/all");
+        // Case-insensitive search for current category
         const currentCat = res.data.find(
-          (c) => c.slug.toLowerCase() === categoryName?.toLowerCase()
+          (c) => c.slug.toLowerCase() === categoryName.toLowerCase()
         );
         if (currentCat) {
           const filtered = res.data.filter((c) => c.parent === currentCat._id);
           setSubCats(filtered);
         }
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching subcategories:", err);
       }
       setLoading(false);
     };
     fetchSubCategories();
   }, [categoryName]);
 
-  const bannerImages = {
-    math: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1000",
-    "pak-study": "https://images.unsplash.com/photo-1527359443443-84a48abc7dfd?auto=format&fit=crop&w=1000",
-    default: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000",
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6">
         
-        {/* --- BANNER SECTION: Sirf Category pages par dikhega --- */}
-        {categoryName && (
-          <div className="relative w-full h-[200px] rounded-lg overflow-hidden mb-6 shadow-md">
-            <img
-              src={bannerImages[categoryName?.toLowerCase()] || bannerImages["default"]}
-              className="w-full h-full object-cover"
-              alt="Banner"
-            />
-            <div className="absolute inset-0 bg-black/30 flex items-center pl-10">
-              <h1 className="text-white text-4xl font-black uppercase tracking-tight">
-                {getSubjectName()}
-              </h1>
-            </div>
-          </div>
-        )}
+{/* --- BANNER SECTION --- */}
+{showBanner && (
+  <div className="relative w-full h-[250px] rounded-2xl overflow-hidden mb-8 shadow-lg border border-gray-100">
+    <img
+      src={bannerImages[currentCategoryLower]}
+      // FIX: 'object-top' image ko oopar se dikhayega, 'object-center' ya 'object-bottom' bhi try kar sakte hain
+      className="w-full h-full object-cover object-[center_top_20%]" 
+      alt="Subject Banner"
+      onError={(e) => { e.target.style.display = 'none'; }}
+    />
+  </div>
+)}
 
-        {/* --- SUB-CATEGORIES TABLE: Home page par categoryName khali hoga toh ye hide rahega --- */}
+        {/* --- SUB-CATEGORIES SECTION --- */}
         {categoryName && !loading && subCats.length > 0 && (
           <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden mb-10">
             <div className="bg-gradient-to-r from-[#00c6ff] to-[#0072ff] p-4 text-center">
               <h2 className="text-white font-bold uppercase tracking-widest text-lg">
-                {getSubjectName()}
+                {getSubjectName()} Topics
               </h2>
             </div>
 
@@ -106,11 +107,11 @@ export default function MCQS_cart({ defaultSlug }) {
                   <Link
                     key={item._id}
                     to={`/category/${item.slug}`}
-                    className="flex justify-between items-center px-4 py-3 border-2 border-blue-100 rounded-full hover:border-blue-500 hover:shadow-md transition-all group"
+                    className="flex justify-between items-center px-4 py-3 border-2 border-blue-500/10 rounded-full hover:border-blue-500 hover:bg-blue-50/50 hover:shadow-md transition-all group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`w-3 h-3 rounded-sm ${index % 3 === 0 ? "bg-green-500" : index % 3 === 1 ? "bg-orange-400" : "bg-blue-600"}`}></div>
-                      <span className="text-gray-800 font-bold text-sm">
+                      <div className={`w-3 h-3 rounded-full ${index % 3 === 0 ? "bg-green-500" : index % 3 === 1 ? "bg-orange-400" : "bg-blue-600"}`}></div>
+                      <span className="text-gray-700 font-bold text-sm group-hover:text-blue-700">
                         {item.name} MCQs
                       </span>
                     </div>
@@ -121,6 +122,7 @@ export default function MCQS_cart({ defaultSlug }) {
           </div>
         )}
 
+        {/* --- MAIN CONTENT AREA --- */}
         <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1.3fr] gap-8 items-start">
           <div className="w-full">
             <MCQs_Cart_leftSide

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2'; // SweetAlert2 import kiya
+import Swal from 'sweetalert2';
 
 export default function CreateQuiz() {
     const [mcqs, setMcqs] = useState([]);
@@ -30,6 +30,7 @@ export default function CreateQuiz() {
     );
 
     const handleSubmit = async () => {
+        // Validation
         if (!title || selectedMcqs.length === 0) {
             return Swal.fire({
                 icon: 'warning',
@@ -39,9 +40,9 @@ export default function CreateQuiz() {
             });
         }
 
-        setLoading(true); // Loader shuru
+        setLoading(true); 
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token'); // Token get karna zaroori hai
             const res = await axios.post('http://localhost:5000/api/quizzes/create', {
                 title,
                 mcqs: selectedMcqs,
@@ -51,22 +52,23 @@ export default function CreateQuiz() {
             });
 
             if (res.data.success) {
-                const fullLink = `${window.location.origin}/quiz-challenge/${res.data.quiz.slug}`;
+                // FIXED: URL structure changed to match App.jsx route (/quiz/:slug)
+                const fullLink = `${window.location.origin}/quiz/${res.data.quiz.slug}`;
                 setGeneratedLink(fullLink);
                 
-                // SweetAlert Success
                 Swal.fire({
                     icon: 'success',
                     title: 'Zabardast!',
-                    text: 'Quiz create ho gayi hai.',
+                    text: 'Quiz link tayyar hai.',
                     timer: 2000,
                     showConfirmButton: false
                 });
             }
         } catch (error) {
-            Swal.fire('Opps!', 'Kuch galat ho gaya backend par.', 'error');
+            console.error("Creation Error:", error);
+            Swal.fire('Opps!', 'Backend par quiz save nahi ho saki.', 'error');
         } finally {
-            setLoading(false); // Loader khatam
+            setLoading(false);
         }
     };
 
@@ -109,7 +111,7 @@ export default function CreateQuiz() {
 
                     {/* MCQs List */}
                     <div className="h-72 overflow-y-auto border border-slate-100 rounded-2xl bg-white p-2 mb-8 custom-scrollbar">
-                        {filteredMcqs.map(m => (
+                        {filteredMcqs.length > 0 ? filteredMcqs.map(m => (
                             <div 
                                 key={m._id} 
                                 onClick={() => handleSelect(m._id)}
@@ -120,10 +122,10 @@ export default function CreateQuiz() {
                                 </div>
                                 <p className="text-sm font-semibold">{m.question}</p>
                             </div>
-                        ))}
+                        )) : <p className="text-center py-10 text-slate-400">Koi sawal nahi mila.</p>}
                     </div>
 
-                    {/* Action Button with Loader */}
+                    {/* Action Button / Link Result */}
                     {!generatedLink ? (
                         <button 
                             onClick={handleSubmit} 
@@ -136,11 +138,11 @@ export default function CreateQuiz() {
                             {loading ? "SAVING QUIZ..." : "SAVE & CREATE LINK"}
                         </button>
                     ) : (
-                        <div className="bg-indigo-50 border-2 border-indigo-200 p-6 rounded-2xl animate-pulse">
+                        <div className="bg-indigo-50 border-2 border-indigo-200 p-6 rounded-2xl animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <p className="text-indigo-800 font-black mb-3 text-center">MUBARAK HO! LINK TAYYAR HAI 🚀</p>
                             <div className="flex flex-col sm:flex-row gap-3">
-                                <input readOnly value={generatedLink} className="flex-1 bg-white border p-4 rounded-xl text-xs font-mono" />
-                                <button onClick={copyToClipboard} className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-black hover:bg-indigo-700">
+                                <input readOnly value={generatedLink} className="flex-1 bg-white border p-4 rounded-xl text-xs font-mono outline-none" />
+                                <button onClick={copyToClipboard} className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-black hover:bg-indigo-700 transition-colors">
                                     {copyStatus}
                                 </button>
                             </div>
