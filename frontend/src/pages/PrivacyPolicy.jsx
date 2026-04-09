@@ -4,107 +4,112 @@ import { Link } from 'react-router-dom';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-slate-50 ">
-      {/* --- Header Section --- */}
-      <div className="bg-blue-950 py-20 px-6 text-center relative overflow-hidden rounded-2xl">
+    <div className="min-h-screen bg-slate-50">
+      {/* --- Optimized Header Section: Reduced Height & Better Branding --- */}
+      <div className="bg-gradient-to-br from-blue-900 via-blue-950 to-black py-12 px-6 text-center relative overflow-hidden rounded-b-[3rem] shadow-xl">
+        {/* Background Decorative Elements */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl -ml-10 -mb-10"></div>
+        
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 bg-cyan-500/20 text-cyan-400 px-4 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-6 border border-cyan-500/30">
-            <FaShieldAlt /> Trusted & Secure
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-cyan-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-white/10">
+            <FaShieldAlt className="text-cyan-400" /> Trusted Educational Resource
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-2 tracking-tight">
             Privacy <span className="text-cyan-500">Policy</span>
           </h1>
-          <p className="text-blue-200/70 max-w-2xl mx-auto font-medium">
-            Last Updated: February 18, 2026. Hum aapki privacy ki hifazat ke liye committed hain.
+          <p className="text-blue-200/60 max-w-xl mx-auto font-medium text-sm">
+            Last Updated: April 09, 2026. Hum aapki privacy aur data security ko hamesha pehli tarjih dete hain.
           </p>
         </div>
       </div>
 
       {/* --- Content Section --- */}
-      <div className="max-w-5xl mx-auto px-6 -mt-10 pb-24">
-        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 p-8 md:p-12 border border-slate-100">
+      <div className="max-w-4xl mx-auto px-6 -mt-8 pb-20">
+        <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-blue-900/5 p-8 md:p-14 border border-white">
           
           <div className="space-y-12">
             {/* 1. Introduction */}
-            <section className="flex gap-6 flex-col md:flex-row">
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
-                <FaFileContract size={22} />
+            <section className="flex gap-6 flex-col md:flex-row items-start">
+              <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 shadow-sm">
+                <FaFileContract size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-black text-blue-950 mb-4 uppercase tracking-tight">Introduction</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  Pak Learners par aapka khush-amdeed. Hum aapki personal information ko kaise collect aur use karte hain, ye page uski mukammal tafseel faraham karta hai. Hamari website use karne ka matlab hai ke aap hamari policy se ittefaq karte hain.
+                <h2 className="text-xl font-black text-blue-950 mb-3 uppercase tracking-tight">Introduction</h2>
+                <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                  Pak Learners (MCQs Portal) par aapka khush-amdeed. Hamari koshish hai ke hum aapko aik mehfooz educational platform faraham karein. Hamari website use karne ka matlab hai ke aap hamari policy aur data handling methods se poori tarah ittefaq karte hain.
                 </p>
               </div>
             </section>
 
             {/* 2. Information Collection */}
-            <section className="flex gap-6 flex-col md:flex-row">
-              <div className="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center shrink-0">
-                <FaUserSecret size={22} />
+            <section className="flex gap-6 flex-col md:flex-row items-start">
+              <div className="w-14 h-14 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center shrink-0 border border-cyan-100 shadow-sm">
+                <FaUserSecret size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-black text-blue-950 mb-4 uppercase tracking-tight">Information We Collect</h2>
-                <p className="text-slate-600 leading-relaxed mb-4">
-                  Jab aap hamari site visit karte hain ya quiz attempt karte hain, toh hum darj-zail malomat le sakte hain:
+                <h2 className="text-xl font-black text-blue-950 mb-3 uppercase tracking-tight">Data We Collect</h2>
+                <p className="text-slate-600 leading-relaxed mb-6 text-sm md:text-base">
+                  Website experience behtar banane ke liye hum darj-zail malomat collect kar sakte hain:
                 </p>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {['Name & Email Address', 'Device Information', 'IP Address', 'Browser Type', 'Quiz Scores', 'Usage Patterns'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-700 font-bold text-sm bg-slate-50 p-3 rounded-xl border border-slate-100">
-                      <span className="text-cyan-500">✔</span> {item}
-                    </li>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {['Account Information', 'Quiz Performance Data', 'Device & IP Logs', 'Usage Statistics'].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 text-slate-700 font-bold text-xs bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-md transition-all">
+                      <div className="w-5 h-5 bg-cyan-500 text-white rounded-full flex items-center justify-center text-[10px]">✓</div>
+                      {item}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </section>
 
-            {/* 3. Security */}
-            <section className="flex gap-6 flex-col md:flex-row">
-              <div className="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center shrink-0">
-                <FaLock size={22} />
+            {/* 3. Security Check */}
+            <section className="flex gap-6 flex-col md:flex-row items-start">
+              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center shrink-0 border border-emerald-100 shadow-sm">
+                <FaLock size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-black text-blue-950 mb-4 uppercase tracking-tight">Data Security</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  Hum aapke data ko mehfooz rakhne ke liye modern encryption aur SSL certificates ka istemal karte hain. Aapka data kisi bhi teesre fariq (third party) ko becha nahi jata.
+                <h2 className="text-xl font-black text-blue-950 mb-3 uppercase tracking-tight">Secure Handling</h2>
+                <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                  Hum aapke passwords aur personal records ko encrypt karke store karte hain. Hamara system latest security standards ko follow karta hai taake aapka educational record aur personal info leak na ho.
                 </p>
               </div>
             </section>
 
             {/* 4. Cookies */}
-            <section className="flex gap-6 flex-col md:flex-row">
-              <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center shrink-0">
-                <FaCookieBite size={22} />
+            <section className="flex gap-6 flex-col md:flex-row items-start">
+              <div className="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center shrink-0 border border-orange-100 shadow-sm">
+                <FaCookieBite size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-black text-blue-950 mb-4 uppercase tracking-tight">Cookies Policy</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  Behtar experience ke liye hum cookies use karte hain taake aapki preferences ko yaad rakha ja sake. Aap apne browser ki settings se cookies ko disable bhi kar sakte hain.
+                <h2 className="text-xl font-black text-blue-950 mb-3 uppercase tracking-tight">Cookies Policy</h2>
+                <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                  Session management ke liye hum cookies use karte hain taake aapko baar baar login na karna paray. Isey aap browser settings se kisi bhi waqt control kar sakte hain.
                 </p>
               </div>
             </section>
 
-            <hr className="border-slate-100" />
+            <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
-            {/* Contact Footer */}
-            <div className="bg-blue-50 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-blue-100">
+            {/* Call to Action Footer */}
+            <div className="bg-gradient-to-r from-blue-900 to-blue-950 rounded-[2.5rem] p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
               <div className="text-center md:text-left">
-                <h3 className="text-xl font-black text-blue-900">Koi Sawal Hai?</h3>
-                <p className="text-blue-700 font-medium">Agar aapko koi confusion hai toh rabta karein.</p>
+                <h3 className="text-2xl font-black text-white mb-2">Koi Sawal Ya Masla?</h3>
+                <p className="text-blue-300 font-medium text-sm">Hamari team privacy ke hawalay se aapki madad ke liye hazir hai.</p>
               </div>
-                <Link to={"/contact"}>
-                <a href="mailto:support@paklearners.com" className="flex items-center gap-3 bg-blue-900 text-white px-8 py-4 rounded-2xl font-black hover:bg-cyan-600 transition-all shadow-lg shadow-blue-200 active:scale-95">
-                <FaEnvelope /> CONTACT US
-              </a>
-                </Link>
+              <Link 
+                to="/contact" 
+                className="flex items-center gap-3 bg-cyan-500 text-blue-950 px-10 py-4 rounded-2xl font-black hover:bg-white hover:scale-105 transition-all shadow-lg active:scale-95 whitespace-nowrap"
+              >
+                <FaEnvelope /> CONTACT SUPPORT
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* --- Small Print --- */}
-        <p className="text-center text-slate-400 text-xs mt-12 font-bold uppercase tracking-widest">
-          © 2026 Pak Learners MCQs Portal. All Rights Reserved.
+        {/* --- Footer Signature --- */}
+        <p className="text-center text-slate-400 text-[10px] mt-12 font-black uppercase tracking-[0.4em]">
+          © 2026 Pak Learners • Precision & Privacy in Learning
         </p>
       </div>
     </div>

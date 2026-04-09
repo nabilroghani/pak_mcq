@@ -8,7 +8,7 @@ exports.addMcq = async (req, res) => {
         const newMcq = new Mcq({
             question, options, correctAnswer, category, explanation,
             createdBy: req.user.id,
-            status: 'approved' // Admin add kare toh direct approve
+            status: 'approved' 
         });
         await newMcq.save();
         res.status(201).json({ success: true, message: "MCQ added successfully!" });

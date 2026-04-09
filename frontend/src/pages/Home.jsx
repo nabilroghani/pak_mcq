@@ -1,6 +1,6 @@
 import React from "react";
 import MCQS_cart from "../Components/MCQS_cart";
-import home from "../assets/home.png";
+import home from "../assets/home1.png";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

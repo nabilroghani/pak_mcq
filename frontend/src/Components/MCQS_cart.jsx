@@ -4,11 +4,20 @@ import axios from "axios";
 import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 
-// Images Import (Make sure paths are correct relative to this file)
-import pakCurrentAffairs from "../../public/images/2.png";
-import GK from "../../public/images/3.png";
-import islamicStudy from "../../public/images/6.png";
-import pakStudy from "../../public/images/9.png";
+// Images Imports
+import pakCurrentAffairs from "../../public/images/1.png";
+import GK from "../../public/images/2.png";
+import islamicStudy from "../../public/images/3.png";
+import pakStudy from "../../public/images/4.png";
+import worldAffairs from "../../public/images/5.png";
+import chemistery from "../../public/images/6.png";
+import biology from "../../public/images/7.png";
+import physics from "../../public/images/8.png";
+import everydayScience from "../../public/images/9.png";
+import computerScience from "../../public/images/10.png";
+import english from "../../public/images/12.png";
+import urdu from "../../public/images/13.png";
+import math from "../../public/images/14.png";
 
 export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
@@ -17,34 +26,57 @@ export default function MCQS_cart({ defaultSlug }) {
 
   const activeSlug = categoryName || defaultSlug || "pak-current-affairs";
 
-  // Banner Images Mapping
+  // --- 1. BANNER IMAGES MAPPING (All Subjects Included) ---
   const bannerImages = {
-    "gk": GK,
-    "general-knowledge": GK,
-    "pak-study": pakStudy,
     "pak-current-affairs": pakCurrentAffairs,
-    "is": islamicStudy,
+    "general-knowledge": GK,
+    "gk": GK,
     "islamic-studies": islamicStudy,
     "islamiat-studies": islamicStudy,
+    "is": islamicStudy,
+    "pak-study": pakStudy,
+    "pakistan-studies": pakStudy,
+    "world-current-affairs": worldAffairs,
+    "chemistry": chemistery,
+    "biology": biology,
+    "physics": physics,
+    "everyday-science": everydayScience,
+    "computer-science": computerScience,
+    "english": english,
+    "urdu-mcqs": urdu,
+    "mathematics": math,
+    "math": math
   };
 
-  // Check: Agar categoryName 'bannerImages' object ki kisi bhi key se match kare
   const currentCategoryLower = categoryName?.toLowerCase();
   const showBanner = currentCategoryLower && bannerImages[currentCategoryLower];
 
+  // --- 2. SUBJECT NAMES MAPPING (For Headings) ---
   const getSubjectName = () => {
     if (!categoryName) return "Latest MCQs";
     const cleanSlug = categoryName.toLowerCase().trim();
+    
     const subjectMap = {
+      "pak-current-affairs": "Pakistan Current Affairs",
       "general-knowledge": "General Knowledge",
       "gk": "General Knowledge",
-      "pak-study": "Pakistan Studies",
-      "islamic-studies": "Islamiat Studies",
+      "islamic-studies": "Islamic Studies",
       "is": "Islamiat Studies",
-      "english": "English", 
+      "pak-study": "Pakistan Studies",
+      "pakistan-studies": "Pakistan Studies",
+      "world-current-affairs": "World Current Affairs",
+      "chemistry": "Chemistry",
+      "biology": "Biology",
+      "physics": "Physics",
+      "everyday-science": "Everyday Science",
       "computer-science": "Computer Science",
+      "english": "English",
+      "urdu-mcqs": "Urdu",
+      "mathematics": "Mathematics",
       "math": "Mathematics"
     };
+    
+    // Agar map mein naam nahi milta to slug ko format karke dikhayega
     return subjectMap[cleanSlug] || categoryName.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
@@ -58,7 +90,7 @@ export default function MCQS_cart({ defaultSlug }) {
       setLoading(true);
       try {
         const res = await axios.get("http://localhost:5000/api/categories/all");
-        // Case-insensitive search for current category
+        // Check current category match
         const currentCat = res.data.find(
           (c) => c.slug.toLowerCase() === categoryName.toLowerCase()
         );
@@ -78,18 +110,23 @@ export default function MCQS_cart({ defaultSlug }) {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6">
         
-{/* --- BANNER SECTION --- */}
-{showBanner && (
-  <div className="relative w-full h-[250px] rounded-2xl overflow-hidden mb-8 shadow-lg border border-gray-100">
-    <img
-      src={bannerImages[currentCategoryLower]}
-      // FIX: 'object-top' image ko oopar se dikhayega, 'object-center' ya 'object-bottom' bhi try kar sakte hain
-      className="w-full h-full object-cover object-[center_top_20%]" 
-      alt="Subject Banner"
-      onError={(e) => { e.target.style.display = 'none'; }}
-    />
-  </div>
-)}
+        {/* --- BANNER SECTION --- */}
+        {showBanner && (
+          <div className="relative w-full h-[250px] rounded-2xl overflow-hidden mb-8 shadow-lg border border-gray-100">
+            <img
+              src={bannerImages[currentCategoryLower]}
+              className="w-full h-full object-cover object-[center_top_20%]" 
+              alt={`${getSubjectName()} Banner`}
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+            {/* Optional Overlay Text on Banner */}
+            <div className="absolute inset-0 bg-black/10 flex items-end p-6">
+               <h1 className="text-white text-3xl font-black drop-shadow-lg uppercase tracking-tighter">
+                 {getSubjectName()}
+               </h1>
+            </div>
+          </div>
+        )}
 
         {/* --- SUB-CATEGORIES SECTION --- */}
         {categoryName && !loading && subCats.length > 0 && (
