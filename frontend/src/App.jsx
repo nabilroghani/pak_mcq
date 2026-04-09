@@ -19,6 +19,8 @@ import EBooks from "./pages/EBook";
 import MCQS_cart from "./Components/MCQS_cart";
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
+import ForgotPassword from "./pages/Auth/ForgotPassword"; // Naya Page
+import ResetPassword from "./pages/Auth/ResetPassword";   // Naya Page
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import MCQManager from "./pages/Admin/McqManager";
 import AdminReviewMCQs from "./pages/Admin/AdminReviewMCQs";
@@ -62,12 +64,14 @@ const App = () => {
           <Route path="/submit" element={<SubmitMcqs />} />
           <Route path="/e-book" element={<EBooks />} />
           
-          {/* COMPLETE PATH: No redirect issues now */}
           <Route path="/quiz/:slug" element={<SharedQuiz />} />
-          
           <Route path="/category/:categoryName" element={<MCQS_cart />} />
+          
+          {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Admin Protected Routes */}
           <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
