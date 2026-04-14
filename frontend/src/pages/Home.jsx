@@ -1,6 +1,7 @@
 import React from "react";
 import MCQS_cart from "../Components/MCQS_cart";
 import home from "../assets/home1.png";
+import fonts from "../assets/fonts.png"
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -30,7 +31,7 @@ export default function Home() {
         {/* --- 2. Premium Horizontal WhatsApp Banner --- */}
         <div className="max-w-5xl mx-auto mb-12">
           <a
-            href="https://wa.me/03202786646"
+            href="https://whatsapp.com/channel/0029VbCMkBc9RZATvADmza08"
             target="_blank"
             rel="noopener noreferrer"
             className="relative flex items-center group"
@@ -47,7 +48,7 @@ export default function Home() {
                   Click Here To
                 </span>
                 <span className="text-slate-900 font-black text-lg md:text-2xl uppercase tracking-tighter">
-                  Join Sir Sharey WhatsApp Group
+                  Join WhatsApp Group
                 </span>
               </div>
 
@@ -55,33 +56,59 @@ export default function Home() {
                 <div className="bg-white/10 px-3 py-0.5 rounded-full border border-white/20 flex items-center gap-2">
                   <span className="text-[10px] font-black uppercase text-emerald-400">Whatsapp</span>
                   <FaWhatsapp className="text-emerald-400" size={14} />
-                  <span className="font-mono font-bold text-sm md:text-lg">03119393978</span>
+                  <span className="font-mono font-bold text-sm md:text-lg">0333-8005540</span>
                 </div>
                 <span className="text-[10px] md:text-xs font-bold text-slate-300 uppercase italic">
-                   Sir Sharey for preparation classes and jobs updates
+                  For preparation classes and jobs updates
                 </span>
               </div>
             </div>
             <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine pointer-events-none" />
           </a>
         </div>
+</div>
+ <div className="max-w-6xl mx-auto mb-12 px-2 md:px-6">
+                  {/* --- 2. PROFESSIONAL URDU INFO BANNER (Using Image Instead of Text) --- */}
+<div className="max-w-6xl mx-auto mb-12 px-2 md:px-0">
+  <div className="bg-white border-y-4 border-emerald-500 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl md:rounded-[2.5rem] overflow-hidden relative">
+    
+    {/* Decorative Elements */}
+    <div className="absolute top-0 right-0 w-32 h-full bg-emerald-500/5 -skew-x-12"></div>
+    <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600"></div>
 
-        {/* --- 3. Urdu Info Section --- */}
-        <div className="max-w-5xl mx-auto mb-12">
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-            <div className="relative bg-white border border-emerald-100 px-6 py-6 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row-reverse items-center gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-inner">
-                <span className="text-2xl font-bold animate-pulse">!</span>
-              </div>
-              <div className="flex-1 text-center md:text-right">
-                <p dir="rtl" className="text-gray-800 text-lg md:text-2xl leading-[1.8] md:leading-[2] font-medium" style={{ fontFamily: "'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif" }}>
-                  یہ وہ <span className="text-emerald-600 font-black underline decoration-emerald-200 decoration-4 underline-offset-8">ایم سی کیوز</span> ہیں جو پاسٹ پیپرز (گزشتہ پرچوں) سے لیے گئے ہیں اور ہر پیپر میں بار بار آنے والے <span className="text-blue-600 font-black">اہم ترین</span> ایم سی کیوز ہیں۔
-                </p>
-              </div>
-            </div>
-          </div>
+    <div className="relative px-4 py-4 md:px-10 md:py-6 flex flex-col md:flex-row-reverse items-center justify-between gap-6">
+      
+      {/* URDU IMAGE SECTION */}
+      <div className="flex-1 flex justify-center md:justify-end">
+        <img 
+          src={fonts} 
+          alt="Urdu Information" 
+          className="w-full max-w-[800px] h-auto object-contain transition-transform duration-500 hover:scale-[1.02]"
+        />
+      </div>
+
+      {/* SIDE BADGES */}
+      <div className="flex flex-row md:flex-col gap-2 shrink-0">
+        <div className="bg-yellow-400 text-black px-4 py-2 rounded-xl text-[10px] md:text-xs font-black uppercase shadow-sm border border-yellow-500/20 text-center">
+          Most Repeated
         </div>
+        <div className="bg-blue-950 text-white px-4 py-2 rounded-xl text-[10px] md:text-xs font-black uppercase shadow-sm text-center">
+          Pak Learners
+        </div>
+      </div>
+
+    </div>
+
+    {/* Bottom Multi-Color Border */}
+    <div className="h-1.5 w-full bg-gray-100 flex">
+       <div className="h-full w-1/4 bg-red-500"></div>
+       <div className="h-full w-1/4 bg-emerald-500"></div>
+       <div className="h-full w-1/4 bg-yellow-400"></div>
+       <div className="h-full w-1/4 bg-blue-600"></div>
+    </div>
+  </div>
+</div>
+        
 
         {/* --- 4. Table / Links Section (3 Columns on Desktop) --- */}
         <div className="mb-10 overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-lg">
@@ -91,30 +118,47 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                { name: "Pak Study (1000) MCQs", path: "/category/pak-study", color: "bg-green-500" },
-                { name: "General Knowledge (1000) MCQs", path: "/category/General-Knowledge", color: "bg-yellow-500" },
-                { name: "Everyday Science Important MCQs", path: "/category/Everyday-Science", icon: "▲" },
-                { name: "Islamic Study (1000) MCQs", path: "/category/Islamic-Studies", icon: "◆", iconColor: "text-blue-600" },
-                { name: "World Affairs (MCQs)", path: "/category/World-Current-Affairs", icon: "▲" },
-                { name: "Computer Science Important (1000) MCQs", path: "/category/Computer-science", icon: "◆", iconColor: "text-blue-600" }
-              ].map((item, index) => (
-                <Link key={index} to={item.path} className="flex items-center justify-between p-3 border border-blue-100 rounded-full hover:bg-blue-50 hover:border-blue-300 transition-all group">
-                  <div className="flex items-center gap-3">
-                    {item.color ? (
-                      <span className={`h-3 w-3 rounded-full flex-shrink-0 ${item.color}`}></span>
-                    ) : (
-                      <span className={`${item.iconColor || 'text-black'} ${item.icon === '◆' ? 'rotate-45 text-lg' : 'text-xs'}`}>{item.icon}</span>
-                    )}
-                    <span className="text-slate-700 font-bold text-sm md:text-[15px]">{item.name}</span>
-                  </div>
-                  <span className="text-blue-400 group-hover:translate-x-1 transition-transform">❯</span>
-                </Link>
-              ))}
-            </div>
+        <div className="p-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {[
+      { name: "Pak Study (1000) MCQs", path: "/category/pak-study" },
+      { name: "General Knowledge (1000) MCQs", path: "/category/General-Knowledge" },
+      { name: "Everyday Science Important MCQs", path: "/category/Everyday-Science" },
+      { name: "Islamic Study (1000) MCQs", path: "/category/Islamic-Studies" },
+      { name: "World Affairs (MCQs)", path: "/category/World-Current-Affairs" },
+      { name: "Computer Science Important (1000) MCQs", path: "/category/Computer-science" }
+    ].map((item, index) => {
+      
+      // Pattern Logic: 
+      // index 0, 3 (1st & 4th) -> Green
+      // index 1, 4 (2nd & 5th) -> Orange
+      // index 2, 5 (3rd & 6th) -> Blue
+      const colors = ["bg-emerald-500", "bg-orange-500", "bg-blue-600"];
+      const dotColor = colors[index % 3];
+      
+      return (
+        <Link 
+          key={index} 
+          to={item.path} 
+          className="flex items-center justify-between p-3 border-2 border-slate-50 rounded-full hover:bg-blue-50 hover:border-blue-400 hover:shadow-md transition-all group bg-white"
+        >
+          <div className="flex items-center gap-3">
+            {/* Dynamic Dot based on your 1-4, 2-5, 3-6 rule */}
+            <span className={`h-3 w-3 rounded-full flex-shrink-0 ${dotColor} shadow-sm`}></span>
+            
+            <span className="text-slate-700 font-bold text-sm md:text-[15px] group-hover:text-blue-700 transition-colors">
+              {item.name}
+            </span>
           </div>
+          
+          <div className="bg-slate-50 group-hover:bg-blue-600 w-6 h-6 rounded-full flex items-center justify-center transition-all">
+             <span className="text-blue-400 group-hover:text-white text-[10px] transition-transform group-hover:translate-x-0.5">❯</span>
+          </div>
+        </Link>
+      );
+    })}
+  </div>
+</div>
         </div>
 
         {/* --- 5. Category Header & Cart --- */}

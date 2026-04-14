@@ -78,7 +78,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-cyan-400 uppercase font-black tracking-[0.2em] mb-1">Call Us</p>
-                  <p className="text-lg font-bold">+92 311 9393978</p>
+                  <p className="text-lg font-bold">+92 333 8005540</p>
                 </div>
               </div>
 

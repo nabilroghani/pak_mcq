@@ -25,8 +25,8 @@ export default function MCQS_cart({ defaultSlug }) {
   const [loading, setLoading] = useState(true);
 
   const activeSlug = categoryName || defaultSlug || "pak-current-affairs";
+  const currentCategoryLower = categoryName?.toLowerCase();
 
-  // --- 1. BANNER IMAGES MAPPING (All Subjects Included) ---
   const bannerImages = {
     "pak-current-affairs": pakCurrentAffairs,
     "general-knowledge": GK,
@@ -48,35 +48,32 @@ export default function MCQS_cart({ defaultSlug }) {
     "math": math
   };
 
-  const currentCategoryLower = categoryName?.toLowerCase();
   const showBanner = currentCategoryLower && bannerImages[currentCategoryLower];
 
-  // --- 2. SUBJECT NAMES MAPPING (For Headings) ---
+  // --- Optimization: Preload image for instant display ---
+  useEffect(() => {
+    if (showBanner) {
+      const img = new Image();
+      img.src = bannerImages[currentCategoryLower];
+    }
+  }, [currentCategoryLower, showBanner]);
+
   const getSubjectName = () => {
     if (!categoryName) return "Latest MCQs";
     const cleanSlug = categoryName.toLowerCase().trim();
-    
     const subjectMap = {
       "pak-current-affairs": "Pakistan Current Affairs",
       "general-knowledge": "General Knowledge",
       "gk": "General Knowledge",
       "islamic-studies": "Islamic Studies",
-      "is": "Islamiat Studies",
       "pak-study": "Pakistan Studies",
-      "pakistan-studies": "Pakistan Studies",
-      "world-current-affairs": "World Current Affairs",
       "chemistry": "Chemistry",
       "biology": "Biology",
       "physics": "Physics",
-      "everyday-science": "Everyday Science",
       "computer-science": "Computer Science",
-      "english": "English",
       "urdu-mcqs": "Urdu",
-      "mathematics": "Mathematics",
       "math": "Mathematics"
     };
-    
-    // Agar map mein naam nahi milta to slug ko format karke dikhayega
     return subjectMap[cleanSlug] || categoryName.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
@@ -90,10 +87,7 @@ export default function MCQS_cart({ defaultSlug }) {
       setLoading(true);
       try {
         const res = await axios.get("http://localhost:5000/api/categories/all");
-        // Check current category match
-        const currentCat = res.data.find(
-          (c) => c.slug.toLowerCase() === categoryName.toLowerCase()
-        );
+        const currentCat = res.data.find((c) => c.slug.toLowerCase() === categoryName.toLowerCase());
         if (currentCat) {
           const filtered = res.data.filter((c) => c.parent === currentCat._id);
           setSubCats(filtered);
@@ -110,64 +104,55 @@ export default function MCQS_cart({ defaultSlug }) {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6">
         
-        {/* --- BANNER SECTION --- */}
+        {/* --- 1. OPTIMIZED BANNER SECTION --- */}
         {showBanner && (
-          <div className="relative w-full h-[250px] rounded-2xl overflow-hidden mb-8 shadow-lg border border-gray-100">
+          <div className="relative w-full h-[180px] md:h-[280px] rounded-[2rem] overflow-hidden mb-10 shadow-2xl border border-gray-100 bg-gray-100">
             <img
               src={bannerImages[currentCategoryLower]}
-              className="w-full h-full object-cover object-[center_top_20%]" 
-              alt={`${getSubjectName()} Banner`}
-              onError={(e) => { e.target.style.display = 'none'; }}
+              className="w-full h-full object-cover object-center" 
+              alt="Subject Banner"
+              loading="eager"
+              fetchPriority="high"
+              decoding="sync"
             />
-            {/* Optional Overlay Text on Banner */}
-            <div className="absolute inset-0 bg-black/10 flex items-end p-6">
-               <h1 className="text-white text-3xl font-black drop-shadow-lg uppercase tracking-tighter">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-8">
+               <h1 className="text-white text-3xl md:text-5xl font-black drop-shadow-2xl uppercase tracking-tighter">
                  {getSubjectName()}
                </h1>
             </div>
           </div>
         )}
 
-        {/* --- SUB-CATEGORIES SECTION --- */}
+
+
+        {/* --- 3. SUB-CATEGORIES SECTION --- */}
         {categoryName && !loading && subCats.length > 0 && (
-          <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden mb-10">
-            <div className="bg-gradient-to-r from-[#00c6ff] to-[#0072ff] p-4 text-center">
-              <h2 className="text-white font-bold uppercase tracking-widest text-lg">
-                {getSubjectName()} Topics
+          <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-12">
+            <div className="bg-gradient-to-r from-blue-700 to-blue-900 p-5 text-center">
+              <h2 className="text-white font-black uppercase tracking-[0.2em] text-sm md:text-lg">
+                {getSubjectName()} Sub-Topics
               </h2>
             </div>
-
-            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[...subCats]
-                .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-                .map((item, index) => (
-                  <Link
-                    key={item._id}
-                    to={`/category/${item.slug}`}
-                    className="flex justify-between items-center px-4 py-3 border-2 border-blue-500/10 rounded-full hover:border-blue-500 hover:bg-blue-50/50 hover:shadow-md transition-all group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-3 h-3 rounded-full ${index % 3 === 0 ? "bg-green-500" : index % 3 === 1 ? "bg-orange-400" : "bg-blue-600"}`}></div>
-                      <span className="text-gray-700 font-bold text-sm group-hover:text-blue-700">
-                        {item.name} MCQs
-                      </span>
-                    </div>
-                    <span className="text-blue-300 group-hover:text-blue-600 transition-colors text-xs">❯</span>
-                  </Link>
-                ))}
+            <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+              {[...subCats].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).map((item, index) => (
+                <Link key={item._id} to={`/category/${item.slug}`} className="flex justify-between items-center px-5 py-4 border-2 border-slate-100 rounded-2xl hover:border-blue-500 hover:bg-blue-50/30 hover:shadow-lg transition-all group">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-2.5 h-2.5 rounded-full ${index % 3 === 0 ? "bg-emerald-500" : index % 3 === 1 ? "bg-amber-500" : "bg-blue-600"}`}></div>
+                    <span className="text-slate-700 font-bold text-sm group-hover:text-blue-700">{item.name} MCQs</span>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-blue-600 transition-colors">❯</span>
+                </Link>
+              ))}
             </div>
           </div>
         )}
 
-        {/* --- MAIN CONTENT AREA --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1.3fr] gap-8 items-start">
+        {/* --- 4. MAIN CONTENT AREA --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1.3fr] gap-10 items-start">
           <div className="w-full">
-            <MCQs_Cart_leftSide
-              key={activeSlug}
-              categorySlug={activeSlug}
-            />
+            <MCQs_Cart_leftSide key={activeSlug} categorySlug={activeSlug} />
           </div>
-          <div className="w-full">
+          <div className="w-full sticky top-6">
             <MCQs_cart_RightSide />
           </div>
         </div>

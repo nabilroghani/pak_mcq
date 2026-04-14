@@ -88,7 +88,7 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
             quizMode ? "bg-orange-500 hover:bg-orange-600" : "bg-blue-600 hover:bg-blue-700"
           }`}
         >
-          {quizMode ? "Exit Quiz Mode" : "Start Quiz Mode"}
+          {quizMode ? "Switch MCQS Mode" : "Switch QUIZ Mode"}
         </button>
       </div>
 

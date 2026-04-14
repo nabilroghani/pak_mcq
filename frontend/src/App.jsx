@@ -28,9 +28,9 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import JobManager from "./pages/Admin/JobManager";
 import CategoryManager from "./pages/Admin/CategoryManager";
 import CreateQuiz from "./pages/Admin/CreateQuiz";
-import SharedQuiz from "./pages/SharedQuiz";
 import AdminMessages from "./pages/Admin/AdminMessages";
 import EBookManager from "./pages/Admin/AddBookForm";
+import Quiz from "./pages/Quiz";
 
 const App = () => {
   const location = useLocation();
@@ -63,8 +63,7 @@ const App = () => {
           <Route path="/past-papers" element={<PastPapers />} />
           <Route path="/submit" element={<SubmitMcqs />} />
           <Route path="/e-book" element={<EBooks />} />
-          
-          <Route path="/quiz/:slug" element={<SharedQuiz />} />
+          <Route path="/quiz-General" element={<Quiz/>}/>
           <Route path="/category/:categoryName" element={<MCQS_cart />} />
           
           {/* Auth Routes */}

@@ -78,7 +78,7 @@ const Footer = () => {
                 <FaPhoneAlt className="text-yellow-400" /> +92 300 1234567
               </div>
               <div className="flex items-center gap-3">
-                <FaEnvelope className="text-yellow-400" /> info@paklearners.com
+                <FaEnvelope className="text-yellow-400" /> paklearnersofficial@gmail.com
               </div>
             </div>
           </div>

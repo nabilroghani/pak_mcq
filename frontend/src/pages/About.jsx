@@ -5,14 +5,6 @@ import aboutt from "../assets/aboutt.jpg";
 const About = () => {
     return (
         <div className="bg-white min-h-screen">
-            {/* 1. Full Screen Hero Image (No Text) */}
-            <div className="w-full rounded-5xl h-[250px] sm:h-[350px] md:h-[500px]">
-                <img 
-                    src={aboutPic} 
-                    alt="Pak Learners Banner" 
-                    className="w-full h-full object-cover shadow-sm rounded-3xl"
-                />
-            </div>
 
             {/* 2. Content Section */}
             <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
