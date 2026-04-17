@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageSquare, Send, User, Lock } from 'lucide-react';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import api from '../utils/api';
 
 const MCQComments = ({ mcqId }) => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const MCQComments = ({ mcqId }) => {
       if (!mcqId) return;
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/comments/${mcqId}`);
+        const res = await api.get(`/comments/${mcqId}`);
         if (res.data.success) {
           setAllComments(res.data.data);
         }
@@ -53,10 +53,10 @@ const MCQComments = ({ mcqId }) => {
     if (!comment.trim()) return;
 
     try {
-      const res = await axios.post("http://localhost:5000/api/comments/add", {
+      const res = await api.post("/comments/add", {
         mcqId,
         userName: user?.name || "User",
-        commentText: comment, // Match with Backend
+        commentText: comment, 
       });
 
       if (res.data.success) {

@@ -11,6 +11,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const bookRoutes = require('./routes/bookRoutes');
+const userCount = require('./routes/countUsersRoute');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cors({
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userCount)
 app.use('/api/mcqs', mcqRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/comments', commentRoutes);

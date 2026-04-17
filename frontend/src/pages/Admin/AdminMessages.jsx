@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { LuMail, LuTrash2, LuUser, LuPhone, LuCalendar } from "react-icons/lu";
+import api from '../../utils/api';
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -12,7 +13,7 @@ const AdminMessages = () => {
   const fetchMessages = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/contacts/all", {
+      const res = await api.get("/contacts/all", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data.data || []);
@@ -41,7 +42,7 @@ const AdminMessages = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/contacts/delete/${id}`, {
+        await api.delete(`/contacts/delete/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         Swal.fire('Deleted!', 'Message delete ho gaya.', 'success');

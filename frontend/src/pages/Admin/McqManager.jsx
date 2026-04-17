@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Swal from 'sweetalert2';
 import { 
     Search, Edit3, Trash2, Plus, CheckCircle, 
@@ -12,25 +12,19 @@ const MCQManager = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table'); 
-    const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
-    // URL CONFIGURATION
-    // const API_BASE_URL = "https://pakmcqbackend-carekxyxo-nabil-ahmads-projects-394a5d0b.vercel.app";
-    const API_BASE_URL = "http://localhost:5000";
+    const BASE_PATH = "/mcqs";
 
     const fetchMCQs = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`${API_BASE_URL}/api/mcqs/all`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(`${BASE_PATH}/all`);
             if (res.data && Array.isArray(res.data.data)) {
                 setMcqs(res.data.data);
             }
         } catch (err) {
             console.error("Fetch error", err);
-            // Agar CORS ya Network error aaye toh empty array set karein
             setMcqs([]);
         } finally {
             setLoading(false);
@@ -55,9 +49,7 @@ const MCQManager = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`${API_BASE_URL}/api/mcqs/delete/${id}`, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    await api.delete(`${BASE_PATH}/delete/${id}`);
                     setMcqs(mcqs.filter(m => m._id !== id));
                     Swal.fire({ title: 'Deleted!', icon: 'success', timer: 1000, showConfirmButton: false });
                 } catch (err) {
@@ -115,9 +107,7 @@ const MCQManager = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.put(`${API_BASE_URL}/api/mcqs/update/${mcq._id}`, result.value, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    await api.put(`${BASE_PATH}/update/${mcq._id}`, result.value);
                     fetchMCQs();
                     Swal.fire({ icon: 'success', title: 'Updated!', timer: 1000, showConfirmButton: false });
                 } catch (err) {

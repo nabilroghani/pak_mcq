@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import confetti from 'canvas-confetti';
 import MCQs_cart_RightSide from '../Components/MCQs_cart_RightSide';
 import WhatsappBtn from '../Components/WhatsappBtn';
+import api from '../utils/api';
 
 export default function Quiz() {
     const [quiz, setQuiz] = useState(null);
@@ -18,7 +18,7 @@ export default function Quiz() {
     useEffect(() => {
         const fetchLatestQuiz = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/quizzes/latest`);
+                const res = await api.get(`/quizzes/latest`);
                 if (res.data.success && res.data.quiz && res.data.quiz.mcqs?.length > 0) {
                     setQuiz(res.data.quiz);
                     setTimeLeft(res.data.quiz.mcqs.length * 30);

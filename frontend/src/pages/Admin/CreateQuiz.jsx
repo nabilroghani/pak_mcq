@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import api from '../../utils/api';
 
 export default function CreateQuiz() {
     const [mcqs, setMcqs] = useState([]);
@@ -10,7 +11,7 @@ export default function CreateQuiz() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/mcqs/all')
+        api.get('/mcqs/all')
              .then(res => setMcqs(res.data.data))
              .catch(err => Swal.fire('Error!', 'Failed to fetch MCQs', 'error'));
     }, []);
@@ -35,7 +36,7 @@ const handleResetBuilder = async () => {
     if (result.isConfirmed) {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.delete('http://localhost:5000/api/quizzes/delete-latest', {
+            const res = await api.delete('/quizzes/delete-latest', {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -79,7 +80,7 @@ const handleResetBuilder = async () => {
         setLoading(true); 
         try {
             const token = localStorage.getItem('token'); 
-            const res = await axios.post('http://localhost:5000/api/quizzes/create', {
+            const res = await api.post('/quizzes/create', {
                 title,
                 mcqs: selectedMcqs,
                 description: "Challenge Quiz Created by Admin"

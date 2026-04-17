@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { LuCheck, LuTrash2, LuEye } from "react-icons/lu";
+import api from '../../utils/api';
 
 const AdminReviewMCQs = () => {
     const [pendingMcqs, setPendingMcqs] = useState([]);
@@ -10,7 +11,7 @@ const AdminReviewMCQs = () => {
     const fetchPending = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:5000/api/mcqs/all?status=pending');
+            const res = await api.get('/mcqs/all?status=pending');
             if (res.data.success) {
                 setPendingMcqs(res.data.data);
             }
@@ -49,10 +50,10 @@ const handleAction = async (id, action) => {
 
             if (action === 'approved') {
                 // Yahan config (headers) teesre argument mein jayega
-                await axios.put(`http://localhost:5000/api/mcqs/update/${id}`, { status: 'approved' }, config);
+                await api.put(`/mcqs/update/${id}`, { status: 'approved' }, config);
             } else {
                 // Delete mein config (headers) doosre argument mein jayega
-                await axios.delete(`http://localhost:5000/api/mcqs/delete/${id}`, config);
+                await api.delete(`/mcqs/delete/${id}`, config);
             }
 
             Swal.fire('Updated!', `MCQ has been ${action}.`, 'success');

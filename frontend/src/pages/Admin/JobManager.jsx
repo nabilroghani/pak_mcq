@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Swal from 'sweetalert2';
-import { Search, Plus, Calendar, MapPin, Trash2, Edit3, Briefcase, Building2, ExternalLink } from 'lucide-react';
+import { 
+    Search, Plus, Calendar, MapPin, Trash2, 
+    Edit3, Briefcase, Building2, ExternalLink 
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const JobManager = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
-    // Base URL for Local Development
-    const API_BASE_URL = "http://localhost:5000/api/jobs";
+    // Resource path (Base URL api instance handle karega)
+    const RESOURCE_PATH = "/jobs";
 
     const fetchJobs = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`${API_BASE_URL}/all`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(`${RESOURCE_PATH}/all`);
             if (res.data && Array.isArray(res.data.data)) {
                 setJobs(res.data.data);
             }
@@ -46,9 +46,7 @@ const JobManager = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`${API_BASE_URL}/delete/${id}`, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    await api.delete(`${RESOURCE_PATH}/delete/${id}`);
                     setJobs(jobs.filter(job => job._id !== id));
                     Swal.fire({ title: 'Removed!', icon: 'success', timer: 1500, showConfirmButton: false });
                 } catch (err) {
@@ -107,9 +105,7 @@ const JobManager = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.put(`${API_BASE_URL}/update/${job._id}`, result.value, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    await api.put(`${RESOURCE_PATH}/update/${job._id}`, result.value);
                     Swal.fire({ icon: 'success', title: 'Updated Successfully!', timer: 1500, showConfirmButton: false });
                     fetchJobs();
                 } catch (err) {
@@ -125,7 +121,7 @@ const JobManager = () => {
     );
 
     return (
-        <div className="p-4 md:p-10 bg-[#f9fafb] min-h-screen text-slate-800 w-full font-sans">
+        <div className="p-4 md:p-10 bg-[#f9fafb] min-h-screen text-slate-800 w-full font-sans antialiased">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
@@ -143,26 +139,27 @@ const JobManager = () => {
                     </button>
                 </div>
 
-                {/* Stats Summary (Mini) */}
+                {/* Stats Summary */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                    <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Jobs</p>
-                        <p className="text-2xl font-black text-slate-800">{jobs.length}</p>
+                        <p className="text-3xl font-black text-slate-800">{jobs.length}</p>
                     </div>
                 </div>
 
-                {/* Search Bar Container */}
+                {/* Search Bar */}
                 <div className="bg-white p-6 rounded-t-3xl border-t border-x border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="relative w-full md:max-w-md">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input
                             className="w-full bg-slate-50 border border-slate-200 pl-12 pr-4 py-3.5 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all"
-                            placeholder="Search by job title, company, or city..."
+                            placeholder="Search by title, company, or city..."
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
-                        <ExternalLink size={14}/> Live on Website
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        Live Content Sync
                     </div>
                 </div>
 
@@ -193,7 +190,7 @@ const JobManager = () => {
                                         <tr key={job._id} className="hover:bg-emerald-50/30 transition-all group">
                                             <td className="px-8 py-6">
                                                 <div className="flex flex-col">
-                                                    <span className="text-base font-black text-slate-800 group-hover:text-emerald-700 transition-colors tracking-tight">
+                                                    <span className="text-base font-black text-slate-800 group-hover:text-emerald-700 transition-colors tracking-tight italic">
                                                         {job.jobTitle || "Untitled Position"}
                                                     </span>
                                                     <span className="text-xs text-slate-500 flex items-center gap-1.5 mt-1 font-medium">
@@ -203,7 +200,7 @@ const JobManager = () => {
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-emerald-100 group-hover:text-emerald-600 transition-colors">
+                                                    <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-emerald-100 group-hover:text-emerald-600 transition-all">
                                                         <Building2 size={20} />
                                                     </div>
                                                     <div>
@@ -220,18 +217,8 @@ const JobManager = () => {
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className="flex justify-center gap-3">
-                                                    <button
-                                                        onClick={() => handleEdit(job)}
-                                                        className="p-2.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"
-                                                    >
-                                                        <Edit3 size={20} />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDelete(job._id)}
-                                                        className="p-2.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all"
-                                                    >
-                                                        <Trash2 size={20} />
-                                                    </button>
+                                                    <button onClick={() => handleEdit(job)} className="p-2.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"><Edit3 size={20} /></button>
+                                                    <button onClick={() => handleDelete(job._id)} className="p-2.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all"><Trash2 size={20} /></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -244,14 +231,13 @@ const JobManager = () => {
                             <div className="flex flex-col items-center justify-center py-32 text-slate-300">
                                 <Briefcase size={60} className="mb-4 opacity-10" />
                                 <h3 className="text-slate-800 font-black text-xl">No Jobs Found</h3>
-                                <p className="text-sm font-medium">Try refining your search or post a new vacancy.</p>
+                                <p className="text-sm font-medium">Try refining your search keywords.</p>
                             </div>
                         )}
                     </div>
                 </div>
-                {/* Footer Info */}
-                <p className="mt-6 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-                    &copy; 2026 Career Management System | Secure Admin Access
+                <p className="mt-6 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest italic">
+                    Career Portal Engine v2.0
                 </p>
             </div>
         </div>

@@ -18,9 +18,10 @@ import {
   UploadCloud,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import api from "../../utils/api";
 
 const AdminDashboard = () => {
-  const [counts, setCounts] = useState({ mcqs: 0, jobs: 0 });
+  const [counts, setCounts] = useState({ mcqs: 0, jobs: 0, users: 0 });
   const [categories, setCategories] = useState([]);
   const [allMcqs, setAllMcqs] = useState([]);
   const [loadingStats, setLoadingStats] = useState(true);
@@ -51,15 +52,17 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       setLoadingStats(true);
-      const [mcqRes, jobRes, catRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/mcqs/all"),
-        axios.get("http://localhost:5000/api/jobs/all"),
-        axios.get("http://localhost:5000/api/categories/all"),
+      const [mcqRes, jobRes, catRes, userRes] = await Promise.all([
+        api.get("/mcqs/all"),
+        api.get("/jobs/all"),
+        api.get("/categories/all"),
+        api.get("/users/user-count"),
       ]);
       setAllMcqs(mcqRes.data.data || []);
       setCounts({
         mcqs: mcqRes.data.data?.length || 0,
         jobs: jobRes.data.data?.length || 0,
+        users: userRes.data.count || 0,
       });
       setCategories(catRes.data || []);
       setLoadingStats(false);
@@ -83,63 +86,63 @@ const AdminDashboard = () => {
     }
   }, [navigate]);
 
-const handleMcqSubmit = async (e) => {
-  e.preventDefault();
-  
-  if (!mcqData.subject || !mcqData.correctAnswer)
-    return Swal.fire("Rukain!", "Category aur Answer lazmi hain.", "warning");
+  const handleMcqSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    Swal.fire({
-      title: isEditing ? "Updating..." : "Saving...",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
-    });
+    if (!mcqData.subject || !mcqData.correctAnswer)
+      return Swal.fire("Rukain!", "Category aur Answer lazmi hain.", "warning");
 
-    // 1. Payload mein explanation add karein
-    const payload = {
-      question: mcqData.question,
-      options: mcqData.options,
-      correctAnswer: mcqData.correctAnswer,
-      category: mcqData.subject.toLowerCase(), // Aapka backend category expect karta hai
-      difficulty: mcqData.difficulty,
-      explanation: mcqData.explanation, // <--- Yeh line add ki hai
-    };
-
-    if (isEditing) {
-      await axios.put(
-        `http://localhost:5000/api/mcqs/edit/${isEditing}`,
-        payload,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-    } else {
-      await axios.post("http://localhost:5000/api/mcqs/add", payload, {
-        headers: { Authorization: `Bearer ${token}` },
+    try {
+      Swal.fire({
+        title: isEditing ? "Updating..." : "Saving...",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
       });
+
+      // 1. Payload mein explanation add karein
+      const payload = {
+        question: mcqData.question,
+        options: mcqData.options,
+        correctAnswer: mcqData.correctAnswer,
+        category: mcqData.subject.toLowerCase(), // Aapka backend category expect karta hai
+        difficulty: mcqData.difficulty,
+        explanation: mcqData.explanation, // <--- Yeh line add ki hai
+      };
+
+      if (isEditing) {
+        await api.put(
+          `/mcqs/edit/${isEditing}`,
+          payload,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      } else {
+        await api.post("/mcqs/add", payload, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      }
+
+      Swal.fire(
+        "Success!",
+        isEditing ? "MCQ Update ho gaya" : "MCQ Add ho gaya",
+        "success",
+      );
+
+      // 2. Form reset karte waqt explanation ko bhi clear karein
+      setMcqData({
+        ...mcqData,
+        question: "",
+        options: ["", "", "", ""],
+        correctAnswer: "",
+        explanation: "", // <--- Taake submit ke baad box khali ho jaye
+      });
+
+      setIsEditing(null);
+      fetchData();
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error!", "Operation failed", "error");
     }
-
-    Swal.fire(
-      "Success!",
-      isEditing ? "MCQ Update ho gaya" : "MCQ Add ho gaya",
-      "success",
-    );
-
-    // 2. Form reset karte waqt explanation ko bhi clear karein
-    setMcqData({
-      ...mcqData,
-      question: "",
-      options: ["", "", "", ""],
-      correctAnswer: "",
-      explanation: "", // <--- Taake submit ke baad box khali ho jaye
-    });
-
-    setIsEditing(null);
-    fetchData();
-  } catch (err) {
-    console.error(err);
-    Swal.fire("Error!", "Operation failed", "error");
-  }
-};
+  };
 
   const handleEditTrigger = (mcq) => {
     setIsEditing(mcq._id);
@@ -165,7 +168,7 @@ const handleMcqSubmit = async (e) => {
     });
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/mcqs/delete/${id}`, {
+        await api.delete(`/mcqs/delete/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         fetchData();
@@ -177,24 +180,24 @@ const handleMcqSubmit = async (e) => {
   };
 
   // --- BULK UPLOAD ---
-const handleCsvUpload = async (e) => {
+  const handleCsvUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
 
     const formData = new FormData();
     formData.append("file", file);
 
-try {
+    try {
       Swal.fire({ title: "Uploading...", didOpen: () => Swal.showLoading() });
-      const res = await axios.post("http://localhost:5000/api/mcqs/upload-csv", formData, {
+      const res = await api.post("/mcqs/upload-csv", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
-      
+
       if (res.data.success) {
         Swal.fire("Success!", res.data.message, "success");
         await fetchData(); // Ensure this is awaited
@@ -205,7 +208,7 @@ try {
     } finally {
       e.target.value = ""; // Input clear karein taake dobara upload ho sake
     }
-};
+  };
 
   // --- JOB ACTIONS ---
   const handleJobSubmit = async (e) => {
@@ -216,7 +219,7 @@ try {
 
     try {
       Swal.fire({ title: "Posting...", didOpen: () => Swal.showLoading() });
-      await axios.post("http://localhost:5000/api/jobs/post", formData, {
+      await api.post("/jobs/post", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -234,7 +237,8 @@ try {
       setJobFile(null);
       fetchData();
     } catch (err) {
-      Swal.fire("Error", "Job post failed", "error");
+      console.log("Full Error Response:", err.response?.data);
+      Swal.fire("Error", err.response?.data?.message || "Job post failed", "error");
     }
   };
 
@@ -273,7 +277,7 @@ try {
             v: categories.length,
             i: <LayoutGrid className="text-cyan-500" />,
           },
-          { t: "Users", v: "1,204", i: <Users className="text-purple-500" /> },
+          { t: "Users", v: counts.users, i: <Users className="text-purple-500" /> },
         ].map((s, idx) => (
           <div
             key={idx}
@@ -323,6 +327,13 @@ try {
                 onChange={(e) =>
                   setJobData({ ...jobData, deadline: e.target.value })
                 }
+                required
+              />
+              <input
+                className="bg-gray-50 border border-gray-200 p-3 rounded-lg text-sm"
+                value={jobData.location}
+                placeholder="Location (e.g. Peshawar)"
+                onChange={(e) => setJobData({ ...jobData, location: e.target.value })}
                 required
               />
             </div>
@@ -403,145 +414,142 @@ try {
       </div>
 
       {/* MCQ FORM (ADD & EDIT) */}
-<div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-xl relative">
-  {isEditing && (
-    <button
-      onClick={() => {
-        setIsEditing(null);
-        setMcqData({
-          subject: "",
-          difficulty: "Medium",
-          question: "",
-          options: ["", "", "", ""],
-          correctAnswer: "",
-          explanation: "", // Clear explanation on cancel
-        });
-      }}
-      className="absolute top-6 right-6 text-red-500 flex items-center gap-1 text-xs font-bold bg-red-50 px-3 py-1 rounded-full"
-    >
-      <XCircle size={14} /> Cancel Edit
-    </button>
-  )}
-
-  <h2 className="text-xl font-bold mb-8 flex items-center gap-2 text-green-600">
-    {isEditing ? <Edit3 /> : <PlusCircle />}
-    {isEditing ? "Update Question" : "Add New MCQ"}
-  </h2>
-
-  <form onSubmit={handleMcqSubmit} className="space-y-6">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <select
-        className="bg-gray-50 border border-gray-200 p-3 rounded-lg font-bold outline-none focus:border-green-500"
-        value={mcqData.subject}
-        onChange={(e) => setMcqData({ ...mcqData, subject: e.target.value })}
-        required
-      >
-        <option value="">Select Category</option>
-        {categories
-          .filter((c) => !c.parent)
-          .map((main) => (
-            <optgroup key={main._id} label={main.name}>
-              {categories
-                .filter((sub) => sub.parent === main._id)
-                .map((sub) => (
-                  <React.Fragment key={sub._id}>
-                    <option value={sub.slug} className="font-bold text-blue-600">
-                      -- {sub.name}
-                    </option>
-                    {categories
-                      .filter((child) => child.parent === sub._id)
-                      .map((child) => (
-                        <option key={child._id} value={child.slug}>
-                          &nbsp;&nbsp;&nbsp;&nbsp; • {child.name}
-                        </option>
-                      ))}
-                  </React.Fragment>
-                ))}
-            </optgroup>
-          ))}
-      </select>
-
-      <select
-        className="bg-gray-50 border border-gray-200 p-3 rounded-lg font-bold outline-none focus:border-green-500"
-        value={mcqData.difficulty}
-        onChange={(e) => setMcqData({ ...mcqData, difficulty: e.target.value })}
-      >
-        <option>Easy</option>
-        <option>Medium</option>
-        <option>Hard</option>
-      </select>
-    </div>
-
-    <textarea
-      className="w-full bg-gray-50 border border-gray-200 p-4 rounded-lg outline-none focus:border-green-500 transition-all"
-      value={mcqData.question}
-      rows="2"
-      placeholder="Type the question here..."
-      onChange={(e) => setMcqData({ ...mcqData, question: e.target.value })}
-      required
-    />
-
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {mcqData.options.map((opt, index) => (
-        <div
-          key={index}
-          className={`flex items-center gap-2 bg-gray-50 border p-2 rounded-xl transition-all ${
-            mcqData.correctAnswer === opt && opt !== ""
-              ? "border-green-500 bg-green-50 shadow-sm"
-              : "border-gray-200"
-          }`}
-        >
-          <span className="text-gray-400 font-bold ml-2">
-            {String.fromCharCode(65 + index)}.
-          </span>
-          <input
-            className="flex-1 bg-transparent p-1 outline-none text-sm font-semibold"
-            value={opt}
-            placeholder={`Option ${String.fromCharCode(65 + index)}`}
-            onChange={(e) => {
-              const updated = [...mcqData.options];
-              updated[index] = e.target.value;
-              setMcqData({ ...mcqData, options: updated });
+      <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-xl relative">
+        {isEditing && (
+          <button
+            onClick={() => {
+              setIsEditing(null);
+              setMcqData({
+                subject: "",
+                difficulty: "Medium",
+                question: "",
+                options: ["", "", "", ""],
+                correctAnswer: "",
+                explanation: "", // Clear explanation on cancel
+              });
             }}
+            className="absolute top-6 right-6 text-red-500 flex items-center gap-1 text-xs font-bold bg-red-50 px-3 py-1 rounded-full"
+          >
+            <XCircle size={14} /> Cancel Edit
+          </button>
+        )}
+
+        <h2 className="text-xl font-bold mb-8 flex items-center gap-2 text-green-600">
+          {isEditing ? <Edit3 /> : <PlusCircle />}
+          {isEditing ? "Update Question" : "Add New MCQ"}
+        </h2>
+
+        <form onSubmit={handleMcqSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <select
+              className="bg-gray-50 border border-gray-200 p-3 rounded-lg font-bold outline-none focus:border-green-500"
+              value={mcqData.subject}
+              onChange={(e) => setMcqData({ ...mcqData, subject: e.target.value })}
+              required
+            >
+              <option value="">Select Category</option>
+              {categories
+                .filter((c) => !c.parent)
+                .map((main) => (
+                  <optgroup key={main._id} label={main.name}>
+                    {categories
+                      .filter((sub) => sub.parent === main._id)
+                      .map((sub) => (
+                        <React.Fragment key={sub._id}>
+                          <option value={sub.slug} className="font-bold text-blue-600">
+                            -- {sub.name}
+                          </option>
+                          {categories
+                            .filter((child) => child.parent === sub._id)
+                            .map((child) => (
+                              <option key={child._id} value={child.slug}>
+                                &nbsp;&nbsp;&nbsp;&nbsp; • {child.name}
+                              </option>
+                            ))}
+                        </React.Fragment>
+                      ))}
+                  </optgroup>
+                ))}
+            </select>
+
+            <select
+              className="bg-gray-50 border border-gray-200 p-3 rounded-lg font-bold outline-none focus:border-green-500"
+              value={mcqData.difficulty}
+              onChange={(e) => setMcqData({ ...mcqData, difficulty: e.target.value })}
+            >
+              <option>Easy</option>
+              <option>Medium</option>
+              <option>Hard</option>
+            </select>
+          </div>
+
+          <textarea
+            className="w-full bg-gray-50 border border-gray-200 p-4 rounded-lg outline-none focus:border-green-500 transition-all"
+            value={mcqData.question}
+            rows="2"
+            placeholder="Type the question here..."
+            onChange={(e) => setMcqData({ ...mcqData, question: e.target.value })}
             required
           />
-          <CheckCircle2
-            onClick={() => setMcqData({ ...mcqData, correctAnswer: opt })}
-            className={`cursor-pointer transition-colors ${
-              mcqData.correctAnswer === opt && opt !== ""
-                ? "text-green-500"
-                : "text-gray-300 hover:text-green-400"
-            }`}
-            size={22}
-          />
-        </div>
-      ))}
-    </div>
 
-    {/* EXPLANATION FIELD (Added Now) */}
-    <div className="space-y-2">
-      <label className="text-[10px] font-black text-blue-900 uppercase tracking-widest flex items-center gap-2 ml-1">
-        Explanation (Optional)
-      </label>
-      <textarea
-        className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl outline-none focus:border-blue-400 transition-all resize-none text-sm font-medium"
-        value={mcqData.explanation}
-        rows="2"
-        placeholder="Explain why the answer is correct..."
-        onChange={(e) => setMcqData({ ...mcqData, explanation: e.target.value })}
-      />
-    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {mcqData.options.map((opt, index) => (
+              <div
+                key={index}
+                className={`flex items-center gap-2 bg-gray-50 border p-2 rounded-xl transition-all ${mcqData.correctAnswer === opt && opt !== ""
+                    ? "border-green-500 bg-green-50 shadow-sm"
+                    : "border-gray-200"
+                  }`}
+              >
+                <span className="text-gray-400 font-bold ml-2">
+                  {String.fromCharCode(65 + index)}.
+                </span>
+                <input
+                  className="flex-1 bg-transparent p-1 outline-none text-sm font-semibold"
+                  value={opt}
+                  placeholder={`Option ${String.fromCharCode(65 + index)}`}
+                  onChange={(e) => {
+                    const updated = [...mcqData.options];
+                    updated[index] = e.target.value;
+                    setMcqData({ ...mcqData, options: updated });
+                  }}
+                  required
+                />
+                <CheckCircle2
+                  onClick={() => setMcqData({ ...mcqData, correctAnswer: opt })}
+                  className={`cursor-pointer transition-colors ${mcqData.correctAnswer === opt && opt !== ""
+                      ? "text-green-500"
+                      : "text-gray-300 hover:text-green-400"
+                    }`}
+                  size={22}
+                />
+              </div>
+            ))}
+          </div>
 
-    <button
-      type="submit"
-      className={`w-full py-4 rounded-xl font-bold text-white uppercase tracking-widest transition-all shadow-lg active:scale-95 ${
-        isEditing ? "bg-blue-600 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"
-      }`}
-    >
-      {isEditing ? "Update MCQ" : "Save MCQ"}
-    </button>
-  </form>
-</div>
+          {/* EXPLANATION FIELD (Added Now) */}
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-blue-900 uppercase tracking-widest flex items-center gap-2 ml-1">
+              Explanation (Optional)
+            </label>
+            <textarea
+              className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl outline-none focus:border-blue-400 transition-all resize-none text-sm font-medium"
+              value={mcqData.explanation}
+              rows="2"
+              placeholder="Explain why the answer is correct..."
+              onChange={(e) => setMcqData({ ...mcqData, explanation: e.target.value })}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={`w-full py-4 rounded-xl font-bold text-white uppercase tracking-widest transition-all shadow-lg active:scale-95 ${isEditing ? "bg-blue-600 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"
+              }`}
+          >
+            {isEditing ? "Update MCQ" : "Save MCQ"}
+          </button>
+        </form>
+      </div>
 
       {/* BULK UPLOAD SECTION */}
       <div className="mt-8 p-10 bg-blue-600 rounded-3xl text-center shadow-xl text-white relative overflow-hidden">

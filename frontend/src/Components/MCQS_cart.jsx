@@ -18,6 +18,7 @@ import computerScience from "../assets/10.webp";
 import english from "../assets/12.webp";
 import urdu from "../assets/13.webp";
 import math from "../assets/14.webp";
+import api from "../utils/api.js";
 
 export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
@@ -60,7 +61,7 @@ export default function MCQS_cart({ defaultSlug }) {
       if (!categoryName) { setSubCats([]); setLoading(false); return; }
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/api/categories/all");
+        const res = await api.get("/categories/all");
         const currentCat = res.data.find((c) => c.slug.toLowerCase() === categoryName.toLowerCase());
         if (currentCat) {
           const filtered = res.data.filter((c) => c.parent === currentCat._id);

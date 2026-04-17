@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaChevronDown, FaSearch, FaTimes, FaBars, FaChevronRight, FaClipboardList } from "react-icons/fa";
+import { FaChevronDown, FaSearch, FaTimes, FaBars, FaChevronRight, FaClipboardList, FaUserCircle, FaSignOutAlt, FaUserPlus } from "react-icons/fa";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,6 +9,16 @@ const Header = () => {
 
   // Mobile Accordion States
   const [mobileAcc, setMobileAcc] = useState({ ca: false, other: false });
+
+  // Auth Check
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setIsMenuOpen(false);
+    navigate("/login");
+  };
 
   const handleSearch = (e) => {
     if ((e.key === "Enter" || e.type === "click") && searchTerm.trim() !== "") {
@@ -42,11 +52,9 @@ const Header = () => {
   ];
 
   return (
-    // Sticky property restore kar di gayi hai top-16 ke sath
     <header className="bg-white text-gray-800 shadow-md sticky top-16 md:top-[64px] z-[900] border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
         
-        {/* HAMBURGER: Only on Mobile/Tablet */}
         <button 
           onClick={() => setIsMenuOpen(true)}
           className="xl:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
@@ -54,14 +62,12 @@ const Header = () => {
           <FaBars size={22} />
         </button>
 
-        {/* LOGO: Hidden on Mobile, Flex on Desktop */}
         <Link to="/" className="hidden md:flex flex-shrink-0">
           <h1 className="text-xl md:text-2xl font-black tracking-tighter italic text-slate-800 uppercase">
             PAK <span className="text-[#1565C0]">LEARNERS</span>
           </h1>
         </Link>
 
-        {/* DESKTOP NAV: Only for large screens */}
         <nav className="hidden xl:flex items-center">
           <ul className="flex items-center">
             {mainLinks.map((link) => (
@@ -94,10 +100,7 @@ const Header = () => {
           </ul>
         </nav>
 
-        {/* SEARCH AREA & MOBILE QUIZ BUTTON */}
         <div className="flex items-center flex-1 md:flex-none gap-2">
-          
-          {/* QUIZ BUTTON: Only visible on mobile/tablet */}
           <Link 
             to="/quiz-General" 
             className="md:hidden bg-amber-500 p-2.5 rounded-full text-white shadow-md active:scale-95 transition-transform flex items-center justify-center shrink-0"
@@ -121,16 +124,16 @@ const Header = () => {
         </div>
       </div>
 
-      {/* MOBILE HAMBURGER SIDEBAR */}
+      {/* MOBILE SIDEBAR */}
       <div 
         className={`fixed inset-0 bg-black/60 z-[1000] transition-opacity duration-300 ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`} 
         onClick={() => setIsMenuOpen(false)}
       >
         <div 
-          className={`absolute top-0 left-0 w-[85%] max-w-[320px] h-full bg-white shadow-2xl transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+          className={`absolute top-0 left-0 w-[85%] max-w-[320px] h-full bg-white shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-[#1565C0] text-white">
+          <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-[#1565C0] text-white shrink-0">
             <div className="flex flex-col">
                 <span className="font-black italic text-lg leading-none">PAK LEARNERS</span>
                 <span className="text-[10px] opacity-80 font-bold uppercase tracking-widest mt-1">Navigation Menu</span>
@@ -138,7 +141,7 @@ const Header = () => {
             <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-white/10 rounded-full"><FaTimes size={18}/></button>
           </div>
 
-          <div className="overflow-y-auto h-[calc(100%-80px)] p-4 custom-scrollbar">
+          <div className="overflow-y-auto flex-1 p-4">
             <div className="space-y-1 mb-6">
                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-2 mb-2">Main Categories</p>
                 {mainLinks.map((link) => (
@@ -161,7 +164,7 @@ const Header = () => {
                 Current Affairs MCQs <FaChevronDown size={10} className={`${mobileAcc.ca ? 'rotate-180' : ''}`}/>
               </button>
               {mobileAcc.ca && (
-                <div className="mt-2 space-y-1 pl-2 animate-fadeIn">
+                <div className="mt-2 space-y-1 pl-2">
                   {currentAffairsLinks.map((link) => (
                     <Link key={link.name} to={link.path} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 text-xs text-gray-600 font-bold uppercase border-b border-gray-50">
                       {link.name}
@@ -179,7 +182,7 @@ const Header = () => {
                 Subject Categories <FaChevronDown size={10} className={`${mobileAcc.other ? 'rotate-180' : ''}`}/>
               </button>
               {mobileAcc.other && (
-                <div className="mt-3 grid grid-cols-2 gap-2 animate-fadeIn">
+                <div className="mt-3 grid grid-cols-2 gap-2">
                   {dropdownLinks.map((link) => (
                     <Link 
                         key={link.name} 
@@ -193,6 +196,35 @@ const Header = () => {
                 </div>
               )}
             </div>
+          </div>
+
+          {/* ADDED: AUTH SECTION AT BOTTOM */}
+          <div className="p-4 border-t border-gray-100 bg-gray-50 shrink-0">
+            {token ? (
+              <button 
+                onClick={handleLogout}
+                className="flex items-center justify-center gap-3 w-full p-4 bg-rose-50 text-rose-600 font-black text-xs uppercase rounded-xl border border-rose-100 active:scale-95 transition-all"
+              >
+                <FaSignOutAlt size={16}/> Logout Account
+              </button>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                <Link 
+                  to="/login" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 p-4 bg-white border border-gray-200 text-gray-700 font-black text-[10px] uppercase rounded-xl active:scale-95 transition-all"
+                >
+                  <FaUserCircle size={14}/> Login
+                </Link>
+                <Link 
+                  to="/signup" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 p-4 bg-blue-600 text-white font-black text-[10px] uppercase rounded-xl shadow-md active:scale-95 transition-all"
+                >
+                  <FaUserPlus size={14}/> Signup
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

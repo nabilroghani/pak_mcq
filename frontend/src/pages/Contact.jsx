@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import api from '../utils/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ const Contact = () => {
         didOpen: () => Swal.showLoading()
       });
 
-      const res = await axios.post("http://localhost:5000/api/contacts/send", formData);
+      const res = await api.post("/contacts/send", formData);
 
       if (res.data.success) {
         Swal.fire({

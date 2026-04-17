@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Plus, LayoutGrid, Trash2, Loader2, Edit3, Save } from 'lucide-react';
+import api from '../../utils/api';
 
 const CategoryManager = () => {
     const [categories, setCategories] = useState([]);
@@ -18,7 +19,7 @@ const CategoryManager = () => {
 
     const fetchCategories = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/categories/all");
+            const res = await api.get("/categories/all");
             setCategories(res.data); 
             setLoading(false);
         } catch (err) { 
@@ -37,11 +38,11 @@ const CategoryManager = () => {
             const payload = { name, parent: parentId || null };
 
             if (editingId) {
-                await axios.put(`http://localhost:5000/api/categories/${editingId}`, payload, {
+                await api.put(`/categories/${editingId}`, payload, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                await axios.post("http://localhost:5000/api/categories/add", payload, {
+                await api.post("/categories/add", payload, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }
@@ -66,7 +67,7 @@ const CategoryManager = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.delete(`http://localhost:5000/api/categories/${id}`, {
+                await api.delete(`/categories/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 fetchCategories(); 

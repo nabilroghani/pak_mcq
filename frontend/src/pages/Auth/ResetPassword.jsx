@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Lock } from 'lucide-react';
+import api from '../../utils/api';
 
 const ResetPassword = () => {
     const { token } = useParams();
@@ -12,7 +12,7 @@ const ResetPassword = () => {
     const handleReset = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, { password });
+            const res = await api.post(`/auth/reset-password/${token}`, { password });
             if (res.data.success) {
                 Swal.fire('Success!', 'Password update ho gaya hai. Login karein.', 'success');
                 navigate("/login");

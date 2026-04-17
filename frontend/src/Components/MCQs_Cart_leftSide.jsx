@@ -1,3 +1,4 @@
+import api from "../utils/api";
 import React, { useState, useEffect } from "react";
 import { FiMessageCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
 import axios from "axios";
@@ -26,7 +27,7 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
         if (searchQuery) params.search = searchQuery.trim();
         else params.category = (categoryName || categorySlug)?.toLowerCase().trim();
 
-        const res = await axios.get(`http://localhost:5000/api/mcqs/all`, { params });
+        const res = await api.get(`/mcqs/all`, { params });
         if (res.data.success) { setMcqs(res.data.data); setCurrentPage(1); }
       } catch (err) { console.error(err); }
       finally { setLoading(false); }

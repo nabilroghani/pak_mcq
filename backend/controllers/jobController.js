@@ -16,6 +16,7 @@ exports.postJob = async (req, res) => {
         await newJob.save();
         res.status(201).json({ success: true, message: "Job posted with Cloudinary!" });
     } catch (err) {
+        console.log("SERVER ERROR:", err);
         res.status(500).json({ success: false, message: "Cloudinary Upload Error" });
     }
 };

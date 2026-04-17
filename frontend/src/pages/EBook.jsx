@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { FaDownload, FaBookOpen, FaSearch, FaFilePdf, FaGraduationCap, FaBookmark } from 'react-icons/fa';
+import api from '../utils/api';
 
 const EBooks = () => {
   const [books, setBooks] = useState([]);
@@ -10,7 +10,7 @@ const EBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/books/all');
+        const res = await api.get('/books/all');
         if (res.data.success) {
           setBooks(res.data.data);
         }

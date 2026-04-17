@@ -1,3 +1,4 @@
+import api from "../utils/api";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Title from "./Title.jsx";
@@ -13,7 +14,7 @@ export default function MCQs_cart_RightSide({ className = "" }) {
   useEffect(() => {
     const fetchAndFormatCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/categories/all");
+        const res = await api.get("/categories/all");
         const dbData = res.data;
         const sortedData = [...dbData].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         const parents = sortedData.filter(cat => !cat.parent);
