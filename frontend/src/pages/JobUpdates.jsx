@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FiMapPin, FiCalendar, FiBriefcase, FiDownload } from "react-icons/fi";
-import api from "../../utils/api";
+import api from "../utils/api";
 
 export default function JobUpdates() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = api.defaults.baseURL.replace("/api", "");
+  const API_BASE_URL = (api.defaults.baseURL || "").replace('/api', '');
 
   useEffect(() => {
     const fetchJobs = async () => {

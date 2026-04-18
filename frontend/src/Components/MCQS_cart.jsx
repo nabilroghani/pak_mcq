@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+import api from "../utils/api.js";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
@@ -18,7 +20,6 @@ import computerScience from "../assets/10.webp";
 import english from "../assets/12.webp";
 import urdu from "../assets/13.webp";
 import math from "../assets/14.webp";
-import api from "../utils/api.js";
 
 export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
