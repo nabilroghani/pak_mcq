@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   FaCloudUploadAlt,
@@ -47,10 +46,11 @@ const SubmitMCQS = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // FIX: Get the actual text of the selected option
-      // If "Option A" is selected, we get the value of formData.optionA
-      const selectedLetter = formData.correctAnswer.replace("Option ", ""); // Result: "A"
-      const actualAnswerText = formData[`option${selectedLetter}`]; // Result: "The value inside Option A"
+      const selectedLetter = (formData.correctAnswer || "").replace(
+        "Option ",
+        "",
+      ); // Result: "A"
+      const actualAnswerText = formData[`option${selectedLetter}`] || ""; 
 
       const mcqData = {
         question: formData.question,
@@ -66,19 +66,16 @@ const SubmitMCQS = () => {
         status: "pending",
       };
 
-      const res = await api.post(
-        "/mcqs/submit-user",
-        mcqData,
-      );
+      const res = await api.post("/mcqs/submit-user", mcqData);
 
       if (res.data.success) {
         Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: 'Your MCQ submitted for review.',
-            confirmButtonColor: '#1565C0'
+          icon: "success",
+          title: "Success!",
+          text: "Your MCQ submitted for review.",
+          confirmButtonColor: "#1565C0",
         });
-        
+
         // Reset form but keep categories
         setFormData({
           category: categories[0]?.name || "",
@@ -92,7 +89,11 @@ const SubmitMCQS = () => {
         });
       }
     } catch (err) {
-      Swal.fire("Error", "Something went wrong! Check your connection.", "error");
+      Swal.fire(
+        "Error",
+        "Something went wrong! Check your connection.",
+        "error",
+      );
     }
   };
 
