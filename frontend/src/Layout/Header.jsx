@@ -54,8 +54,8 @@ const Header = () => {
   return (
     <header className="bg-white text-gray-800 shadow-md sticky top-16 md:top-[64px] z-[900] border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
-        
-        <button 
+
+        <button
           onClick={() => setIsMenuOpen(true)}
           className="xl:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
         >
@@ -75,7 +75,7 @@ const Header = () => {
                 <Link to={link.path} className="px-3 py-5 text-[12px] font-bold uppercase tracking-wider hover:text-blue-600 transition-all text-gray-700">{link.name}</Link>
               </li>
             ))}
-            
+
             <li className="relative group">
               <button className="flex items-center gap-1 px-3 py-5 text-[12px] font-bold uppercase tracking-wider hover:text-blue-600 text-gray-700 outline-none">
                 Current Affairs <FaChevronDown size={10} className="group-hover:rotate-180 transition-transform" />
@@ -101,21 +101,27 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center flex-1 md:flex-none gap-2">
-          <Link 
+          {/* <Link 
             to="/quiz-General" 
             className="md:hidden bg-amber-500 p-2.5 rounded-full text-white shadow-md active:scale-95 transition-transform flex items-center justify-center shrink-0"
           >
-            <FaClipboardList size={18} />
+            <FaClipboardList size={18} /> 
+          </Link> */}
+          <Link
+            to="/quiz-General"
+            className="md:hidden bg-gradient-to-r from-blue-600 to-indigo-700 px-5 py-2.5 rounded-full text-white text-sm font-black shadow-[0_4px_14px_0_rgb(37,99,235,0.39)] active:scale-95 transition-all flex items-center justify-center shrink-0 border-b-2 border-blue-800 uppercase tracking-wider"
+          >
+            Quiz of The Day
           </Link>
 
           <div className="relative w-full md:w-64 lg:w-80">
-            <input 
-              type="text" 
-              placeholder="Search MCQS..." 
-              value={searchTerm} 
-              onChange={(e) => setSearchTerm(e.target.value)} 
-              onKeyDown={handleSearch} 
-              className="bg-gray-100 border border-gray-200 text-sm rounded-full py-2.5 pl-5 pr-12 focus:outline-none focus:border-blue-500 w-full transition-all shadow-inner" 
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearch}
+              className="bg-gray-100 border border-gray-200 text-sm rounded-full py-2.5 pl-5 pr-12 focus:outline-none focus:border-blue-500 w-full transition-all shadow-inner"
             />
             <button onClick={handleSearch} className="absolute right-4 top-1/2 -translate-y-1/2 bg-blue-600 p-2 rounded-full text-white hover:bg-blue-700 transition-colors">
               <FaSearch size={12} />
@@ -125,43 +131,50 @@ const Header = () => {
       </div>
 
       {/* MOBILE SIDEBAR */}
-      <div 
-        className={`fixed inset-0 bg-black/60 z-[1000] transition-opacity duration-300 ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`} 
+      <div
+        className={`fixed inset-0 bg-black/60 z-[1000] transition-opacity duration-300 ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
         onClick={() => setIsMenuOpen(false)}
       >
-        <div 
+        <div
           className={`absolute top-0 left-0 w-[85%] max-w-[320px] h-full bg-white shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-[#1565C0] text-white shrink-0">
             <div className="flex flex-col">
-                <span className="font-black italic text-lg leading-none">PAK LEARNERS</span>
-                <span className="text-[10px] opacity-80 font-bold uppercase tracking-widest mt-1">Navigation Menu</span>
+              <span className="font-black italic text-lg leading-none">PAK LEARNERS</span>
+              <span className="text-[10px] opacity-80 font-bold uppercase tracking-widest mt-1">Navigation Menu</span>
             </div>
-            <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-white/10 rounded-full"><FaTimes size={18}/></button>
+            <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-white/10 rounded-full"><FaTimes size={18} /></button>
           </div>
 
           <div className="overflow-y-auto flex-1 p-4">
             <div className="space-y-1 mb-6">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-2 mb-2">Main Categories</p>
-                {mainLinks.map((link) => (
-                <Link 
-                    key={link.name} 
-                    to={link.path} 
-                    onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase hover:bg-blue-50 hover:text-blue-600 transition-all border border-transparent"
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-2 mb-2">Main Categories</p>
+              <Link
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase hover:bg-blue-50 hover:text-blue-600 transition-all border border-transparent"
+              >
+                Home <FaChevronRight size={10} className="text-gray-300" />
+              </Link>
+              {mainLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase hover:bg-blue-50 hover:text-blue-600 transition-all border border-transparent"
                 >
-                    {link.name} <FaChevronRight size={10} className="text-gray-300"/>
+                  {link.name} <FaChevronRight size={10} className="text-gray-300" />
                 </Link>
-                ))}
+              ))}
             </div>
 
             <div className="mb-4">
-              <button 
-                onClick={() => setMobileAcc({...mobileAcc, ca: !mobileAcc.ca})}
+              <button
+                onClick={() => setMobileAcc({ ...mobileAcc, ca: !mobileAcc.ca })}
                 className={`w-full flex items-center justify-between p-4 rounded-xl font-bold text-xs uppercase transition-all ${mobileAcc.ca ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-700'}`}
               >
-                Current Affairs MCQs <FaChevronDown size={10} className={`${mobileAcc.ca ? 'rotate-180' : ''}`}/>
+                Current Affairs MCQs <FaChevronDown size={10} className={`${mobileAcc.ca ? 'rotate-180' : ''}`} />
               </button>
               {mobileAcc.ca && (
                 <div className="mt-2 space-y-1 pl-2">
@@ -175,22 +188,22 @@ const Header = () => {
             </div>
 
             <div className="mb-4">
-              <button 
-                onClick={() => setMobileAcc({...mobileAcc, other: !mobileAcc.other})}
+              <button
+                onClick={() => setMobileAcc({ ...mobileAcc, other: !mobileAcc.other })}
                 className={`w-full flex items-center justify-between p-4 rounded-xl font-bold text-xs uppercase transition-all ${mobileAcc.other ? 'bg-emerald-600 text-white' : 'bg-emerald-50 text-emerald-700'}`}
               >
-                Subject Categories <FaChevronDown size={10} className={`${mobileAcc.other ? 'rotate-180' : ''}`}/>
+                Subject Categories <FaChevronDown size={10} className={`${mobileAcc.other ? 'rotate-180' : ''}`} />
               </button>
               {mobileAcc.other && (
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   {dropdownLinks.map((link) => (
-                    <Link 
-                        key={link.name} 
-                        to={link.path} 
-                        onClick={() => setIsMenuOpen(false)} 
-                        className="bg-gray-50 p-3 rounded-xl text-[10px] font-bold text-gray-700 text-center border border-gray-100 uppercase"
+                    <Link
+                      key={link.name}
+                      to={link.path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="bg-gray-50 p-3 rounded-xl text-[10px] font-bold text-gray-700 text-center border border-gray-100 uppercase"
                     >
-                        {link.name}
+                      {link.name}
                     </Link>
                   ))}
                 </div>
@@ -201,27 +214,27 @@ const Header = () => {
           {/* ADDED: AUTH SECTION AT BOTTOM */}
           <div className="p-4 border-t border-gray-100 bg-gray-50 shrink-0">
             {token ? (
-              <button 
+              <button
                 onClick={handleLogout}
                 className="flex items-center justify-center gap-3 w-full p-4 bg-rose-50 text-rose-600 font-black text-xs uppercase rounded-xl border border-rose-100 active:scale-95 transition-all"
               >
-                <FaSignOutAlt size={16}/> Logout Account
+                <FaSignOutAlt size={16} /> Logout Account
               </button>
             ) : (
               <div className="grid grid-cols-2 gap-2">
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-center gap-2 p-4 bg-white border border-gray-200 text-gray-700 font-black text-[10px] uppercase rounded-xl active:scale-95 transition-all"
                 >
-                  <FaUserCircle size={14}/> Login
+                  <FaUserCircle size={14} /> Login
                 </Link>
-                <Link 
-                  to="/signup" 
+                <Link
+                  to="/signup"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-center gap-2 p-4 bg-blue-600 text-white font-black text-[10px] uppercase rounded-xl shadow-md active:scale-95 transition-all"
                 >
-                  <FaUserPlus size={14}/> Signup
+                  <FaUserPlus size={14} /> Signup
                 </Link>
               </div>
             )}

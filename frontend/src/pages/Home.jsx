@@ -14,14 +14,14 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-0 pt-0">
 
         {/* --- 1. Hero & Banner Section --- */}
-        <div className="w-full mb-8 px-0 md:px-0"> {/* Mobile par padding khatam kar di */}
+        <div className="w-full mb-2 px-0 md:px-0 -mt-3 md:mt-0">
           <div className="relative overflow-hidden shadow-lg border-b-4 border-emerald-600 rounded-none md:rounded-[2rem] bg-white group">
             {/* rounded-none mobile par edge-to-edge look dega, md par rounded wapis aa jayega */}
             <img
               src={home}
               alt="Home Banner"
               className="w-full h-auto min-h-[140px] aspect-[16/7] sm:h-[200px] md:h-[280px] lg:h-[320px] object-cover transition-transform duration-700 group-hover:scale-105"
-            // aspect-ratio mobile par image ko dabne nahi dega
+
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
@@ -34,7 +34,7 @@ export default function Home() {
           </div>
         </div>
 
-      {<WhatsappBtn/>}
+        {<WhatsappBtn />}
       </div>
       <div className="max-w-6xl mx-auto mb-12 px-2 md:px-6">
         {/* --- 2. PROFESSIONAL URDU INFO BANNER (Using Image Instead of Text) --- */}
@@ -96,7 +96,7 @@ export default function Home() {
                 { name: "Everyday Science Important MCQs", path: "/category/Everyday-Science" },
                 { name: "Islamic Study (1000) MCQs", path: "/category/Islamic-Studies" },
                 { name: "Pak & World Affairs (1000) MCQs", path: "/category/World-Current-Affairs" },
-                { name: "Computer Science Important (1000) MCQs", path: "/category/Computer-science" }
+                { name: "Computer Science (1000) MCQs", path: "/category/Computer-science" }
               ].map((item, index) => {
 
                 // Pattern Logic: 
@@ -134,7 +134,7 @@ export default function Home() {
         {/* --- 5. Category Header & Cart --- */}
         <div className="flex items-center justify-end gap-4 mb-8">
           <div className="h-[2px] flex-1 bg-emerald-100"></div>
-          <span className="font-black uppercase tracking-widest text-xs px-6 py-2 rounded-full border border-emerald-200 bg-[#1565C0] text-white shadow-md">
+          <span className="hidden md:inline-block font-black uppercase tracking-widest text-xs px-6 py-2 rounded-full border border-emerald-200 bg-[#1565C0] text-white shadow-md">
             Explore Categories
           </span>
           <div className="h-[2px] w-[10%] bg-emerald-100"></div>

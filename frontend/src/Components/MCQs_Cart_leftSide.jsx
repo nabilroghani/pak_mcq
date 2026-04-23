@@ -121,12 +121,56 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
 
       {/* Pagination Mobile Responsive */}
       {totalPages > 1 && (
-        <div className="mt-8 flex justify-center gap-2 px-2">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button key={i+1} onClick={() => goToPage(i+1)} className={`px-3 py-1.5 rounded-lg text-xs font-bold ${currentPage === i+1 ? "bg-blue-600 text-white" : "bg-gray-100"}`}>
-              {i+1}
+        <div className="mt-8 flex flex-col items-center gap-4 px-2">
+          {/* Page Info for Mobile */}
+          <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest sm:hidden">
+            Page {currentPage} of {totalPages}
+          </p>
+
+          <div className="flex flex-wrap justify-center items-center gap-2">
+            {/* Previous Button */}
+            <button
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-colors"
+            >
+              Prev
             </button>
-          ))}
+
+            {/* Page Numbers - Hidden on very small screens if too many, or wrapped */}
+            <div className="flex flex-wrap justify-center gap-1.5">
+              {Array.from({ length: totalPages }, (_, i) => {
+                const pageNum = i + 1;
+
+                // Logic: Sirf current page ke agay peechay walay dikhayein agar pages zyada hon
+                if (totalPages > 5 && Math.abs(pageNum - currentPage) > 1 && pageNum !== 1 && pageNum !== totalPages) {
+                  return null;
+                }
+
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => goToPage(pageNum)}
+                    className={`min-w-[32px] h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all ${currentPage === pageNum
+                        ? "bg-blue-600 text-white shadow-md scale-105"
+                        : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                      }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-colors"
+            >
+              Next
+            </button>
+          </div>
         </div>
       )}
     </div>

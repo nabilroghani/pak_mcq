@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react"; // useEffect add kiya
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import ReactGA from "react-ga4"; // Analytics library import ki
 
 // Layout Components
 import Navbar from "./Layout/Navbar";
@@ -19,8 +20,8 @@ import EBooks from "./pages/EBook";
 import MCQS_cart from "./Components/MCQS_cart";
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
-import ForgotPassword from "./pages/Auth/ForgotPassword"; // Naya Page
-import ResetPassword from "./pages/Auth/ResetPassword";   // Naya Page
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import MCQManager from "./pages/Admin/McqManager";
 import AdminReviewMCQs from "./pages/Admin/AdminReviewMCQs";
@@ -32,9 +33,21 @@ import AdminMessages from "./pages/Admin/AdminMessages";
 import EBookManager from "./pages/Admin/AddBookForm";
 import Quiz from "./pages/Quiz";
 
+// --- Google Analytics Initialization ---
+const MEASUREMENT_ID = "G-KQGQFZCT91";
+ReactGA.initialize(MEASUREMENT_ID);
+
 const App = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("user"));
+
+  // Page View Tracking Logic
+  useEffect(() => {
+    ReactGA.send({ 
+      hitType: "pageview", 
+      page: location.pathname + location.search 
+    });
+  }, [location]);
 
   const isAdminPath = location.pathname.startsWith("/admin");
   const isUserAdmin = user?.role === "admin";

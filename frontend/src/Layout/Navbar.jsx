@@ -35,14 +35,17 @@ const Navbar = () => {
           
           {/* 1. MOBILE LOGO & SOCIAL ICONS (Shown only on small screens) */}
           <div className="lg:hidden flex items-center justify-between w-full">
-            <Link to="/" className="font-black italic tracking-tighter text-lg">
-              PAK LEARNERS
-            </Link>
+            <Link 
+  to="/" 
+  className="font-black italic tracking-tighter text-2xl md:text-3xl lg:text-4xl transition-all hover:opacity-80"
+>
+  PAK LEARNERS
+</Link>
             
 <div className="flex items-center gap-4">
   {/* Facebook - Original Blue */}
   <a 
-    href="https://facebook.com/yourpage" 
+    href="https://www.facebook.com/share/18P9BbsVuz/" 
     target="_blank" 
     rel="noopener noreferrer" 
     className="text-white hover:brightness-110 transition-all"

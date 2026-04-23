@@ -2,7 +2,7 @@ import whatsapp from "../assets/whatsapp.webp"
 
 const WhatsappBtn = () => {
   return (
-        <div className="max-w-5xl mx-auto mb-6 px-0 md:px-0">
+        <div className="max-w-5xl mx-auto mb-4 px-0 md:px-0">
           <a
             href="https://whatsapp.com/channel/0029VbCMkBc9RZATvADmza08"
             target="_blank"
