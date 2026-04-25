@@ -82,8 +82,8 @@ export default function MCQS_cart({ defaultSlug }) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-1 md:px-4 py-6">
+    <div className="min-h-screen bg-white w-full">
+      <div className="w-full max-w-none mx-0 px-0 py-0 md:max-w-7xl md:mx-auto md:px-4">
         
         {/* 1. BANNER */}
         {showBanner && (
@@ -134,8 +134,8 @@ export default function MCQS_cart({ defaultSlug }) {
         )}
 
         {/* 4. MAIN CONTENT GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-          <div className="lg:col-span-8 w-full">
+        <div className="w-full mx-0 px-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+          <div className="w-full min-w-0 mx-0 px-0 lg:col-span-8">
             <MCQs_Cart_leftSide key={activeSlug} categorySlug={activeSlug} />
           </div>
           <div className="hidden lg:block lg:col-span-4 w-full sticky top-[100px]">

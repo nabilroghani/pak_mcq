@@ -55,9 +55,8 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
   if (loading) return <div className="p-20 text-center font-bold">Loading...</div>;
 
   return (
-    <div className={`w-full ${className}`}>
-      {/* Header padding mobile par kam ki */}
-      <div className="flex justify-between items-center mb-6 p-3 md:p-4 bg-white rounded-xl shadow-sm border border-blue-100 mx-1 md:mx-0">
+    <div className={`w-full min-w-0 mx-0 px-0 ${className}`}>
+      <div className="w-full flex justify-between items-center mb-6 px-2 py-3 md:p-4 bg-white rounded-none md:rounded-xl shadow-sm border border-blue-100 mx-0">
         <h2 className="font-bold text-slate-700 text-sm md:text-base">{quizMode ? "🎯 Quiz Mode" : "📖 Reading Mode"}</h2>
         <button
           onClick={() => { setQuizMode(!quizMode); setUserAnswers({}); }}
@@ -72,8 +71,7 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
         const dbCorrectValue = item.correctAnswer?.trim();
 
         return (
-          // Card padding p-4 mobile ke liye fix ki
-          <div key={item._id} className="bg-white shadow-md rounded-xl p-4 md:p-6 mb-5 border border-gray-100 mx-1 md:mx-0">
+          <div key={item._id} className="w-full bg-white shadow-md rounded-none md:rounded-xl px-2 py-3 md:p-6 mb-5 border border-gray-100 mx-0">
             <div className="mb-4">
               <p className="text-gray-900 font-bold text-base md:text-lg leading-tight">{item.question}</p>
             </div>
@@ -95,6 +93,14 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
                   <div key={index} onClick={() => handleOptionClick(item._id, label)} className={`flex items-start p-3 rounded-lg border-2 cursor-pointer transition-all ${style}`}>
                     <span className="font-black w-6 shrink-0">{label}.</span>
                     <span className="flex-1 text-sm md:text-base leading-tight">{option}</span>
+                    
+                    {/* Tick and Cross Icons for Quiz Mode */}
+                    {quizMode && selected && isThisCorrect && (
+                      <FiCheckCircle className="text-white ml-2 self-center shrink-0" size={18} />
+                    )}
+                    {quizMode && isThisSelected && !isThisCorrect && (
+                      <FiXCircle className="text-white ml-2 self-center shrink-0" size={18} />
+                    )}
                   </div>
                 );
               })}
@@ -119,16 +125,10 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
         );
       })}
 
-      {/* Pagination Mobile Responsive */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-8 flex flex-col items-center gap-4 px-2">
-          {/* Page Info for Mobile */}
-          <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest sm:hidden">
-            Page {currentPage} of {totalPages}
-          </p>
-
           <div className="flex flex-wrap justify-center items-center gap-2">
-            {/* Previous Button */}
             <button
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
@@ -137,16 +137,12 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
               Prev
             </button>
 
-            {/* Page Numbers - Hidden on very small screens if too many, or wrapped */}
             <div className="flex flex-wrap justify-center gap-1.5">
               {Array.from({ length: totalPages }, (_, i) => {
                 const pageNum = i + 1;
-
-                // Logic: Sirf current page ke agay peechay walay dikhayein agar pages zyada hon
                 if (totalPages > 5 && Math.abs(pageNum - currentPage) > 1 && pageNum !== 1 && pageNum !== totalPages) {
                   return null;
                 }
-
                 return (
                   <button
                     key={pageNum}
@@ -162,7 +158,6 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
               })}
             </div>
 
-            {/* Next Button */}
             <button
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
