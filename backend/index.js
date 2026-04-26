@@ -23,7 +23,7 @@ app.use(express.json());
 
 // Professional CORS setup for Production
 app.use(cors({
-    origin: '*', // Production mein ye requests allow karega
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
