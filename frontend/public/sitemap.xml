@@ -6,7 +6,12 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://paklearners.com/categories</loc>
+    <loc>https://paklearners.com/job-updates</loc>
+    <lastmod>2026-04-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paklearners.com/past-papers</loc>
     <lastmod>2026-04-26</lastmod>
     <priority>0.8</priority>
   </url>
