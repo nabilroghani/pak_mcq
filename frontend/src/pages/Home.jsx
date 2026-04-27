@@ -36,7 +36,7 @@ export default function Home() {
 
         {<WhatsappBtn />}
       </div>
-      <div className="max-w-6xl mx-auto mb-12 px-2 md:px-6">
+      <div className="max-w-6xl mx-auto mb-12 px-0 md:px-6">
         {/* --- 2. PROFESSIONAL URDU INFO BANNER (Using Image Instead of Text) --- */}
         {/* hidden lagane se mobile par gayab ho jayega, md:block se desktop par wapis aa jayega */}
         <div className="hidden md:block max-w-6xl mx-auto mb-12 px-2 md:px-0">
@@ -81,7 +81,7 @@ export default function Home() {
 
 
         {/* --- 4. Table / Links Section (3 Columns on Desktop) --- */}
-        <div className="mb-10 overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-lg">
+        <div className="mb-10 overflow-hidden rounded-none md:rounded-3xl border-x-0 md:border border-blue-100 bg-white shadow-lg">
           <div className="bg-gradient-to-r from-cyan-500 to-blue-600 p-5 text-center">
             <h2 className="text-white font-black text-xl md:text-2xl uppercase tracking-wide">
               Most Important and Repeated MCQS From Past Papers
@@ -91,12 +91,12 @@ export default function Home() {
           <div className="p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { name: "Pak Study (1000) MCQs", path: "/category/pak-study" },
-                { name: "General Knowledge (1000) MCQs", path: "/category/General-Knowledge" },
-                { name: "Everyday Science Important MCQs", path: "/category/Everyday-Science" },
-                { name: "Islamic Study (1000) MCQs", path: "/category/Islamic-Studies" },
-                { name: "Pak & World Affairs (1000) MCQs", path: "/category/World-Current-Affairs" },
-                { name: "Computer Science (1000) MCQs", path: "/category/Computer-science" }
+                { name: "Pak Study (1000) MCQs", path: "/category/pak-study-1000-mcqs" },
+                { name: "General Knowledge (1000) MCQs", path: "/category/general-knowledge-1000-mcqs" },
+                { name: "Everyday Science Important MCQs", path: "/category/everyday-science-important-1000-mcqs" },
+                { name: "Islamic Study (1000) MCQs", path: "/category/islamic-study-1000-mcqs" },
+                { name: "Pak & World Affairs (1000) MCQs", path: "/category/pak-world-affairs-1000-mcqs" },
+                { name: "Computer Science (1000) MCQs", path: "/category/computer-science-1000-mcqs" }
               ].map((item, index) => {
 
                 // Pattern Logic: 

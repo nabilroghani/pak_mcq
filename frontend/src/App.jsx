@@ -50,7 +50,8 @@ const App = () => {
   }, [location]);
 
   const isAdminPath = location.pathname.startsWith("/admin");
-  const isCategoryPage = location.pathname.startsWith("/category/");
+  // const isCategoryPage = location.pathname.startsWith("/category/");
+  const isFullWidthPage = location.pathname === "/" || location.pathname.startsWith("/category/");
   const isUserAdmin = user?.role === "admin";
   const showAdminUI = isUserAdmin && isAdminPath;
 
@@ -67,7 +68,8 @@ const App = () => {
         )
       )}
 
-      <main className={showAdminUI ? "flex-1 h-screen overflow-y-auto" : isCategoryPage ? "w-full max-w-none mx-0 px-0 mt-0 pb-10 md:max-w-7xl md:mx-auto md:px-4 md:mt-8" : "max-w-7xl mx-auto px-4 mt-8 pb-10 w-full"}>
+      {/* <main className={showAdminUI ? "flex-1 h-screen overflow-y-auto" : isCategoryPage ? "w-full max-w-none mx-0 px-0 mt-0 pb-10 md:max-w-7xl md:mx-auto md:px-4 md:mt-8" : "max-w-7xl mx-auto px-4 mt-8 pb-10 w-full"}> */}
+      <main className={showAdminUI ? "flex-1 h-screen overflow-y-auto" : isFullWidthPage ? "w-full max-w-none mx-0 px-0 mt-0 pb-10 md:max-w-7xl md:mx-auto md:px-4 md:mt-8" : "max-w-7xl mx-auto px-4 mt-8 pb-10 w-full"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
