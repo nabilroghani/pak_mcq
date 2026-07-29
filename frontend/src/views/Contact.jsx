@@ -43,7 +43,7 @@ const Contact = () => {
       }
     } catch (err) {
       console.error("Submission Error:", err);
-      Swal.fire('Error', 'Server connection error! Please check if your backend is running.', 'error');
+      Swal.fire('Error', 'Server connections error! Please check if your backend is running.', 'error');
     }
   };
 
