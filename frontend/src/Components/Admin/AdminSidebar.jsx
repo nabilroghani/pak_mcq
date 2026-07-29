@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { 
   LuLayoutDashboard, 
   LuBookOpen, 
@@ -16,8 +19,8 @@ import {
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false); // Mobile toggle state
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const menuItems = [
     { name: 'Dashboard', icon: <LuLayoutDashboard />, path: '/admin/dashboard' },
@@ -33,7 +36,7 @@ const AdminSidebar = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    navigate('/');
+    router.push('/');
   };
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -82,10 +85,10 @@ const AdminSidebar = () => {
           {menuItems.map((item) => (
             <Link
               key={item.name}
-              to={item.path}
+              href={item.path}
               onClick={() => setIsOpen(false)} // Link click karte hi mobile menu band ho jaye
               className={`flex items-center gap-3 p-3 mb-2 rounded-lg transition-all ${
-                location.pathname === item.path 
+                pathname === item.path 
                 ? 'bg-[#1e293b] text-blue-400 border-l-4 border-blue-400' 
                 : 'hover:bg-[#111d3a] hover:text-white'
               }`}

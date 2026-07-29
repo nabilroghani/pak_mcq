@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import api from "../utils/api.js";
-import { useParams, Link } from "react-router-dom";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 
@@ -18,6 +21,7 @@ import computerScience from "../assets/10.webp";
 import english from "../assets/12.webp";
 import urdu from "../assets/13.webp";
 import math from "../assets/14.webp";
+import { imgSrc } from "../utils/imgSrc";
 
 export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
@@ -117,7 +121,7 @@ export default function MCQS_cart({ defaultSlug }) {
         {showBanner && (
           <div className="relative w-full h-[250px] md:h-[280px] rounded-none md:rounded-[2rem] overflow-hidden mb-10 shadow-2xl border-b border-x-0 md:border border-gray-100 bg-gray-100 mx-0">
             <img
-              src={bannerImages[currentCategoryLower]}
+              src={imgSrc(bannerImages[currentCategoryLower])}
               className="w-full h-full object-cover object-center"
               alt="Subject Banner"
               loading="eager"
@@ -145,7 +149,7 @@ export default function MCQS_cart({ defaultSlug }) {
                 .map((item, index) => (
                   <Link
                     key={item._id}
-                    to={`/category/${item.slug}`}
+                    href={`/category/${item.slug}`}
                     className="flex items-center gap-3 py-2.5 group border-b border-slate-50 hover:border-blue-100 transition-all"
                   >
                     <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${getDotColor(index)} shadow-sm group-hover:scale-125 transition-transform`}></div>

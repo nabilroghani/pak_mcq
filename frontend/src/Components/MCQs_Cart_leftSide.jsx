@@ -1,8 +1,10 @@
+"use client";
+
 // import api from "../utils/api";
 // import React, { useState, useEffect } from "react";
 // import { FiMessageCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
-// import { useParams, useLocation } from "react-router-dom";
-// import MCQComments from "../pages/MCQComments";
+// import { useParams, usePathname } from "next/navigation";
+// import MCQComments from "../views/MCQComments";
 
 // export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
 //   const [mcqs, setMcqs] = useState([]);
@@ -18,13 +20,13 @@
 
 //   const mcqsPerPage = 10;
 //   const { categoryName } = useParams();
-//   const location = useLocation();
+//   const pathname = usePathname();
 
 //   useEffect(() => {
 //     const fetchMCQs = async () => {
 //       try {
 //         setLoading(true);
-//         const searchParams = new URLSearchParams(location.search);
+//         const searchParams = new URLSearchParams("");
 //         const searchQuery = searchParams.get("q");
 //         const params = {};
 //         if (searchQuery) params.search = searchQuery.trim();
@@ -36,7 +38,7 @@
 //       finally { setLoading(false); }
 //     };
 //     fetchMCQs();
-//   }, [categoryName, categorySlug, location.search]);
+//   }, [categoryName, categorySlug, ""]);
 
 //   const handleOptionClick = (mcqId, label) => {
 //     if (!quizMode || userAnswers[mcqId]) return;
@@ -207,38 +209,43 @@
 //     </div>
 //   );
 // }
+"use client";
+
 import api from "../utils/api";
 import React, { useState, useEffect } from "react";
 import { FiMessageCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
-import { useParams, useLocation } from "react-router-dom";
-import MCQComments from "../pages/MCQComments";
+import { useParams } from "next/navigation";
+import MCQComments from "../views/MCQComments";
 
 export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
   const [mcqs, setMcqs] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const { categoryName } = useParams();
-  const location = useLocation();
-  const categoryKey = (categoryName || categorySlug)?.toLowerCase().trim();
-
-  // Initialize page from localStorage based on category
-  const [currentPage, setCurrentPage] = useState(() => {
-    const savedPage = localStorage.getItem(`lastPage_${categoryKey}`);
-    return savedPage ? parseInt(savedPage) : 1;
-  });
-
+  const [currentPage, setCurrentPage] = useState(1);
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [quizMode, setQuizMode] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
+  const { categoryName } = useParams();
+  const categoryKey = (categoryName || categorySlug)?.toLowerCase().trim();
   const mcqsPerPage = 10;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const q = new URLSearchParams(window.location.search).get("q") || "";
+    setSearchQuery(q);
+  }, [categoryKey]);
+
+  useEffect(() => {
+    if (!categoryKey || typeof window === "undefined") return;
+    const savedPage = localStorage.getItem(`lastPage_${categoryKey}`);
+    if (savedPage) setCurrentPage(parseInt(savedPage, 10));
+  }, [categoryKey]);
 
   useEffect(() => {
     const fetchMCQs = async () => {
       try {
         setLoading(true);
-        const searchParams = new URLSearchParams(location.search);
-        const searchQuery = searchParams.get("q");
         const params = {};
 
         if (searchQuery) params.search = searchQuery.trim();
@@ -247,9 +254,8 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
         const res = await api.get(`/mcqs/all`, { params });
         if (res.data.success) {
           setMcqs(res.data.data);
-          // Load specific saved page for this category instead of forcing page 1
           const savedPage = localStorage.getItem(`lastPage_${categoryKey}`);
-          setCurrentPage(savedPage ? parseInt(savedPage) : 1);
+          setCurrentPage(savedPage ? parseInt(savedPage, 10) : 1);
         }
       } catch (err) {
         console.error(err);
@@ -258,7 +264,7 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
       }
     };
     fetchMCQs();
-  }, [categoryName, categorySlug, location.search, categoryKey]);
+  }, [categoryName, categorySlug, categoryKey, searchQuery]);
 
   const handleOptionClick = (mcqId, label) => {
     if (!quizMode || userAnswers[mcqId]) return;
