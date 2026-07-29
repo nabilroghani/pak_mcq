@@ -1,16 +1,37 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import ClientRedirect from "@/Components/ClientRedirect";
 
 const ProtectedRoute = ({ children }) => {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user'));
+  const [ready, setReady] = useState(false);
+  const [allowed, setAllowed] = useState(false);
 
-    // Agar token nahi hai ya user admin nahi hai, to login par bhej do
-    if (!token || user?.role !== 'admin') {
-        return <Navigate to="/login" replace />;
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user") || "null");
+      setAllowed(Boolean(token && user?.role === "admin"));
+    } catch {
+      setAllowed(false);
+    } finally {
+      setReady(true);
     }
+  }, []);
 
-    return children;
+  if (!ready) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-sm text-slate-500 font-semibold">
+        Checking access…
+      </div>
+    );
+  }
+
+  if (!allowed) {
+    return <ClientRedirect to="/login" />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

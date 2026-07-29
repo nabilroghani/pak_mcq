@@ -1,6 +1,8 @@
+"use client";
+
   import api from "../utils/api";
   import React, { useState, useEffect } from "react";
-  import { Link } from "react-router-dom";
+  import Link from "next/link";
   import Title from "./Title.jsx";
   import axios from "axios";
   import { FaChevronDown, FaChevronUp, FaThList } from "react-icons/fa";
@@ -123,7 +125,7 @@
                         category.subCategories.map((sub) => (
                           <Link
                             key={sub.id}
-                            to={`/category/${sub.slug || (sub.name || "").replace(/\s+/g, "-").toLowerCase()}`}
+                            href={`/category/${sub.slug || (sub.name || "").replace(/\s+/g, "-").toLowerCase()}`}
                             onClick={() => {
                               if (window.innerWidth < 768)
                                 setIsMobileMenuOpen(false);
