@@ -140,9 +140,9 @@ export const governmentExamPillars = {
     slug: "fpsc",
     name: "FPSC",
     fullName: "Federal Public Service Commission",
-    headline: "FPSC Exam Preparation",
+    headline: "FPSC Exams in Pakistan – Complete Guide & Preparation",
     description:
-      "Prepare for Federal Public Service Commission exams with MCQs, past papers, online tests and latest job updates.",
+      "Complete guide to FPSC exams — eligibility, syllabus, exam pattern, recruitment process, past papers and preparation strategy.",
   },
   css: {
     slug: "css",
@@ -156,9 +156,9 @@ export const governmentExamPillars = {
     slug: "ppsc",
     name: "PPSC",
     fullName: "Punjab Public Service Commission",
-    headline: "PPSC Exam Preparation",
+    headline: "PPSC Exams in Pakistan – Complete Guide & Preparation",
     description:
-      "Prepare for Punjab Public Service Commission exams with focused practice material and job alerts.",
+      "Complete guide to PPSC exams — eligibility, syllabus, exam pattern, recruitment process, past papers and preparation strategy.",
   },
   pms: {
     slug: "pms",
@@ -172,9 +172,9 @@ export const governmentExamPillars = {
     slug: "kppsc",
     name: "KPPSC",
     fullName: "Khyber Pakhtunkhwa Public Service Commission",
-    headline: "KPPSC Exam Preparation",
+    headline: "KPPSC Exams in Pakistan – Complete Guide & Preparation",
     description:
-      "Prepare for KPPSC competitive exams with MCQs, past papers and online practice tests.",
+      "Complete guide to KPPSC exams — eligibility, syllabus, exam pattern, recruitment process, past papers and preparation strategy.",
   },
   etea: {
     slug: "etea",
