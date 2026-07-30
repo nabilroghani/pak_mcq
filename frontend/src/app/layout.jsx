@@ -1,6 +1,5 @@
-import { Suspense } from "react";
 import "./globals.css";
-import Analytics from "./providers";
+import GoogleAnalytics from "@/Components/GoogleAnalytics";
 import GlobalSchemas from "@/seo/GlobalSchemas";
 import { siteConfig } from "@/data/siteConfig";
 
@@ -29,14 +28,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <GlobalSchemas />
-      </head>
       <body className="antialiased">
-        <Suspense fallback={null}>
-          <Analytics />
-        </Suspense>
+        <GlobalSchemas />
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );
