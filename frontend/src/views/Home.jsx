@@ -29,9 +29,7 @@ export default function Home() {
         <WhatsappBtn />
       </div>
 
-      {/* SEO homepage sections (v3) — cards, CTAs, FAQs */}
-      <HomeSeoContent />
-
+      {/* Urdu info banner & MCQs list moved here, after the Hero section */}
       <div className="max-w-6xl mx-auto mb-12 px-0 md:px-6">
         {/* Urdu info banner — desktop */}
         <div className="hidden md:block max-w-6xl mx-auto mb-12 px-2 md:px-0">
@@ -114,7 +112,12 @@ export default function Home() {
           </span>
           <div className="h-[2px] w-[10%] bg-emerald-100" />
         </div>
+      </div>
 
+      {/* SEO homepage sections (v3) — cards, CTAs, FAQs */}
+      <HomeSeoContent />
+
+      <div className="max-w-6xl mx-auto mb-12 px-0 md:px-6">
         <MCQS_cart defaultSlug="pak-current-affairs" />
       </div>
     </div>
