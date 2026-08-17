@@ -2,8 +2,18 @@
 
 import axios from 'axios';
 
+function getBaseURL() {
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return process.env.NEXT_PUBLIC_API_BASE_URL;
+  }
+  if (typeof window !== "undefined") {
+    return "/api";
+  }
+  return "http://localhost:5000/api";
+}
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, 
+  baseURL: getBaseURL(),
 });
 api.interceptors.request.use((config) => {
     if (typeof window !== "undefined") {

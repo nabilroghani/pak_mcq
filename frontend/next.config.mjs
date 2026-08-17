@@ -12,6 +12,15 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
+  async rewrites() {
+    const apiOrigin = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api\/?$/, "") || "http://localhost:5000";
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${apiOrigin}/api/:path*`,
+      },
+    ];
+  },
   async redirects() {
     return [
       { source: "/job-updates", destination: "/jobs", permanent: true },

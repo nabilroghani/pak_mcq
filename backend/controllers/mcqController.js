@@ -107,18 +107,30 @@ exports.getAllMcqs = async (req, res) => {
         if (search && search.trim() !== "") {
             filter.question = { $regex: search, $options: 'i' };
         } 
-        // 3. Category logic (overlap fix)
+        // 3. Category logic — include child categories for parent slugs
         else if (category && category !== "undefined") {
-            // Hum complex logic ki bajaye direct category match karenge
-            // Taake Main Category aur Sub-category mix na hon
-            const cleanName = category.replace(/-/g, ' ');
-            
-            filter.category = { 
-                $in: [
-                    new RegExp(`^${category}$`, 'i'), 
-                    new RegExp(`^${cleanName}$`, 'i')
-                ] 
-            };
+            const currentCat = await Category.findOne({
+                slug: { $regex: new RegExp(`^${category}$`, 'i') }
+            });
+
+            if (currentCat) {
+                const childCategories = await Category.find({ parent: currentCat._id });
+                const allSlugs = [currentCat.slug, ...childCategories.map(c => c.slug)];
+                const allNames = [currentCat.name, ...childCategories.map(c => c.name)];
+                const combinedValues = [...allSlugs, ...allNames];
+
+                filter.category = {
+                    $in: combinedValues.map(val => new RegExp(`^${val}$`, 'i'))
+                };
+            } else {
+                const cleanName = category.replace(/-/g, ' ');
+                filter.category = {
+                    $in: [
+                        new RegExp(`^${category}$`, 'i'),
+                        new RegExp(`^${cleanName}$`, 'i')
+                    ]
+                };
+            }
         }
 
         const mcqs = await Mcq.find(filter).sort({ createdAt: -1 });
