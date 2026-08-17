@@ -225,6 +225,7 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
   const [quizMode, setQuizMode] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [fetchError, setFetchError] = useState("");
 
   const { categoryName } = useParams();
   const categoryKey = (categoryName || categorySlug)?.toLowerCase().trim();
@@ -246,10 +247,11 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
     const fetchMCQs = async () => {
       try {
         setLoading(true);
+        setFetchError("");
         const params = {};
 
         if (searchQuery) params.search = searchQuery.trim();
-        else params.category = categoryKey;
+        else if (categoryKey) params.category = categoryKey;
 
         const res = await api.get(`/mcqs/all`, { params });
         if (res.data.success) {
@@ -259,6 +261,8 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
         }
       } catch (err) {
         console.error(err);
+        setFetchError("Could not load MCQs. Make sure the backend server is running.");
+        setMcqs([]);
       } finally {
         setLoading(false);
       }
@@ -297,6 +301,19 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
           {quizMode ? "Switch MCQS Mode" : "Switch QUIZ Mode"}
         </button>
       </div>
+
+      {fetchError && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-semibold text-center">
+          {fetchError}
+        </div>
+      )}
+
+      {!fetchError && mcqs.length === 0 && (
+        <div className="mb-6 p-8 bg-gray-50 border border-gray-200 rounded-xl text-gray-500 text-center">
+          <p className="font-bold text-lg mb-1">No MCQs found</p>
+          <p className="text-sm">Try a sub-category from the list above, or check back later.</p>
+        </div>
+      )}
 
       {currentMCQs.map((item, index) => {
         const selected = userAnswers[item._id];
