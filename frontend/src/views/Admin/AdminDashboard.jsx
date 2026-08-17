@@ -86,7 +86,7 @@ const AdminDashboard = () => {
     } else {
       fetchData();
     }
-  }, [navigate]);
+  }, [router]);
 
   const handleMcqSubmit = async (e) => {
     e.preventDefault();
