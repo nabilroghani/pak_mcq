@@ -22,6 +22,37 @@ const nextConfig = {
     ];
   },
   async redirects() {
+    const examRedirects = [
+      "fpsc",
+      "ppsc",
+      "kppsc",
+      "bpsc",
+      "spsc",
+      "ajkpsc",
+      "nts",
+      "ots",
+      "etea",
+      "css",
+      "pms",
+    ].flatMap((slug) => [
+      { source: `/${slug}`, destination: `/government-exams/${slug}`, permanent: true },
+      { source: `/${slug}/`, destination: `/government-exams/${slug}`, permanent: true },
+    ]);
+
+    const kppscSubRedirects = [
+      ["syllabus", "/government-exams/kppsc/syllabus"],
+      ["past-papers", "/government-exams/kppsc/past-papers"],
+      ["mcqs", "/government-exams/kppsc/mcqs"],
+      ["jobs", "/government-exams/kppsc/jobs"],
+      ["eligibility", "/government-exams/kppsc/eligibility"],
+      ["preparation", "/government-exams/kppsc/preparation"],
+      ["online-test", "/government-exams/kppsc/online-test"],
+      ["online-tests", "/government-exams/kppsc/online-test"],
+    ].flatMap(([segment, destination]) => [
+      { source: `/kppsc/${segment}`, destination, permanent: true },
+      { source: `/kppsc/${segment}/`, destination, permanent: true },
+    ]);
+
     return [
       { source: "/job-updates", destination: "/jobs", permanent: true },
       { source: "/e-book", destination: "/study-resources/books", permanent: true },
@@ -31,6 +62,10 @@ const nextConfig = {
       { source: "/css-past-papers", destination: "/past-papers/fpsc", permanent: true },
       { source: "/css-past-papers/", destination: "/past-papers/fpsc", permanent: true },
       { source: "/admin", destination: "/admin/dashboard", permanent: false },
+      { source: "/kppsc", destination: "/government-exams/kppsc", permanent: true },
+      { source: "/kppsc/", destination: "/government-exams/kppsc", permanent: true },
+      ...examRedirects,
+      ...kppscSubRedirects,
     ];
   },
 };

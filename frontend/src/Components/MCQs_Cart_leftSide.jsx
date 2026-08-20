@@ -292,11 +292,13 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
 
   return (
     <div className={`w-full min-w-0 mx-0 px-0 ${className}`}>
-      <div className="w-full flex justify-between items-center mb-6 px-2 py-3 md:p-4 bg-white rounded-none md:rounded-xl shadow-sm border border-blue-100 mx-0">
-        <h2 className="font-bold text-slate-700 text-sm md:text-base">{quizMode ? "🎯 Quiz Mode" : "📖 Reading Mode"}</h2>
+      <div className="w-full flex justify-between items-center mb-6 px-4 py-4 md:px-6 md:py-5 bg-white rounded-none md:rounded-2xl shadow-md border border-x-0 md:border border-slate-100 mx-0">
+        <h2 className="font-black text-slate-700 text-sm md:text-base uppercase tracking-wide">
+          {quizMode ? "🎯 Quiz Mode" : "📖 Reading Mode"}
+        </h2>
         <button
           onClick={() => { setQuizMode(!quizMode); setUserAnswers({}); }}
-          className={`px-4 py-2 rounded-lg font-bold text-white text-xs md:text-sm ${quizMode ? "bg-orange-500" : "bg-blue-600"}`}
+          className={`px-5 py-2.5 rounded-xl font-bold text-white text-xs md:text-sm shadow-sm transition-all active:scale-95 ${quizMode ? "bg-orange-500 hover:bg-orange-600" : "bg-[#1565C0] hover:bg-blue-700"}`}
         >
           {quizMode ? "Switch MCQS Mode" : "Switch QUIZ Mode"}
         </button>

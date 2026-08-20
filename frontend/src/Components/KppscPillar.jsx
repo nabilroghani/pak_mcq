@@ -8,6 +8,7 @@ import {
   FaArrowRight,
   FaArrowLeft,
 } from "react-icons/fa";
+import Breadcrumbs from "@/Components/Breadcrumbs";
 import { kppscFaqs } from "@/data/kppscFaqs";
 
 const examTypes = [
@@ -270,12 +271,19 @@ function DataTable({ headers, rows }) {
 export default function KppscPillar() {
   const [openFaq, setOpenFaq] = useState(0);
 
+  const breadcrumbs = [
+    { name: "Home", path: "/" },
+    { name: "Government Exams", path: "/government-exams" },
+    { name: "KPPSC" },
+  ];
+
   return (
     <div className="bg-slate-50 text-slate-800">
       {/* Hero */}
       <div className="bg-gradient-to-br from-[#0d47a1] via-[#1565C0] to-slate-900 px-4 md:px-6 py-12 md:py-16 text-white relative overflow-hidden rounded-b-[2rem]">
         <div className="absolute top-0 right-0 w-72 h-72 bg-sky-400/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
         <div className="relative z-10 max-w-5xl mx-auto">
+          <Breadcrumbs items={breadcrumbs} variant="light" />
           <Link
             href="/government-exams"
             className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-sky-300 hover:text-white transition-colors mb-4"
@@ -286,27 +294,31 @@ export default function KppscPillar() {
             Khyber Pakhtunkhwa Public Service Commission
           </p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-4 leading-tight max-w-4xl">
-            KPPSC Exams in Pakistan – Complete Guide, Eligibility, Syllabus &amp; Preparation
+            KPPSC Exams, MCQs, Syllabus &amp; Past Papers
           </h1>
           <p className="text-blue-100/90 max-w-3xl text-sm md:text-base leading-relaxed mb-6">
-            KPPSC conducts recruitment for provincial government posts across Khyber Pakhtunkhwa —
-            from administrative and clerical roles to lecturer, medical, engineering, and specialist
-            positions. This guide brings together everything a candidate needs in one place: what
-            KPPSC actually tests, who&apos;s eligible for which post category, how the recruitment
-            process works step by step, and how to prepare without wasting time on the wrong material.
+            Prepare for Khyber Pakhtunkhwa Public Service Commission exams with post-wise MCQs,
+            past papers, syllabus guidance and job updates. Browse categories such as PMS, assistant,
+            lecturer and medical officer roles — or use the resources below for structured preparation.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Link
-              href="/mcqs/kppsc"
+              href="/category/kppsc-exams"
               className="inline-flex items-center gap-2 bg-white text-[#1565C0] text-sm font-bold px-5 py-3 rounded-xl hover:bg-blue-50"
             >
-              Start Practicing KPPSC MCQs <FaArrowRight size={11} />
+              Browse KPPSC Categories <FaArrowRight size={11} />
+            </Link>
+            <Link
+              href="/mcqs/kppsc"
+              className="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white text-sm font-bold px-5 py-3 rounded-xl hover:bg-white/20"
+            >
+              Practice KPPSC MCQs
             </Link>
             <Link
               href="/past-papers/kppsc"
               className="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white text-sm font-bold px-5 py-3 rounded-xl hover:bg-white/20"
             >
-              View KPPSC Past Papers
+              KPPSC Past Papers
             </Link>
           </div>
           <p className="text-sky-200/80 text-xs md:text-sm leading-relaxed max-w-3xl">
@@ -320,16 +332,18 @@ export default function KppscPillar() {
         {/* Quick prep links */}
         <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-5 sm:p-8">
           <h2 className="text-xs font-black uppercase tracking-[0.15em] text-slate-400 mb-4">
-            Start KPPSC Preparation
+            KPPSC Exam Resources
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {[
-              { name: "Practice KPPSC MCQs", path: "/mcqs/kppsc" },
-              { name: "KPPSC Past Papers", path: "/past-papers/kppsc" },
-              { name: "Online Tests", path: "/online-tests/kppsc" },
-              { name: "Latest Jobs", path: "/jobs" },
-              { name: "Current Affairs", path: "/current-affairs" },
-              { name: "Study Resources", path: "/study-resources" },
+              { name: "KPPSC syllabus guide", path: "/government-exams/kppsc/syllabus" },
+              { name: "KPPSC past papers", path: "/government-exams/kppsc/past-papers" },
+              { name: "Practice KPPSC MCQs", path: "/government-exams/kppsc/mcqs" },
+              { name: "Latest KPPSC jobs", path: "/government-exams/kppsc/jobs" },
+              { name: "Eligibility criteria", path: "/government-exams/kppsc/eligibility" },
+              { name: "Preparation strategy", path: "/government-exams/kppsc/preparation" },
+              { name: "KPPSC online tests", path: "/government-exams/kppsc/online-test" },
+              { name: "Browse by post category", path: "/category/kppsc-exams" },
             ].map((link) => (
               <Link
                 key={link.name}

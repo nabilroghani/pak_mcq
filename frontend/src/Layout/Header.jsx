@@ -14,6 +14,7 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import { clearAuth, getToken } from "@/utils/auth";
+import { siteSections } from "@/data/siteStructure";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -78,16 +79,10 @@ const Header = () => {
   ];
 
   // --- NEW options adjusted in ---
-  const governmentExamsLinks = [
-    { name: "FPSC", path: "/government-exams/fpsc" },
-    { name: "PPSC", path: "/government-exams/ppsc" },
-    { name: "KPPSC", path: "/government-exams/kppsc" },
-    { name: "ETEA", path: "/government-exams/etea" },
-    { name: "NTS", path: "/government-exams/nts" },
-    { name: "SPSC", path: "/government-exams/spsc" },
-    { name: "BPSC", path: "/government-exams/bpsc" },
-    { name: "AJKPSC", path: "/government-exams/ajkpsc" },
-  ];
+  const governmentExamsLinks = siteSections["government-exams"].links.map((link) => ({
+    name: link.name,
+    path: link.path,
+  }));
 
   const mcqsLinks = [
     { name: "FPSC", path: "/mcqs/fpsc" },

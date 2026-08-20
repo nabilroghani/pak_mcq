@@ -4,11 +4,24 @@ import FaqSchema from "@/seo/FaqSchema";
 import { absoluteUrl, siteConfig } from "@/data/siteConfig";
 
 export const metadata = {
-  title: "Government Exams in Pakistan – Complete Guide & Past Papers",
+  title: "Government Exams in Pakistan – FPSC, PPSC, KPPSC & More",
   description:
-    "Complete guide to government exams in Pakistan — FPSC, CSS, PPSC, NTS & more. Syllabus, eligibility, past papers and preparation tips in one place.",
+    "Prepare for FPSC, PPSC, KPPSC, CSS, PMS, NTS, OTS and provincial exams with MCQs, past papers, syllabus guides and job updates — all in one place.",
   alternates: {
     canonical: "/government-exams",
+  },
+  openGraph: {
+    title: "Government Exams in Pakistan – FPSC, PPSC, KPPSC & More | PakLearners",
+    description:
+      "Complete guide to government exams in Pakistan — FPSC, CSS, PPSC, KPPSC, NTS, OTS and more. Syllabus, eligibility, past papers and preparation tips.",
+    url: "/government-exams",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Government Exams in Pakistan | PakLearners",
+    description:
+      "FPSC, PPSC, KPPSC, CSS, PMS, NTS, OTS — MCQs, past papers, syllabus and preparation guides for Pakistani competitive exams.",
   },
 };
 
