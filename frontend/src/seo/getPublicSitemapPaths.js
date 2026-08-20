@@ -9,6 +9,7 @@ import {
   currentAffairsPillars,
   studyResourcePillars,
 } from "@/data/siteStructure";
+import { kppscSubPageList } from "@/data/kppscSubPages";
 
 /**
  * Builds the public URL list for sitemap.xml.
@@ -59,6 +60,7 @@ export function getPublicSitemapPaths() {
   const fromData = [
     ...sectionLinkPaths(),
     ...pillarPaths("/government-exams", governmentExamPillars),
+    ...kppscSubPageList.map((p) => `/government-exams/kppsc/${p.slug}`),
     ...pillarPaths("/mcqs", mcqExamPillars),
     ...pillarPaths("/past-papers", pastPaperPillars),
     ...pillarPaths("/online-tests", onlineTestPillars),

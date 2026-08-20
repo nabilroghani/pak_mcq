@@ -6,18 +6,19 @@ export const siteSections = {
     title: "Government Exams",
     headline: "Pakistan Government Exams Preparation",
     description:
-      "Prepare for FPSC, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC with focused MCQs, past papers, online tests and job updates.",
+      "Prepare for FPSC, PPSC, KPPSC, ETEA, NTS, OTS, SPSC, BPSC and AJKPSC with focused MCQs, past papers, online tests and job updates.",
     links: [
       { name: "FPSC", path: "/government-exams/fpsc", note: "Federal Public Service Commission" },
-      { name: "CSS", path: "/government-exams/css", note: "Central Superior Services" },
       { name: "PPSC", path: "/government-exams/ppsc", note: "Punjab Public Service Commission" },
-      { name: "PMS", path: "/government-exams/pms", note: "Provincial Management Service" },
       { name: "KPPSC", path: "/government-exams/kppsc", note: "Khyber Pakhtunkhwa PSC" },
-      { name: "ETEA", path: "/government-exams/etea", note: "Educational Testing & Evaluation Agency" },
-      { name: "NTS", path: "/government-exams/nts", note: "National Testing Service" },
-      { name: "SPSC", path: "/government-exams/spsc", note: "Sindh Public Service Commission" },
       { name: "BPSC", path: "/government-exams/bpsc", note: "Balochistan Public Service Commission" },
+      { name: "SPSC", path: "/government-exams/spsc", note: "Sindh Public Service Commission" },
       { name: "AJKPSC", path: "/government-exams/ajkpsc", note: "Azad Jammu & Kashmir PSC" },
+      { name: "NTS", path: "/government-exams/nts", note: "National Testing Service" },
+      { name: "OTS", path: "/government-exams/ots", note: "Open Testing Service" },
+      { name: "ETEA", path: "/government-exams/etea", note: "Educational Testing & Evaluation Agency" },
+      { name: "PMS", path: "/government-exams/pms", note: "Provincial Management Service" },
+      { name: "CSS", path: "/government-exams/css", note: "Central Superior Services" },
     ],
     related: [
       { name: "Browse MCQs", path: "/mcqs" },
@@ -215,6 +216,66 @@ export const governmentExamPillars = {
     headline: "AJKPSC Exam Preparation",
     description:
       "Prepare for AJKPSC exams with MCQs, past papers guidance and study resources.",
+  },
+  ots: {
+    slug: "ots",
+    name: "OTS",
+    fullName: "Open Testing Service",
+    headline: "OTS Tests in Pakistan – Jobs & MCQs Preparation",
+    description:
+      "Prepare for OTS recruitment and admission tests with MCQs, past papers guidance and study resources.",
+  },
+};
+
+/** Maps MCQ category slugs to government exam guide pages for SEO breadcrumbs & internal linking */
+export const examCategoryMap = {
+  "kppsc-exams": {
+    label: "KPPSC",
+    guidePath: "/government-exams/kppsc",
+    mcqsPath: "/mcqs/kppsc",
+    pastPapersPath: "/past-papers/kppsc",
+    intro:
+      "Browse KPPSC MCQs by post category — PMS, assistant, lecturer, medical officer and more. For eligibility, syllabus and preparation strategy, see our complete KPPSC exam guide.",
+  },
+  kppsc: {
+    label: "KPPSC",
+    guidePath: "/government-exams/kppsc",
+    mcqsPath: "/mcqs/kppsc",
+    pastPapersPath: "/past-papers/kppsc",
+    intro:
+      "Practice KPPSC MCQs organized by post type. Use our KPPSC guide for syllabus, eligibility and past papers alongside category-wise question practice.",
+  },
+  "fpsc-exams": {
+    label: "FPSC",
+    guidePath: "/government-exams/fpsc",
+    mcqsPath: "/mcqs/fpsc",
+    pastPapersPath: "/past-papers/fpsc",
+    intro:
+      "Practice FPSC MCQs by post category. Visit our FPSC exam guide for eligibility, syllabus and preparation resources.",
+  },
+  fpsc: {
+    label: "FPSC",
+    guidePath: "/government-exams/fpsc",
+    mcqsPath: "/mcqs/fpsc",
+    pastPapersPath: "/past-papers/fpsc",
+    intro:
+      "Practice FPSC MCQs organized by category. See our complete FPSC guide for exam pattern and preparation strategy.",
+  },
+  "ppsc-exams": {
+    label: "PPSC",
+    guidePath: "/government-exams/ppsc",
+    mcqsPath: "/mcqs/ppsc",
+    pastPapersPath: "/past-papers/ppsc",
+    intro:
+      "Browse PPSC MCQs by post category. Our PPSC exam guide covers eligibility, syllabus and past papers.",
+  },
+  ppsc: {
+    label: "PPSC",
+    guidePath: "/government-exams/ppsc",
+    mcqsPath: "/mcqs/ppsc",
+    pastPapersPath: "/past-papers/ppsc",
+    intro:
+      "Practice PPSC MCQs by category. See our PPSC guide for complete exam preparation resources.",
   },
 };
 

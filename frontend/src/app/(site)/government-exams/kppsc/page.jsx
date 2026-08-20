@@ -5,24 +5,24 @@ import { absoluteUrl, siteConfig } from "@/data/siteConfig";
 import { kppscFaqs } from "@/data/kppscFaqs";
 
 export const metadata = {
-  title: "KPPSC Exams in Pakistan – Complete Guide & Preparation",
+  title: "KPPSC Exams – MCQs, Syllabus, Past Papers & Preparation",
   description:
-    "Complete guide to KPPSC exams in Pakistan — eligibility, syllabus, exam pattern, recruitment process, past papers and preparation strategy in one place.",
+    "Prepare for KPPSC exams with post-wise MCQs, syllabus guides, past papers, eligibility info, job updates and online tests for Khyber Pakhtunkhwa government jobs.",
   alternates: {
     canonical: "/government-exams/kppsc",
   },
   openGraph: {
-    title: "KPPSC Exams in Pakistan – Complete Guide, Eligibility & Preparation",
+    title: "KPPSC Exams – MCQs, Syllabus, Past Papers & Preparation | PakLearners",
     description:
-      "Everything you need to know about KPPSC exams — eligibility criteria, exam pattern, syllabus, recruitment process, past papers and a structured preparation strategy.",
+      "Complete KPPSC preparation — MCQs by post category, syllabus, past papers, eligibility, jobs and online tests for Khyber Pakhtunkhwa competitive exams.",
     url: "/government-exams/kppsc",
     type: "article",
   },
   twitter: {
     card: "summary_large_image",
-    title: "KPPSC Exams in Pakistan – Complete Preparation Guide",
+    title: "KPPSC Exams – MCQs, Syllabus & Past Papers | PakLearners",
     description:
-      "Eligibility, syllabus, exam pattern, recruitment process, past papers & preparation strategy for KPPSC exams — all in one guide.",
+      "KPPSC MCQs, syllabus, past papers, eligibility and preparation resources for Khyber Pakhtunkhwa government exams.",
   },
 };
 
@@ -36,7 +36,7 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "KPPSC Exams in Pakistan – Complete Guide, Eligibility, Syllabus & Preparation",
+          name: "KPPSC Exams, MCQs, Syllabus & Past Papers",
           url: pageUrl,
           about: { "@type": "Thing", name: "KPPSC Exams in Pakistan" },
           description:
@@ -49,8 +49,7 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "Article",
-          headline:
-            "KPPSC Exams in Pakistan – Complete Guide, Eligibility, Syllabus & Preparation",
+          headline: "KPPSC Exams, MCQs, Syllabus & Past Papers",
           author: {
             "@type": "Organization",
             name: "PakLearners Editorial Team",

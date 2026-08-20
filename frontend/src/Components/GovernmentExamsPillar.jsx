@@ -12,6 +12,7 @@ import {
   FaShieldAlt,
   FaUserGraduate,
 } from "react-icons/fa";
+import Breadcrumbs from "@/Components/Breadcrumbs";
 import { siteSections } from "@/data/siteStructure";
 
 const prepSteps = [
@@ -157,6 +158,13 @@ export default function GovernmentExamsPillar() {
       <div className="bg-gradient-to-br from-[#0d47a1] via-[#1565C0] to-slate-900 px-4 md:px-6 py-12 md:py-16 text-white relative overflow-hidden rounded-b-[2rem]">
         <div className="absolute top-0 right-0 w-72 h-72 bg-sky-400/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
         <div className="relative z-10 max-w-5xl mx-auto">
+          <Breadcrumbs
+            items={[
+              { name: "Home", path: "/" },
+              { name: "Government Exams" },
+            ]}
+            variant="light"
+          />
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-sky-300 mb-3">
             Pak Learners · Government Exams
           </p>
