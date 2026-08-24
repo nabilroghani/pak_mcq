@@ -4,6 +4,7 @@ import api from "../utils/api";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaChevronDown, FaChevronUp, FaThList } from "react-icons/fa";
+import { mainSubjectFallback } from "../data/kppscExamCategories";
 
 const idStr = (id) => (id ? String(id) : null);
 
@@ -145,7 +146,20 @@ export default function MCQs_cart_RightSide({ className = "" }) {
               </div>
             ))
           ) : (
-            <p className="text-gray-400 text-xs text-center py-6">No categories found.</p>
+            <div className="flex flex-col gap-1">
+              {mainSubjectFallback.map((subject) => (
+                <Link
+                  key={subject.slug}
+                  href={`/category/${subject.slug}`}
+                  onClick={() => {
+                    if (!isDesktop) setIsMobileMenuOpen(false);
+                  }}
+                  className="px-4 py-2.5 text-gray-700 text-[12px] font-bold hover:text-[#1565C0] hover:bg-blue-50 rounded-xl transition-all"
+                >
+                  {subject.name}
+                </Link>
+              ))}
+            </div>
           )}
         </div>
       </div>

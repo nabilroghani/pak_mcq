@@ -9,6 +9,7 @@ import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 import Breadcrumbs from "./Breadcrumbs.jsx";
 import { examCategoryMap } from "../data/siteStructure";
+import { kppscExamCategories } from "../data/kppscExamCategories";
 import { imgSrc } from "../utils/imgSrc";
 
 import pakCurrentAffairs from "../assets/1.webp";
@@ -24,10 +25,13 @@ import computerScience from "../assets/10.webp";
 import english from "../assets/12.webp";
 import urdu from "../assets/13.webp";
 import math from "../assets/14.webp";
+import kppscBanner from "../assets/kppsc.png";
 
 const idStr = (id) => (id ? String(id) : null);
 
 const bannerImages = {
+  "kppsc-exams": kppscBanner,
+  kppsc: kppscBanner,
   "pak-current-affairs": pakCurrentAffairs,
   "general-knowledge": GK,
   gk: GK,
@@ -63,6 +67,8 @@ const subjectMap = {
   math: "Mathematics",
 };
 
+const KPPSC_SLUGS = new Set(["kppsc-exams", "kppsc"]);
+
 function getDotColor(index) {
   const col = index % 3;
   if (col === 0) return "bg-emerald-500";
@@ -74,19 +80,21 @@ export default function MCQS_cart({ defaultSlug }) {
   const { categoryName } = useParams();
   const [subCats, setSubCats] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [quizMode, setQuizMode] = useState(false);
 
   const activeSlug = categoryName || defaultSlug || "pak-current-affairs";
-  const currentCategoryLower = categoryName?.toLowerCase();
-  const bannerImage = currentCategoryLower ? bannerImages[currentCategoryLower] : null;
-  const examContext = currentCategoryLower ? examCategoryMap[currentCategoryLower] : null;
+  const slugLower = activeSlug?.toLowerCase();
+  const bannerImage = slugLower ? bannerImages[slugLower] : null;
+  const examContext = slugLower ? examCategoryMap[slugLower] : null;
+  const isExamCategory = Boolean(examContext);
 
   const getSubjectName = () => {
-    if (!categoryName) return "Latest MCQs";
     if (examContext) return `${examContext.label} Exams`;
-    const cleanSlug = categoryName.toLowerCase().trim();
+    if (!categoryName && !defaultSlug) return "Latest MCQs";
+    const cleanSlug = (categoryName || defaultSlug).toLowerCase().trim();
     return (
       subjectMap[cleanSlug] ||
-      categoryName.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
+      (categoryName || defaultSlug).replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
     );
   };
 
@@ -96,6 +104,15 @@ export default function MCQS_cart({ defaultSlug }) {
   };
 
   const subjectName = getSubjectName();
+  const displaySubCats =
+    subCats.length > 0
+      ? subCats
+      : KPPSC_SLUGS.has(slugLower)
+        ? kppscExamCategories
+        : [];
+  const showExamCategoryGrid = isExamCategory && displaySubCats.length > 0;
+  const showMcqSection = !showExamCategoryGrid;
+  const bannerHasTitle = isExamCategory && Boolean(bannerImage);
 
   const breadcrumbItems = examContext
     ? [
@@ -114,7 +131,7 @@ export default function MCQS_cart({ defaultSlug }) {
 
   useEffect(() => {
     const fetchSubCategories = async () => {
-      if (!categoryName) {
+      if (!activeSlug) {
         setSubCats([]);
         setLoading(false);
         return;
@@ -125,7 +142,7 @@ export default function MCQS_cart({ defaultSlug }) {
       try {
         const res = await api.get("/categories/all");
         const currentCat = res.data.find(
-          (c) => c.slug.toLowerCase() === categoryName.toLowerCase()
+          (c) => c.slug.toLowerCase() === activeSlug.toLowerCase()
         );
 
         if (currentCat) {
@@ -152,7 +169,7 @@ export default function MCQS_cart({ defaultSlug }) {
     };
 
     fetchSubCategories();
-  }, [categoryName]);
+  }, [activeSlug]);
 
   return (
     <div className="min-h-screen bg-slate-50 w-full">
@@ -163,28 +180,40 @@ export default function MCQS_cart({ defaultSlug }) {
           {bannerImage ? (
             <img
               src={imgSrc(bannerImage)}
-              className="w-full h-full object-cover object-center"
+              className={`w-full h-full object-cover ${isExamCategory ? "object-top" : "object-center"}`}
               alt={`${subjectName} banner`}
               loading="eager"
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-[#0d47a1] via-[#1565C0] to-slate-900" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-6 md:p-10">
+          <div
+            className={`absolute inset-0 flex items-end p-6 md:p-10 ${
+              bannerHasTitle
+                ? "bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none"
+                : "bg-gradient-to-t from-black/85 via-black/30 to-transparent"
+            }`}
+          >
             <div className="w-full">
-              <div className="mb-3">
-                <Breadcrumbs items={breadcrumbItems} variant="light" />
-              </div>
-              <p className="text-orange-300 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] mb-2">
-                Pak Learners
-              </p>
-              <h1 className="text-white text-2xl md:text-5xl font-black drop-shadow-2xl uppercase tracking-tight leading-tight">
-                {subjectName}
-              </h1>
-              <p className="text-white/75 text-xs md:text-sm font-bold uppercase tracking-[0.15em] mt-2">
-                {getHeroSubtitle()}
-              </p>
-              {examContext && (
+              {!isExamCategory && (
+                <div className="mb-3">
+                  <Breadcrumbs items={breadcrumbItems} variant="light" />
+                </div>
+              )}
+              {!bannerHasTitle && (
+                <>
+                  <h1 className="text-white text-2xl md:text-5xl font-black drop-shadow-2xl uppercase tracking-tight leading-tight">
+                    {subjectName}
+                  </h1>
+                  <p className="text-white/75 text-xs md:text-sm font-bold uppercase tracking-[0.15em] mt-2">
+                    {getHeroSubtitle()}
+                  </p>
+                </>
+              )}
+              {bannerHasTitle && (
+                <h1 className="sr-only">{subjectName} — {getHeroSubtitle()}</h1>
+              )}
+              {examContext && !isExamCategory && (
                 <p className="text-white/80 text-xs md:text-sm leading-relaxed mt-3 max-w-2xl normal-case font-medium">
                   {examContext.intro}{" "}
                   <Link href={examContext.guidePath} className="font-bold text-sky-200 hover:text-white underline">
@@ -205,31 +234,49 @@ export default function MCQS_cart({ defaultSlug }) {
           <div className="w-full min-w-0 mx-0 px-0 lg:col-span-8 space-y-6">
 
             {/* Sub-Categories Grid */}
-            {categoryName && !loading && subCats.length > 0 && (
+            {!loading && displaySubCats.length > 0 && (
               <div className="bg-white rounded-none md:rounded-3xl shadow-xl border border-x-0 md:border border-slate-100 overflow-hidden mx-0">
-                <div className="flex items-center gap-3 px-5 md:px-8 py-5 border-b border-slate-100 bg-white">
-                  <div className="p-2.5 bg-blue-50 rounded-xl shrink-0">
-                    <LuBookOpen className="text-[#1565C0]" size={20} />
+                <div className="flex items-center justify-between gap-3 px-5 md:px-8 py-5 border-b border-slate-100 bg-white">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="p-2.5 bg-blue-50 rounded-xl shrink-0">
+                      <LuBookOpen className="text-[#1565C0]" size={20} />
+                    </div>
+                    <h2 className="text-slate-800 font-black uppercase tracking-wide text-sm md:text-base truncate">
+                      {examContext ? `${examContext.label} Exam Categories` : `${subjectName} Categories`}
+                    </h2>
                   </div>
-                  <h2 className="text-slate-800 font-black uppercase tracking-wide text-sm md:text-base">
-                    {examContext ? `${examContext.label} Exam Categories` : `${subjectName} Categories`}
-                  </h2>
+                  {isExamCategory && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuizMode(!quizMode);
+                        if (showMcqSection) {
+                          setTimeout(() => {
+                            document.getElementById("mcq-practice-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }, 100);
+                        }
+                      }}
+                      className={`shrink-0 px-4 py-2 rounded-xl font-bold text-white text-xs md:text-sm shadow-sm transition-all active:scale-95 ${quizMode ? "bg-orange-500 hover:bg-orange-600" : "bg-[#1565C0] hover:bg-blue-700"}`}
+                    >
+                      {quizMode ? "Switch MCQS Mode" : "Switch QUIZ Mode"}
+                    </button>
+                  )}
                 </div>
 
-                <div className="px-4 py-4 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-1">
-                  {[...subCats]
+                <div className="px-4 py-4 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-1 bg-slate-50/80">
+                  {[...displaySubCats]
                     .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                     .map((item, index) => (
                       <Link
                         key={item._id}
                         href={`/category/${item.slug}`}
-                        className="flex items-center gap-3 py-3 px-2 rounded-xl group hover:bg-slate-50 border-b border-slate-50 last:border-0 transition-all"
+                        className="flex items-center gap-3 py-3 px-2 rounded-xl group hover:bg-white border-b border-slate-100/80 last:border-0 transition-all"
                       >
                         <div
                           className={`w-2.5 h-2.5 rounded-full shrink-0 ${getDotColor(index)} shadow-sm group-hover:scale-125 transition-transform`}
                         />
                         <span className="text-slate-700 font-bold text-[13px] md:text-[14px] flex-1 leading-tight group-hover:text-[#1565C0]">
-                          {item.name} MCQs
+                          {isExamCategory ? item.name : `${item.name} MCQs`}
                         </span>
                         <LuChevronRight
                           size={16}
@@ -238,17 +285,45 @@ export default function MCQS_cart({ defaultSlug }) {
                       </Link>
                     ))}
                 </div>
+
+                {examContext && (
+                  <div className="px-4 pb-4 md:px-8 md:pb-6 bg-slate-50/80">
+                    <Link
+                      href={examContext.pastPapersPath}
+                      className="flex items-center gap-3 py-3 px-2 rounded-xl group hover:bg-white transition-all"
+                    >
+                      <div className="w-2.5 h-2.5 rounded-full shrink-0 bg-purple-500 shadow-sm group-hover:scale-125 transition-transform" />
+                      <span className="text-slate-700 font-bold text-[13px] md:text-[14px] flex-1 leading-tight group-hover:text-[#1565C0]">
+                        All {examContext.label} Past Papers
+                      </span>
+                      <LuChevronRight
+                        size={16}
+                        className="text-slate-300 group-hover:text-[#1565C0] shrink-0 transition-colors"
+                      />
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
 
-            {categoryName && loading && (
+            {loading && (
               <div className="bg-white rounded-2xl border border-slate-100 p-8 text-center text-slate-400 text-sm animate-pulse">
                 Loading categories…
               </div>
             )}
 
-            {/* MCQ List */}
-            <MCQs_Cart_leftSide key={activeSlug} categorySlug={activeSlug} />
+            {/* MCQ List — hidden on exam hub pages that show post categories */}
+            {showMcqSection && (
+              <div id="mcq-practice-section">
+                <MCQs_Cart_leftSide
+                  key={activeSlug}
+                  categorySlug={activeSlug}
+                  quizMode={quizMode}
+                  setQuizMode={setQuizMode}
+                  hideModeBar={isExamCategory}
+                />
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-4 w-full lg:sticky lg:top-[100px] px-0 md:px-0">
