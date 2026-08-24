@@ -217,15 +217,28 @@ import { FiMessageCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { useParams } from "next/navigation";
 import MCQComments from "../views/MCQComments";
 
-export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
+export default function MCQs_Cart_leftSide({
+  className = "",
+  categorySlug,
+  quizMode: externalQuizMode,
+  setQuizMode: externalSetQuizMode,
+  hideModeBar = false,
+}) {
   const [mcqs, setMcqs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeCommentId, setActiveCommentId] = useState(null);
-  const [quizMode, setQuizMode] = useState(false);
+  const [internalQuizMode, setInternalQuizMode] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [fetchError, setFetchError] = useState("");
+
+  const quizMode = externalQuizMode ?? internalQuizMode;
+  const setQuizMode = externalSetQuizMode ?? setInternalQuizMode;
+
+  useEffect(() => {
+    setUserAnswers({});
+  }, [quizMode]);
 
   const { categoryName } = useParams();
   const categoryKey = (categoryName || categorySlug)?.toLowerCase().trim();
@@ -292,17 +305,19 @@ export default function MCQs_Cart_leftSide({ className = "", categorySlug }) {
 
   return (
     <div className={`w-full min-w-0 mx-0 px-0 ${className}`}>
-      <div className="w-full flex justify-between items-center mb-6 px-4 py-4 md:px-6 md:py-5 bg-white rounded-none md:rounded-2xl shadow-md border border-x-0 md:border border-slate-100 mx-0">
-        <h2 className="font-black text-slate-700 text-sm md:text-base uppercase tracking-wide">
-          {quizMode ? "🎯 Quiz Mode" : "📖 Reading Mode"}
-        </h2>
-        <button
-          onClick={() => { setQuizMode(!quizMode); setUserAnswers({}); }}
-          className={`px-5 py-2.5 rounded-xl font-bold text-white text-xs md:text-sm shadow-sm transition-all active:scale-95 ${quizMode ? "bg-orange-500 hover:bg-orange-600" : "bg-[#1565C0] hover:bg-blue-700"}`}
-        >
-          {quizMode ? "Switch MCQS Mode" : "Switch QUIZ Mode"}
-        </button>
-      </div>
+      {!hideModeBar && (
+        <div className="w-full flex justify-between items-center mb-6 px-4 py-4 md:px-6 md:py-5 bg-white rounded-none md:rounded-2xl shadow-md border border-x-0 md:border border-slate-100 mx-0">
+          <h2 className="font-black text-slate-700 text-sm md:text-base uppercase tracking-wide">
+            {quizMode ? "🎯 Quiz Mode" : "📖 Reading Mode"}
+          </h2>
+          <button
+            onClick={() => { setQuizMode(!quizMode); setUserAnswers({}); }}
+            className={`px-5 py-2.5 rounded-xl font-bold text-white text-xs md:text-sm shadow-sm transition-all active:scale-95 ${quizMode ? "bg-orange-500 hover:bg-orange-600" : "bg-[#1565C0] hover:bg-blue-700"}`}
+          >
+            {quizMode ? "Switch MCQS Mode" : "Switch QUIZ Mode"}
+          </button>
+        </div>
+      )}
 
       {fetchError && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-semibold text-center">

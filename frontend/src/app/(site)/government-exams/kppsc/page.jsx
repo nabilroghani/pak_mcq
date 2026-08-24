@@ -1,6 +1,5 @@
-import KppscPillar from "@/Components/KppscPillar";
-import JsonLd from "@/seo/JsonLd";
-import FaqSchema from "@/seo/FaqSchema";
+import MCQS_cart from "@/Components/MCQS_cart";
+import JsonLd from "@/seo/JsonLd";import FaqSchema from "@/seo/FaqSchema";
 import { absoluteUrl, siteConfig } from "@/data/siteConfig";
 import { kppscFaqs } from "@/data/kppscFaqs";
 
@@ -116,7 +115,7 @@ export default function KppscExamPage() {
         }}
       />
       <FaqSchema id="schema-faq-kppsc" faqs={kppscFaqs} />
-      <KppscPillar />
+      <MCQS_cart defaultSlug="kppsc-exams" />
     </>
   );
 }

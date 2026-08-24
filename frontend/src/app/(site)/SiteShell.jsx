@@ -8,7 +8,9 @@ import Footer from "@/Layout/Footer";
 export default function SiteShell({ children }) {
   const pathname = usePathname();
   const isFullWidth =
-    pathname === "/" || pathname.startsWith("/category/");
+    pathname === "/" ||
+    pathname.startsWith("/category/") ||
+    pathname === "/government-exams/kppsc";
 
   return (
     <div className="min-h-screen bg-gray-50">
