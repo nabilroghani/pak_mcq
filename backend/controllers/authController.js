@@ -17,7 +17,7 @@ exports.register = async (req, res) => {
         user = new User({ name, email, password: hashedPassword });
         await user.save();
 
-        res.status(201).json({ success: true, message: "Registration successful!" });
+        res.status(201).json({ success: true, message: "Registrations successful!" });
     } catch (err) {
         res.status(500).json({ success: false, message: "Server Error" });
     }
