@@ -10,6 +10,7 @@ import {
   studyResourcePillars,
 } from "@/data/siteStructure";
 import { kppscSubPageList } from "@/data/kppscSubPages";
+import { blogPostList } from "@/data/blogPosts";
 
 /**
  * Builds the public URL list for sitemap.xml.
@@ -61,6 +62,7 @@ export function getPublicSitemapPaths() {
     ...sectionLinkPaths(),
     ...pillarPaths("/government-exams", governmentExamPillars),
     ...kppscSubPageList.map((p) => `/government-exams/kppsc/${p.slug}`),
+    ...blogPostList.map((p) => `/blog/${p.slug}`),
     ...pillarPaths("/mcqs", mcqExamPillars),
     ...pillarPaths("/past-papers", pastPaperPillars),
     ...pillarPaths("/online-tests", onlineTestPillars),
