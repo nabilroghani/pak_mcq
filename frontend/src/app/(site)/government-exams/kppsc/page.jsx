@@ -1,27 +1,29 @@
 import MCQS_cart from "@/Components/MCQS_cart";
-import JsonLd from "@/seo/JsonLd";import FaqSchema from "@/seo/FaqSchema";
+import KppscExamPrepContent from "@/Components/KppscExamPrepContent";
+import JsonLd from "@/seo/JsonLd";
+import FaqSchema from "@/seo/FaqSchema";
 import { absoluteUrl, siteConfig } from "@/data/siteConfig";
 import { kppscFaqs } from "@/data/kppscFaqs";
 
 export const metadata = {
-  title: "KPPSC Exams – MCQs, Syllabus, Past Papers & Preparation",
+  title: "KPPSC Exam Preparation – MCQs & Past Papers",
   description:
-    "Prepare for KPPSC exams with post-wise MCQs, syllabus guides, past papers, eligibility info, job updates and online tests for Khyber Pakhtunkhwa government jobs.",
+    "KPPSC exam preparation with free MCQs, past papers & subject-wise tests for PMS, Assistant, Tehsildar, Patwari & other KPPSC posts on PakLearners.",
   alternates: {
     canonical: "/government-exams/kppsc",
   },
   openGraph: {
-    title: "KPPSC Exams – MCQs, Syllabus, Past Papers & Preparation | PakLearners",
+    title: "KPPSC Exam Preparation – MCQs & Past Papers | PakLearners",
     description:
-      "Complete KPPSC preparation — MCQs by post category, syllabus, past papers, eligibility, jobs and online tests for Khyber Pakhtunkhwa competitive exams.",
+      "KPPSC exam preparation with free MCQs, past papers & subject-wise tests for PMS, Assistant, Tehsildar, Patwari & other KPPSC posts on PakLearners.",
     url: "/government-exams/kppsc",
     type: "article",
   },
   twitter: {
     card: "summary_large_image",
-    title: "KPPSC Exams – MCQs, Syllabus & Past Papers | PakLearners",
+    title: "KPPSC Exam Preparation – MCQs & Past Papers | PakLearners",
     description:
-      "KPPSC MCQs, syllabus, past papers, eligibility and preparation resources for Khyber Pakhtunkhwa government exams.",
+      "KPPSC exam preparation with free MCQs, past papers & subject-wise tests for PMS, Assistant, Tehsildar, Patwari & other KPPSC posts.",
   },
 };
 
@@ -35,11 +37,11 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "KPPSC Exams, MCQs, Syllabus & Past Papers",
+          name: "KPPSC Exam Preparation – MCQs & Past Papers",
           url: pageUrl,
-          about: { "@type": "Thing", name: "KPPSC Exams in Pakistan" },
+          about: { "@type": "Thing", name: "KPPSC Exam Preparation" },
           description:
-            "Complete guide to KPPSC exams in Pakistan — eligibility, syllabus, exam pattern, recruitment process, past papers and preparation strategy.",
+            "KPPSC exam preparation with free MCQs, past papers and subject-wise tests for PMS, Assistant, Tehsildar, Patwari and other KPPSC posts.",
           isPartOf: { "@id": absoluteUrl("/#organization") },
         }}
       />
@@ -48,7 +50,7 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: "KPPSC Exams, MCQs, Syllabus & Past Papers",
+          headline: "KPPSC Exam Preparation – MCQs & Past Papers",
           author: {
             "@type": "Organization",
             name: "PakLearners Editorial Team",
@@ -65,7 +67,7 @@ export default function KppscExamPage() {
           datePublished: "2026-07-01",
           dateModified: "2026-07-30",
           mainEntityOfPage: pageUrl,
-          about: "KPPSC Exams in Pakistan",
+          about: "KPPSC Exam Preparation 2026",
         }}
       />
       <JsonLd
@@ -73,9 +75,9 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "LearningResource",
-          name: "KPPSC Exams in Pakistan – Complete Preparation Guide",
+          name: "KPPSC Exam Preparation – MCQs & Past Papers",
           description:
-            "Educational guide covering KPPSC exam types, eligibility, recruitment process, syllabus, preparation strategy, past papers and FAQs.",
+            "KPPSC exam preparation with free MCQs, past papers, subject-wise tests and online mock tests for PMS, Assistant, Tehsildar, Patwari and other KPPSC posts.",
           learningResourceType: "Guide",
           educationalLevel: "Adult education",
           inLanguage: "en",
@@ -116,6 +118,7 @@ export default function KppscExamPage() {
       />
       <FaqSchema id="schema-faq-kppsc" faqs={kppscFaqs} />
       <MCQS_cart defaultSlug="kppsc-exams" />
+      <KppscExamPrepContent />
     </>
   );
 }
