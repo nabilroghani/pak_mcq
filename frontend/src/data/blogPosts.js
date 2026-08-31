@@ -18,6 +18,8 @@ export const blogPosts = {
     dateModified: "2026-08-27",
     readTime: "18 min read",
     author: "PakLearners Editorial Team",
+    coverVariant: "study-plan",
+    imageAlt: "KPPSC exam preparation study plan 2026 guide",
     intro:
       "Start by identifying your target post, downloading the relevant syllabus, and building a study schedule around three things: concept study, MCQ practice, and past paper analysis. Everything else in KPPSC preparation is a variation of this core routine. This guide walks through exactly how to build that routine, adapt it to your available time, and avoid the mistakes that slow most candidates down.",
     lead:

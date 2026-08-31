@@ -59,7 +59,7 @@ export const siteSections = {
     links: [
       { name: "FPSC Tests", path: "/online-tests/fpsc", note: "Federal Public Service Commission" },
       { name: "PPSC Tests", path: "/online-tests/ppsc", note: "Punjab Public Service Commission" },
-      { name: "KPPSC Tests", path: "/online-tests/kppsc", note: "Khyber Pakhtunkhwa PSC" },
+      { name: "KPPSC Tests", path: "/government-exams/kppsc/online-tests", note: "Khyber Pakhtunkhwa PSC" },
       { name: "ETEA Tests", path: "/online-tests/etea", note: "Educational Testing & Evaluation Agency" },
       { name: "NTS Tests", path: "/online-tests/nts", note: "National Testing Service" },
       { name: "SPSC Tests", path: "/online-tests/spsc", note: "Sindh Public Service Commission" },

@@ -1,43 +1,43 @@
 /** FAQ data for KPPSC Past Papers page — shared by UI accordion and FAQPage schema */
 export const kppscPastPapersFaqs = [
   {
+    q: "What are KPPSC past papers?",
+    a: "KPPSC past papers are written-test question papers from previous examinations conducted by the Khyber Pakhtunkhwa Public Service Commission, covering exams like PMS, judicial branch posts, police recruitment, and general administrative posts. They show candidates how questions have actually been asked in real KPPSC exams, helping with pattern recognition and preparation planning.",
+  },
+  {
     q: "Where can I find KPPSC past papers?",
-    a: "KPPSC past papers can be found on this page, organized by year and by post/examination as resources become available. You can also check the official KPPSC website for any papers or sample material it has published directly.",
+    a: "KPPSC past papers can be sourced from the official KPPSC website's past-paper archive, previous exam records, and dedicated preparation platforms like PakLearners, which organizes papers by exam, post, and subject. Always confirm a paper's authenticity and relevance to your specific post before relying on it heavily.",
   },
   {
-    q: "How can I download KPPSC past papers PDF?",
-    a: "Select your examination or post, choose the relevant year, and open the paper listed on this page. Where a PDF has been made available, you can download and save it for offline practice; not every paper is currently available in PDF format.",
+    q: "Are KPPSC past papers available in PDF?",
+    a: "PDF format is commonly used for KPPSC past papers because it supports offline study, printing, and annotation. Availability depends on which papers have been published for a specific post or exam. As PakLearners' resource library grows, this page will be updated with downloadable papers as they become available.",
   },
   {
-    q: "Are KPPSC past papers available by year?",
-    a: "Yes, past papers on this page are organized in a year-wise structure to help you track how question patterns have evolved over time. Availability depends on which years have been published; check back as more resources are added.",
+    q: "Are KPPSC past papers useful for exam preparation?",
+    a: "Yes — past papers are one of the most valuable preparation tools because they reflect real exam patterns, question style, and difficulty for a given post. They don't guarantee repeated questions, but they help candidates prioritize topics, manage exam-time pressure, and identify weak areas well before test day.",
+  },
+  {
+    q: "How should I prepare with KPPSC past papers?",
+    a: "Start by confirming your exact exam or post's current syllabus, then attempt recent, relevant papers under timed conditions before checking answers. Record mistakes, focus revision on weak topics, and combine past-paper practice with regular MCQs and mock tests for a complete preparation routine.",
+  },
+  {
+    q: "Are KPPSC past papers available subject-wise?",
+    a: "KPPSC past papers can generally be organized by subject, such as General Knowledge, Pakistan Affairs, English, Islamic Studies, and post-specific professional subjects. Which subjects matter most to you depends heavily on the specific exam and post category you're targeting.",
   },
   {
     q: "Where can I find KPPSC PMS past papers?",
-    a: "PMS past papers are listed under the dedicated PMS section on this page, covering both compulsory and optional subject papers where available. Since PMS has a distinct exam structure, always confirm you're using papers specific to PMS rather than general KPPSC papers.",
+    a: "KPPSC PMS past papers can be found through the official KPPSC past-paper archive and on preparation platforms like PakLearners, which organizes PMS-related content alongside general KPPSC resources. Since PMS involves multiple stages, it helps to confirm which stage a given past paper corresponds to before studying it.",
   },
   {
-    q: "Are KPPSC previous papers useful for preparation?",
-    a: "Yes, previous papers are extremely useful for understanding real question patterns, identifying frequently tested topics, and practicing under exam-like conditions. They work best when combined with syllabus-based study rather than used as the only preparation resource.",
+    q: "Can solved KPPSC past papers help with preparation?",
+    a: "Yes, solved past papers are useful for checking your answers, understanding mistakes, and reinforcing concepts during revision. Unsolved papers, by comparison, are better suited to timed self-testing. Using both at different stages of preparation gives a more complete picture of your readiness.",
   },
   {
-    q: "How many years of KPPSC past papers should I solve?",
-    a: "There's no fixed number, but solving papers from at least the past 3 to 5 years, where available, generally gives a good sense of recurring patterns and question difficulty. Focus on quality of analysis over sheer quantity of papers attempted.",
+    q: "How many KPPSC past papers should I practice?",
+    a: "There's no fixed universal number — it depends on your exam type, post, syllabus, and available preparation time. A practical strategy is to prioritize recent and relevant papers for your specific exam first, then expand to older papers for broader pattern analysis as time allows.",
   },
   {
-    q: "Should I prepare from past papers or the KPPSC syllabus first?",
-    a: "Start with the syllabus to understand what topics are relevant to your post, then use past papers to see how those topics are actually tested. Preparing in this order avoids wasted effort on topics that aren't part of your current syllabus.",
-  },
-  {
-    q: "Are KPPSC past papers repeated?",
-    a: "KPPSC does not guarantee that exact questions repeat from year to year, though certain concepts and topic areas may reappear in different forms. Treat past papers as a guide to patterns and difficulty level rather than a guaranteed prediction of future questions.",
-  },
-  {
-    q: "How can I solve KPPSC past papers effectively?",
-    a: "Solve papers under timed conditions without checking answers midway, then review every mistake carefully to understand what went wrong. Keep a running list of recurring topics and revisit difficult questions periodically using spaced revision.",
-  },
-  {
-    q: "Can I use KPPSC past papers for screening test preparation?",
-    a: "Yes, past papers are useful for screening test preparation as well, since many screening tests are MCQ-based and benefit from the same pattern-recognition and timed-practice approach used for written test preparation. Always confirm the paper you're using matches the format of your specific screening test.",
+    q: "Are KPPSC past papers the same for every post?",
+    a: "No. KPPSC exams are frequently post-specific, meaning subjects, weightage, and format can differ significantly between posts — for example, a Lecturer post typically emphasizes subject-specific knowledge, while a general Assistant post leans more toward general knowledge and administrative topics. Always check the official advertisement for your exact post.",
   },
 ];

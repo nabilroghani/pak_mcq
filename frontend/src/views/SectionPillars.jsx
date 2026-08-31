@@ -1,3 +1,5 @@
+"use client";
+
 import TopicPillar from "./TopicPillar";
 import {
   pastPaperPillars,

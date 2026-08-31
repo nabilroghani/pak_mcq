@@ -168,7 +168,11 @@ export default function KppscExamPrepContent() {
             />
           </div>
           <p className="text-sm md:text-[15px] text-slate-600 leading-relaxed mt-5">
-            Stay updated with the latest developments relevant to your test by regularly reviewing our{" "}
+            Browse post-wise and subject-wise{" "}
+            <Link href="/government-exams/kppsc/online-tests" className="font-bold text-[#1565C0] hover:underline">
+              KPPSC online tests
+            </Link>{" "}
+            on PakLearners, and stay updated with the latest developments relevant to your test by regularly reviewing our{" "}
             <Link href="/mcqs/current-affairs" className="font-bold text-[#1565C0] hover:underline">
               Current Affairs MCQs
             </Link>

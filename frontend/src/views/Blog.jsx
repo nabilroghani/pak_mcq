@@ -14,22 +14,21 @@ import {
   FaFileAlt,
 } from "react-icons/fa";
 import Breadcrumbs from "@/Components/Breadcrumbs";
+import BlogCoverArt, { getBlogCoverVariant } from "@/Components/BlogCoverArt";
 import { blogPostList } from "@/data/blogPosts";
 
 const categories = ["All", "KPPSC Preparation"];
 
 const cardAccents = {
   "KPPSC Preparation": {
-    gradient: "from-[#0d47a1] via-[#1565C0] to-indigo-700",
     icon: FaGraduationCap,
     glow: "group-hover:shadow-blue-200/60",
-    badge: "bg-orange-400/20 text-orange-200 border-orange-300/30",
+    badge: "bg-orange-400/90 text-white border-orange-300/50",
   },
   default: {
-    gradient: "from-slate-700 via-slate-800 to-slate-900",
     icon: FaFileAlt,
     glow: "group-hover:shadow-slate-200/60",
-    badge: "bg-white/15 text-sky-200 border-white/20",
+    badge: "bg-[#1565C0]/90 text-white border-blue-300/50",
   },
 };
 
@@ -45,6 +44,16 @@ function formatDate(dateStr) {
   });
 }
 
+function CoverImage({ post, featured = false, className = "" }) {
+  return (
+    <BlogCoverArt
+      variant={getBlogCoverVariant(post)}
+      className={className}
+      showBadge
+    />
+  );
+}
+
 function PostCard({ post, featured = false }) {
   const accent = getAccent(post.category);
   const Icon = accent.icon;
@@ -55,24 +64,23 @@ function PostCard({ post, featured = false }) {
         href={`/blog/${post.slug}`}
         className={`group relative block bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden mb-10 hover:shadow-2xl ${accent.glow} transition-all duration-300 hover:-translate-y-1`}
       >
-        <div className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 bg-amber-400 text-amber-950 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg">
+        <div className="absolute top-4 right-4 z-20 inline-flex items-center gap-1.5 bg-amber-400 text-amber-950 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg">
           <FaStar size={9} /> Featured
         </div>
         <div className="grid lg:grid-cols-12 gap-0">
-          <div className={`lg:col-span-5 relative bg-gradient-to-br ${accent.gradient} p-8 md:p-10 flex flex-col justify-end min-h-[240px] overflow-hidden`}>
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_20%,white_0%,transparent_50%)]" />
-            <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-            <div className="relative z-10">
+          <CoverImage
+            post={post}
+            featured
+            className="lg:col-span-5 min-h-[260px] lg:min-h-[320px]"
+          />
+          <div className="lg:col-span-7 p-7 md:p-9 flex flex-col justify-between bg-gradient-to-br from-white to-slate-50/80 relative">
+            <div>
               <div className={`inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.15em] mb-4 px-3 py-1 rounded-full border ${accent.badge}`}>
                 <Icon size={10} /> {post.category}
               </div>
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-white leading-tight group-hover:text-sky-100 transition-colors">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 leading-tight group-hover:text-[#1565C0] transition-colors mb-3">
                 {post.title}
               </h2>
-            </div>
-          </div>
-          <div className="lg:col-span-7 p-7 md:p-9 flex flex-col justify-between bg-gradient-to-br from-white to-slate-50/80">
-            <div>
               <p className="text-sm md:text-base text-slate-600 leading-relaxed line-clamp-4">{post.excerpt}</p>
               {post.tags?.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mt-5">
@@ -90,7 +98,7 @@ function PostCard({ post, featured = false }) {
             <div className="flex flex-wrap items-center justify-between gap-4 mt-6 pt-5 border-t border-slate-100">
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 font-semibold">
                 <span className="inline-flex items-center gap-1.5">
-                  <FaUser size={10} className="text-[#1565C0]" /> {post.author?.split(" ")[0] || "PakLearners"}
+                  <FaUser size={10} className="text-[#1565C0]" /> PakLearners
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <FaCalendarAlt size={10} /> {formatDate(post.datePublished)}
@@ -114,19 +122,13 @@ function PostCard({ post, featured = false }) {
       href={`/blog/${post.slug}`}
       className={`group relative flex flex-col bg-white rounded-3xl border border-slate-100 shadow-md overflow-hidden hover:shadow-xl ${accent.glow} transition-all duration-300 hover:-translate-y-1`}
     >
-      <div className={`relative h-36 bg-gradient-to-br ${accent.gradient} overflow-hidden`}>
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_70%_30%,white_0%,transparent_55%)]" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/20 to-transparent" />
-        <div className="absolute top-4 left-5">
-          <div className={`inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border backdrop-blur-sm ${accent.badge}`}>
-            <Icon size={9} /> {post.category}
-          </div>
-        </div>
-        <div className="absolute bottom-4 right-5 w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 group-hover:scale-110 transition-transform">
-          <Icon size={20} />
+      <CoverImage post={post} className="h-44 sm:h-48" />
+      <div className="absolute top-12 left-4 z-10">
+        <div className={`inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border shadow-sm ${accent.badge}`}>
+          <Icon size={9} /> {post.category}
         </div>
       </div>
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-6 flex flex-col flex-1 -mt-1 relative z-10 bg-white rounded-t-3xl">
         <h2 className="text-lg font-black text-slate-900 group-hover:text-[#1565C0] transition-colors leading-snug mb-2 line-clamp-2">
           {post.title}
         </h2>

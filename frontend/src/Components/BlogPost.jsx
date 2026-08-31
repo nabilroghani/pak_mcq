@@ -13,6 +13,7 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 import Breadcrumbs from "@/Components/Breadcrumbs";
+import BlogCoverArt, { getBlogCoverVariant } from "@/Components/BlogCoverArt";
 import { blogPostList } from "@/data/blogPosts";
 
 function RichParagraph({ text, links = [] }) {
@@ -230,27 +231,32 @@ export default function BlogPost({ post }) {
   ];
 
   const otherPosts = blogPostList.filter((p) => p.slug !== post.slug);
+  const coverVariant = getBlogCoverVariant(post);
 
   return (
     <article className="bg-slate-50 text-slate-800">
-      {/* Hero */}
-      <header className="bg-gradient-to-br from-[#0d47a1] via-[#1565C0] to-slate-900 px-4 md:px-6 py-10 md:py-14 text-white relative overflow-hidden rounded-b-[2rem]">
+      {/* Hero with cover art */}
+      <header className="relative overflow-hidden rounded-b-[2rem]">
+        <BlogCoverArt variant={coverVariant} className="min-h-[220px] md:min-h-[280px]" showBadge={false} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/95 via-[#0d47a1]/55 to-transparent" />
         <div className="absolute top-0 right-0 w-72 h-72 bg-sky-400/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <Breadcrumbs items={breadcrumbs} variant="light" />
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-4 md:px-6 pb-10 md:pb-12 pt-24 text-white max-w-3xl mx-auto">
+          <div className="mb-4">
+            <Breadcrumbs items={breadcrumbs} variant="light" />
+          </div>
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-sky-300 hover:text-white transition-colors mb-4"
           >
             <FaArrowLeft size={10} /> Back to Blog
           </Link>
-          <span className="inline-block text-[10px] font-black uppercase tracking-[0.15em] text-orange-300 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-3">
+          <span className="inline-block text-[10px] font-black uppercase tracking-[0.15em] text-orange-300 bg-white/15 border border-white/25 rounded-full px-3 py-1 mb-3">
             {post.category}
           </span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight mb-4 leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight mb-4 leading-tight drop-shadow-sm">
             {post.headline}
           </h1>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-blue-100/80">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-blue-100/90">
             <span className="inline-flex items-center gap-1.5">
               <FaUser size={10} /> {post.author}
             </span>
