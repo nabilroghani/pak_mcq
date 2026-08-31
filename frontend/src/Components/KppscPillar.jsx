@@ -342,7 +342,7 @@ export default function KppscPillar() {
               { name: "Latest KPPSC jobs", path: "/government-exams/kppsc/jobs" },
               { name: "Eligibility criteria", path: "/government-exams/kppsc/eligibility" },
               { name: "Preparation strategy", path: "/government-exams/kppsc/preparation" },
-              { name: "KPPSC online tests", path: "/government-exams/kppsc/online-test" },
+              { name: "KPPSC online tests", path: "/government-exams/kppsc/online-tests" },
               { name: "Browse by post category", path: "/category/kppsc-exams" },
             ].map((link) => (
               <Link

@@ -109,7 +109,7 @@ const Header = () => {
   const onlineTestsLinks = [
     { name: "FPSC", path: "/online-tests/fpsc" },
     { name: "PPSC", path: "/online-tests/ppsc" },
-    { name: "KPPSC", path: "/online-tests/kppsc" },
+    { name: "KPPSC", path: "/government-exams/kppsc/online-tests" },
     { name: "ETEA", path: "/online-tests/etea" },
     { name: "NTS", path: "/online-tests/nts" },
     { name: "SPSC", path: "/online-tests/spsc" },
@@ -189,10 +189,10 @@ const Header = () => {
           <FaBars size={22} />
         </button>
 
-        <Link href="/" className="hidden md:flex shrink-0 relative z-20 pr-2">
-          <h1 className="text-lg xl:text-xl 2xl:text-2xl font-black tracking-tighter italic text-slate-800 uppercase whitespace-nowrap">
+        <Link href="/" className="hidden md:flex shrink-0 relative z-20 pr-2" aria-label="PakLearners home">
+          <span className="text-lg xl:text-xl 2xl:text-2xl font-black tracking-tighter italic text-slate-800 uppercase whitespace-nowrap">
             PAK <span className="text-[#1565C0]">LEARNERS</span>
-          </h1>
+          </span>
         </Link>
 
         <nav className="hidden xl:flex items-center flex-1 min-w-0 overflow-visible">

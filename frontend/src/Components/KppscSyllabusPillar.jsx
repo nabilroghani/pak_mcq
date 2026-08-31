@@ -143,7 +143,7 @@ const relatedLinks = [
   { name: "KPPSC exam guide", path: "/government-exams/kppsc" },
   { name: "KPPSC MCQs", path: "/government-exams/kppsc/mcqs" },
   { name: "KPPSC past papers", path: "/government-exams/kppsc/past-papers" },
-  { name: "KPPSC online tests", path: "/government-exams/kppsc/online-test" },
+  { name: "KPPSC online tests", path: "/government-exams/kppsc/online-tests" },
   { name: "KPPSC eligibility", path: "/government-exams/kppsc/eligibility" },
   { name: "KPPSC preparation", path: "/government-exams/kppsc/preparation" },
 ];
@@ -344,7 +344,7 @@ export default function KppscSyllabusPillar() {
           <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
             Candidates preparing under time pressure often find it useful to combine this strategy with
             regular practice on{" "}
-            <Link href="/government-exams/kppsc/online-test" className="font-bold text-[#1565C0] hover:underline">
+            <Link href="/government-exams/kppsc/online-tests" className="font-bold text-[#1565C0] hover:underline">
               KPPSC online tests
             </Link>
             , which helps track progress and identify weak subjects before the actual exam.
@@ -442,7 +442,7 @@ export default function KppscSyllabusPillar() {
               KPPSC past papers
             </Link>{" "}
             to understand real question patterns, and test your readiness with{" "}
-            <Link href="/government-exams/kppsc/online-test" className="font-bold text-[#1565C0] hover:underline">
+            <Link href="/government-exams/kppsc/online-tests" className="font-bold text-[#1565C0] hover:underline">
               KPPSC online tests
             </Link>{" "}
             before exam day. For more guidance on posts, eligibility and test schedules, visit the main{" "}

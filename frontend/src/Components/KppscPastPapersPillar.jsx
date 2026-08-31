@@ -7,8 +7,10 @@ import {
   FaCheck,
   FaArrowRight,
   FaArrowLeft,
+  FaTimes,
 } from "react-icons/fa";
 import Breadcrumbs from "@/Components/Breadcrumbs";
+import { kppscPastPapersMcqs } from "@/data/kppscPastPapersMcqs";
 import { kppscPastPapersFaqs } from "@/data/kppscPastPapersFaqs";
 
 function Section({ id, title, children }) {
@@ -22,17 +24,15 @@ function Section({ id, title, children }) {
 
 function Prose({ children }) {
   return (
-    <div className="space-y-4 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-      {children}
-    </div>
+    <div className="space-y-4 text-sm md:text-[15px] text-slate-600 leading-relaxed">{children}</div>
   );
 }
 
 function BulletList({ items }) {
   return (
     <ul className="space-y-3 text-sm text-slate-600 leading-relaxed">
-      {items.map((item) => (
-        <li key={item} className="flex gap-2 items-start">
+      {items.map((item, i) => (
+        <li key={i} className="flex gap-2 items-start">
           <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
           <span>{item}</span>
         </li>
@@ -41,131 +41,207 @@ function BulletList({ items }) {
   );
 }
 
-function DataTable({ headers, rows }) {
+function PracticeMcqCard({ mcq }) {
+  const [selected, setSelected] = useState(null);
+
+  const optionClass = (key) => {
+    if (!selected) {
+      return "border-slate-200 bg-white hover:border-blue-200 hover:bg-blue-50/40 cursor-pointer";
+    }
+    if (key === mcq.correct) {
+      return "border-emerald-300 bg-emerald-50 text-emerald-900";
+    }
+    if (key === selected) {
+      return "border-red-300 bg-red-50 text-red-900";
+    }
+    return "border-slate-100 bg-slate-50/60 text-slate-400";
+  };
+
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 mt-4">
-      <table className="min-w-full text-left text-sm">
-        <thead className="bg-slate-50 text-slate-900">
-          <tr>
-            {headers.map((h) => (
-              <th key={h} className="px-4 py-3 font-black text-xs uppercase tracking-wide whitespace-nowrap">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-100 text-slate-600">
-          {rows.map((row) => (
-            <tr key={row[0]} className="align-top">
-              {row.map((cell, i) => (
-                <td key={`${row[0]}-${i}`} className={`px-4 py-3 leading-relaxed ${i === 0 ? "font-bold text-slate-900" : ""}`}>
-                  {cell}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <article className="rounded-2xl border border-slate-200 bg-slate-50/40 p-5 md:p-6">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <span className="text-[10px] font-black uppercase tracking-widest text-[#1565C0] bg-blue-50 px-2.5 py-1 rounded-full">
+          {mcq.category}
+        </span>
+        <span className="text-[10px] font-bold text-slate-400">Question {mcq.id}</span>
+      </div>
+      <p className="text-sm md:text-base font-bold text-slate-900 leading-relaxed mb-4">{mcq.question}</p>
+      <div className="space-y-2">
+        {mcq.options.map((opt) => (
+          <button
+            key={opt.key}
+            type="button"
+            disabled={Boolean(selected)}
+            onClick={() => setSelected(opt.key)}
+            className={`w-full text-left flex items-start gap-3 rounded-xl border px-4 py-3 text-sm transition-all ${optionClass(opt.key)}`}
+          >
+            <span className="font-black shrink-0">{opt.key}.</span>
+            <span className="leading-relaxed">{opt.text}</span>
+            {selected && opt.key === mcq.correct && (
+              <FaCheck className="ml-auto shrink-0 text-emerald-600 mt-0.5" size={14} />
+            )}
+            {selected && opt.key === selected && opt.key !== mcq.correct && (
+              <FaTimes className="ml-auto shrink-0 text-red-500 mt-0.5" size={14} />
+            )}
+          </button>
+        ))}
+      </div>
+      {selected && (
+        <div className="mt-4 rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-sm text-slate-700 leading-relaxed">
+          <p className="font-black text-emerald-800 mb-1">Correct Answer: {mcq.correct}</p>
+          <p>{mcq.explanation}</p>
+        </div>
+      )}
+    </article>
   );
 }
 
-const yearRows = [
-  ["KPPSC Past Papers 2026", "Added as papers become available"],
-  ["KPPSC Past Papers 2025", "Added as papers become available"],
-  ["KPPSC Past Papers 2024", "Added as papers become available"],
-  ["KPPSC Past Papers 2023", "Added as papers become available"],
-  ["KPPSC Past Papers 2022", "Added as papers become available"],
-  ["KPPSC Past Papers 2021", "Added as papers become available"],
-  ["KPPSC Past Papers 2020", "Added as papers become available"],
-  ["Older KPPSC Past Papers", "Added as papers become available"],
+const subjectTableRows = [
+  ["English", "Most KPPSC written tests, PMS"],
+  ["English Essay", "PMS and select competitive exams"],
+  ["English Precis & Composition", "PMS and select competitive exams"],
+  ["Pakistan Affairs", "General recruitment tests, PMS"],
+  ["Current Affairs", "General recruitment tests, PMS"],
+  ["General Knowledge", "Most KPPSC written tests"],
+  ["Everyday Science", "General recruitment tests"],
+  ["Islamic Studies", "General recruitment tests, PMS"],
+  ["General Science", "General recruitment tests"],
+  ["Mathematics", "General recruitment tests, technical posts"],
+  ["Computer Science / IT", "IT and computer-related posts"],
+  ["Geography", "General recruitment tests, PMS"],
+  ["History", "General recruitment tests, PMS"],
+  ["Economics", "PMS, Provincial Planning Service"],
+  ["Political Science", "PMS"],
+  ["International Relations", "PMS"],
+  ["Law", "Judicial branch posts, legal posts"],
+  ["Urdu", "Select posts"],
+  ["Subject-specific professional knowledge", "Lecturer, Subject Specialist, and other specialized posts"],
 ];
 
-const postCategories = [
-  "PMS Past Papers — Provincial Management Service written examination papers.",
-  "PMS & AETO Past Papers — combined resources for allied administrative posts.",
-  "Civil Judge Past Papers — legal and judicial service examination papers.",
-  "DSP Past Papers — Deputy Superintendent of Police recruitment papers.",
-  "SI Past Papers — Sub-Inspector recruitment test papers.",
-  "ASI Past Papers — Assistant Sub-Inspector recruitment test papers.",
-  "Tehsildar / Naib Tehsildar Past Papers — revenue department recruitment papers.",
-  "Provincial Planning Service (PPS) Past Papers — planning and development cadre papers.",
-  "SST Past Papers — Secondary School Teacher recruitment papers.",
-  "Lecturer / Subject Specialist Papers — subject-specific papers for academic posts.",
-  "Other KPPSC Recruitment Tests — additional administrative, technical and professional posts advertised by KPPSC from time to time.",
+const postExamples = [
+  "PMS — KPPSC's flagship provincial competitive examination",
+  "AETO — Assistant Educational Training Officer, involving education-department knowledge",
+  "Assistant — general administrative and clerical knowledge",
+  "Lecturer — heavily weighted toward subject-specific academic knowledge",
+  "Subject Specialist — similar to Lecturer, with deep subject-matter focus",
+  "ASI / SI / DSP — police department posts with a mix of general and post-specific content",
+  "Tehsildar / Naib Tehsildar — administrative and revenue-related knowledge",
+  "Civil Judge — judicial branch posts with dedicated legal subject matter",
+  "Provincial Planning Service — planning, economics, and administration-related knowledge",
+  "Other technical/professional posts — subject matter specific to the relevant department or field",
 ];
 
-const downloadSteps = [
-  "Select your KPPSC examination or post from the categories listed on this page.",
-  "Select the required year from the available year-wise listings.",
-  "Open the available paper to review its format and content.",
-  "View or download the PDF if it has been made available for that paper.",
-  "Save papers according to subject and year so they're easy to revisit during revision.",
-  "Practice them under timed conditions, ideally simulating the actual exam duration.",
-];
-
-const preparationSteps = [
+const whyPoints = [
   {
-    title: "Step 1: Start with the Syllabus",
-    text: "Before touching a single past paper, understand which topics are actually relevant to your post. This prevents you from over-focusing on questions that may no longer be part of the current syllabus.",
+    title: "Understand the Question Pattern",
+    text: "Past papers show you how KPPSC phrases questions for a given subject or post, which can differ noticeably from what's found in generic guidebooks.",
   },
   {
-    title: "Step 2: Solve the Oldest Papers First",
-    text: "Starting with older papers and working forward helps you notice which concepts have stayed consistent over time versus which ones were specific to a particular year.",
+    title: "Identify Important Topics",
+    text: "Reviewing multiple papers for the same post or exam often reveals which topics recur, helping you prioritize your study time more effectively.",
   },
   {
-    title: "Step 3: Analyze Repeated Topics",
-    text: "As you go through multiple papers, keep a running list of topics or question types that show up more than once. These deserve extra attention during revision.",
+    title: "Improve Time Management",
+    text: "Attempting a full past paper under timed conditions builds a realistic sense of pace — something that's difficult to gauge from studying topic-by-topic.",
   },
   {
-    title: "Step 4: Practice Without Looking at Answers",
-    text: "Attempt each paper as if it were the real exam — resist checking answers midway. This builds the actual recall and reasoning skill you'll need on test day.",
+    title: "Test Your Preparation",
+    text: "A past paper works as an honest checkpoint, telling you where you actually stand rather than how prepared you feel.",
   },
   {
-    title: "Step 5: Check Mistakes and Build a Notebook",
-    text: "After each attempt, go through every wrong answer and note why you got it wrong — whether it was a knowledge gap, a careless mistake, or a misread question.",
+    title: "Find Weak Areas",
+    text: "Mistakes on past papers point directly to the subjects or topics that need more attention before your exam.",
   },
   {
-    title: "Step 6: Repeat Difficult Questions",
-    text: "Revisit questions you got wrong after a few days rather than immediately, using spaced repetition to lock in the correct answer.",
+    title: "Improve MCQ Accuracy",
+    text: "Regular practice with real question formats sharpens your ability to eliminate distractors and work within time and marking constraints.",
   },
   {
-    title: "Step 7: Take Timed Tests",
-    text: "As your exam date approaches, shift to full-length, strictly timed attempts to build both speed and composure under pressure.",
+    title: "Build Exam Confidence",
+    text: "Familiarity with the real format — built through repeated practice — reduces exam-day anxiety and helps you perform closer to your actual preparation level.",
   },
 ];
 
-const benefits = [
-  "Understand the real exam pattern instead of guessing.",
-  "Identify which topics are tested more frequently for your post.",
-  "Improve time management across sections.",
-  "Increase question-solving speed through repetition.",
-  "Pinpoint weak subjects that need more attention.",
-  "Get a realistic sense of question difficulty.",
-  "Build genuine confidence going into the test.",
-  "Strengthen revision by highlighting recurring concepts.",
-  "Practice under conditions close to the actual exam environment.",
+const examCategories = [
+  {
+    title: "PMS Past Papers",
+    content: (
+      <>
+        The Provincial Management Service (PMS) exam is KPPSC&apos;s flagship competitive examination, recruiting officers for administrative positions within the province — broadly comparable in prestige to CSS at the federal level, but structured provincially. Reviewing previous PMS papers can help candidates understand subject requirements, typical question style, and recurring themes across compulsory and, where applicable, subject-specific papers. See the dedicated{" "}
+        <Link href="#kppsc-pms-past-papers" className="font-bold text-[#1565C0] hover:underline">
+          KPPSC PMS Past Papers
+        </Link>{" "}
+        section below for a fuller breakdown.
+      </>
+    ),
+  },
+  {
+    title: "PMS & AETO Past Papers",
+    content:
+      "Some KPPSC competitive processes, such as PMS and AETO (Assistant Educational Training Officer)-related recruitment, may involve a screening stage ahead of the main examination. Where a screening test applies, it typically uses an objective, MCQ-based format to shortlist candidates before the main written exam. The exact structure, qualifying criteria, and current status of any screening stage should always be confirmed from the official KPPSC syllabus and the relevant advertisement, since these details are reviewed periodically.",
+  },
+  {
+    title: "Civil Judge / Judicial Branch Past Papers",
+    content:
+      "KPPSC also conducts examinations for judicial branch posts, such as Civil Judge. These examinations have their own dedicated syllabus and subject requirements, distinct from general KPPSC recruitment tests, and typically involve legal knowledge and subject areas specific to the judiciary. Candidates preparing for judicial posts should treat this as a separate preparation track rather than assuming overlap with general or PMS-style papers.",
+  },
+  {
+    title: "ASI / Police-Related Past Papers",
+    content:
+      "KPPSC conducts recruitment examinations for various police department posts, including Assistant Sub Inspector (ASI), Sub Inspector (SI), and Deputy Superintendent of Police (DSP). Previous papers for these posts can be useful for understanding the general knowledge and post-specific content typically tested, though patterns are not identical across ranks — an ASI paper and a DSP paper, for instance, are unlikely to share the same weightage or depth. Always match your practice material to your specific post and advertisement.",
+  },
+  {
+    title: "Tehsildar / Naib Tehsildar Past Papers",
+    content:
+      "Tehsildar and Naib Tehsildar are administrative posts commonly recruited through KPPSC, generally involving a mix of general knowledge, administrative, and revenue-related subject matter. Previous papers for these posts can help candidates understand the balance between general and administrative content typically tested.",
+  },
+  {
+    title: "Provincial Planning Service (PPS) Past Papers",
+    content:
+      "The Provincial Planning Service is another competitive stream under KPPSC, generally involving subject matter related to planning, economics, and administration. As with other specialized services, candidates should review the current official syllabus for PPS separately rather than assuming it mirrors PMS or general recruitment patterns.",
+  },
+  {
+    title: "Other KPPSC Competitive / Recruitment Papers",
+    content:
+      "Beyond the categories above, KPPSC advertises a wide variety of additional posts across departments, each with its own syllabus and paper requirements as defined in that post's official advertisement. Paper requirements vary by advertisement, post, and syllabus — always check the latest official KPPSC notification for your specific exam rather than relying on a paper written for a different post. KPPSC also maintains its own past-paper archive, organized across multiple years and exam categories, including PMS, Civil Judge, ASI, Tehsildar/Naib Tehsildar, PPS, and police-related papers. That archive is a useful reference point for confirming which categories and years of papers exist for your target exam.",
+  },
 ];
 
-const commonMistakes = [
-  "Memorizing answers without understanding — this fails the moment a question is rephrased even slightly.",
-  "Ignoring the syllabus — solving papers without checking whether the topics are still relevant wastes time.",
-  "Practicing only one year's paper — a single paper doesn't give a reliable picture of patterns; solve multiple years.",
-  "Not timing yourself — untimed practice doesn't prepare you for real exam pressure.",
-  "Not reviewing mistakes — skipping the review step means you repeat the same errors later.",
-  "Ignoring difficult questions — skipping hard questions instead of understanding them leaves gaps in your preparation.",
-  "Using outdated or unverified papers — always confirm that a paper is genuinely relevant to your current post and exam cycle.",
-  "Assuming repeated questions are guaranteed — while some concepts recur, KPPSC does not guarantee that exact questions will repeat, so understanding is more valuable than memorization.",
-  "Preparing only from past papers — without syllabus coverage, your preparation may be incomplete even if you've solved several papers.",
+const pmsPrepPoints = [
+  "Understand the process structure. PMS preparation often involves more than one stage — commonly a screening stage ahead of a main written examination — so it helps to know which stage a given past paper belongs to before studying it.",
+  "Analyze previous papers by section. Reviewing past papers for compulsory subjects (where applicable) alongside any subject-specific or optional components helps you see how each is typically weighted and worded.",
+  "Identify recurring themes. Subjects like Current Affairs and Pakistan/KP Affairs tend to evolve with real-world events, so past papers combined with recent news coverage give a more complete picture than papers alone.",
+  "Practice compulsory subjects methodically. Where compulsory subjects apply, work through past questions subject by subject rather than jumping between topics randomly.",
+  "Prepare optional or subject-specific components carefully, since these often carry meaningful weight and reward deeper subject knowledge.",
+  "Combine past papers with current affairs and personal notes. Static portions of the syllabus stay relatively stable, but current affairs content needs continuous updating alongside past-paper review.",
+  "Use past papers for answer-writing practice, particularly for any descriptive or essay-type components, where structure and clarity matter as much as content.",
 ];
 
-const relatedLinks = [
-  { name: "KPPSC exam guide", path: "/government-exams/kppsc" },
-  { name: "KPPSC syllabus", path: "/government-exams/kppsc/syllabus" },
-  { name: "KPPSC MCQs", path: "/government-exams/kppsc/mcqs" },
-  { name: "KPPSC online tests", path: "/government-exams/kppsc/online-test" },
-  { name: "Browse KPPSC papers hub", path: "/past-papers/kppsc" },
-  { name: "All government exams", path: "/government-exams" },
+const prepareSteps = [
+  "Identify the exact KPPSC exam/post you're preparing for — PMS, a general recruitment test, and a judicial or police post all require different preparation",
+  "Check the latest official syllabus for that specific exam before you begin",
+  "Collect relevant past papers matching that exam or post as closely as possible",
+  "Start with recent papers, since they best reflect the current pattern",
+  "Attempt papers without checking answers first, to get an honest sense of where you stand",
+  "Use a timer that matches the real exam's duration",
+  "Check your answers carefully once you've finished",
+  "Record your mistakes in a dedicated notebook or tracker",
+  "Identify weak topics based on where errors cluster",
+  "Revise those topics before moving on to new material",
+  {
+    text: "Practice related MCQs regularly to reinforce recall — PakLearners'",
+    link: { href: "/mcqs/kppsc", label: "KPPSC MCQs" },
+    suffix: " section is built for exactly this kind of ongoing practice",
+  },
+  {
+    text: "Take mock/online tests closer to your exam date — try PakLearners'",
+    link: { href: "/government-exams/kppsc/online-tests", label: "KPPSC online tests" },
+    suffix: ", or the dedicated",
+    link2: { href: "/government-exams/kppsc/online-tests/pms", label: "PMS online tests" },
+    suffix2: " if you're preparing for PMS specifically",
+  },
+  "Re-attempt difficult papers once you've addressed the gaps they revealed",
+  "Track improvement over time so you can see which areas are genuinely strengthening",
 ];
 
 export default function KppscPastPapersPillar() {
@@ -173,9 +249,8 @@ export default function KppscPastPapersPillar() {
 
   const breadcrumbs = [
     { name: "Home", path: "/" },
-    { name: "Government Exams", path: "/government-exams" },
-    { name: "KPPSC", path: "/government-exams/kppsc" },
-    { name: "Past Papers" },
+    { name: "Past Papers", path: "/past-papers" },
+    { name: "KPPSC Past Papers" },
   ];
 
   return (
@@ -191,260 +266,361 @@ export default function KppscPastPapersPillar() {
             <FaArrowLeft size={10} /> KPPSC Exam Guide
           </Link>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-4 leading-tight max-w-4xl">
-            KPPSC Past Papers 2026 – Previous Papers &amp; PDF Downloads
+            KPPSC Past Papers
           </h1>
           <p className="text-blue-100/90 max-w-3xl text-sm md:text-base leading-relaxed mb-6">
-            <strong className="text-white">KPPSC past papers</strong> are one of the most valuable
-            resources for Khyber Pakhtunkhwa Public Service Commission exam preparation. Solving
-            previous papers shows you how questions are phrased, which concepts repeat, and how much
-            time you have per question — this page is your resource hub for finding, organizing and
-            practicing with papers for your specific post.
+            Browse KPPSC past papers by exam, post, and subject — including PMS — practice solved MCQs, and build a
+            smart KPPSC preparation plan with PakLearners.
           </p>
           <Link
-            href="/past-papers/kppsc"
+            href="#kppsc-practice-mcqs"
             className="inline-flex items-center gap-2 bg-white text-[#1565C0] text-sm font-bold px-5 py-3 rounded-xl hover:bg-blue-50"
           >
-            Browse KPPSC Papers Hub <FaArrowRight size={11} />
+            Practice KPPSC MCQs <FaArrowRight size={11} />
           </Link>
         </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-4 md:px-6 -mt-8 pb-16 space-y-8">
-        <Section id="what-are-kppsc-past-papers" title="KPPSC Past Papers">
+        <Section id="introduction" title="Introduction">
           <Prose>
             <p>
-              KPPSC past papers are the actual (or closely representative) question papers used in
-              previous KPPSC written and screening tests. Candidates use them to:
+              If you&apos;re preparing for an exam conducted by the{" "}
+              <strong className="text-slate-900">Khyber Pakhtunkhwa Public Service Commission (KPPSC)</strong>, working through{" "}
+              <strong className="text-slate-900">KPPSC past papers</strong> is one of the most reliable ways to understand what your specific test actually looks like. Past papers show real question patterns, recurring subject areas, and the general difficulty of previous exams — details that a syllabus notification alone often can&apos;t fully convey.
             </p>
+            <p>
+              This page is your starting point for <strong className="text-slate-900">KPPSC previous papers</strong>, covering the range of examinations KPPSC conducts — from the Provincial Management Service (PMS) competitive exam to police-related recruitment tests, judicial branch exams, and general administrative posts like Tehsildar and Naib Tehsildar. Because KPPSC&apos;s paper structure can vary considerably depending on the exam and post, understanding which category you fall into is the first step toward focused preparation.
+            </p>
+            <p>
+              It&apos;s worth being upfront about one thing: solving old papers doesn&apos;t mean the same questions will reappear. What past papers reliably show you is the <em>pattern</em> — which subjects tend to be tested, how questions are typically worded, where time pressure usually shows up, and where candidates commonly lose marks. Used that way, past papers become a genuine diagnostic tool rather than a shortcut to predicting the next exam.
+            </p>
+            <p>
+              Alongside this guide, you&apos;ll find 15 <strong className="text-slate-900">KPPSC past paper preparation MCQs</strong>, a dedicated section on PMS preparation, a practical study strategy, and links to related PakLearners resources — including{" "}
+              <Link href="/mcqs/kppsc" className="font-bold text-[#1565C0] hover:underline">KPPSC MCQs</Link>,{" "}
+              <Link href="/government-exams/kppsc/online-tests" className="font-bold text-[#1565C0] hover:underline">KPPSC online tests</Link>, and{" "}
+              <Link href="/government-exams/kppsc/online-tests/pms" className="font-bold text-[#1565C0] hover:underline">PMS online tests</Link>{" "}
+              — so you can build your entire preparation routine in one place.
+            </p>
+          </Prose>
+        </Section>
+
+        <Section id="what-are-kppsc-past-papers" title="What Are KPPSC Past Papers?">
+          <Prose>
+            <p>
+              <strong className="text-slate-900">KPPSC past papers</strong> are the written-test question papers used in previous examinations conducted by the Khyber Pakhtunkhwa Public Service Commission — the provincial body responsible for recruiting candidates into KP government departments through both competitive examinations, such as PMS, and general recruitment tests for a wide range of posts.
+            </p>
+            <p>These papers carry real preparation value because they come from actual exams, not simulated or estimated content. A genuine past paper tells you:</p>
           </Prose>
           <div className="mt-4">
             <BulletList
               items={[
-                "Get familiar with the real question format used by KPPSC, rather than relying on assumptions.",
-                "Identify subjects and topics that are tested more frequently for a given post.",
-                "Practice under conditions that resemble the real exam.",
-                "Build a realistic sense of timing before attempting the actual test.",
+                "How KPPSC typically phrases and structures questions for a given post or exam category",
+                "Which topics within a subject have historically received more emphasis",
+                "The approximate difficulty level and time pressure of the real test",
+                "How the compulsory and post-specific portions of a paper are usually balanced",
               ]}
             />
           </div>
           <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-            Because KPPSC posts vary widely — from general administrative roles to specialized
-            technical and subject-specialist positions — past papers should always be selected based
-            on the specific post and exam you are appearing for, not just the &quot;KPPSC&quot; label
-            in general. A paper from a PMS exam, for example, will look very different from a paper
-            for a computer operator or lecturer post.
+            Practice MCQs, by contrast, are useful for building and testing subject knowledge continuously, but they are not the same as an authentic past paper. A well-rounded preparation plan uses both: past papers to understand the real exam, and MCQs to reinforce knowledge in between. Throughout this page, we keep the distinction clear — anything called a &quot;past paper&quot; reflects a genuine previous KPPSC exam, while anything written by PakLearners for practice is labeled accordingly.
           </p>
         </Section>
 
-        <Section id="past-papers-by-year" title="KPPSC Past Papers by Year">
+        <Section id="why-solve-kppsc-past-papers" title="Why Should You Solve KPPSC Past Papers?">
           <Prose>
             <p>
-              Organizing past papers by year helps candidates track how question patterns have evolved
-              and spot topics that appear consistently across multiple years. As papers become
-              available on PakLearners, they will be organized under the following structure:
-            </p>
-          </Prose>
-          <DataTable headers={["Year", "Status"]} rows={yearRows} />
-          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-            If you&apos;re checking this page for a specific year&apos;s paper and don&apos;t see it
-            listed above yet, it means that particular resource hasn&apos;t been published on
-            PakLearners at this time. Rather than searching randomly, focus your preparation on the
-            years and posts that are confirmed available, and revisit this page periodically as more
-            resources are added.
-          </p>
-        </Section>
-
-        <Section id="past-papers-by-post" title="KPPSC Past Papers by Post and Exam">
-          <Prose>
-            <p>
-              KPPSC conducts tests for a wide range of posts, and past papers are most useful when
-              matched to the exact post you&apos;re applying for. Common categories candidates search
-              for include:
-            </p>
-          </Prose>
-          <div className="mt-5 space-y-3">
-            {postCategories.map((item) => {
-              const [label, ...rest] = item.split(" — ");
-              return (
-                <div
-                  key={item}
-                  className="rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50/60 to-white px-4 py-3.5 text-sm text-slate-600 leading-relaxed"
-                >
-                  <strong className="text-[#1565C0]">{label}</strong>
-                  {rest.length > 0 && ` — ${rest.join(" — ")}`}
-                </div>
-              );
-            })}
-          </div>
-          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-            Browse available papers for your specific examination rather than assuming every category
-            above currently has published resources — this section will expand as more post-wise papers
-            are added to PakLearners. If you can&apos;t find your exact post listed, start your
-            preparation using the general{" "}
-            <Link href="/past-papers/kppsc" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC past papers
-            </Link>{" "}
-            and{" "}
-            <Link href="/government-exams/kppsc/mcqs" className="font-bold text-[#1565C0] hover:underline">
-              MCQs
-            </Link>{" "}
-            available, since many general sections (English, General Knowledge, Pakistan Affairs)
-            overlap across posts.
-          </p>
-        </Section>
-
-        <Section id="pms-past-papers" title="KPPSC PMS Past Papers">
-          <Prose>
-            <p>
-              The PMS (Provincial Management Service) exam draws particularly high search interest,
-              and for good reason — it&apos;s one of the most competitive and structurally demanding
-              KPPSC examinations, typically involving compulsory subjects along with optional subject
-              papers chosen by the candidate.
-            </p>
-            <p>Here&apos;s how PMS candidates should approach past papers specifically:</p>
-          </Prose>
-          <ul className="mt-4 space-y-3 text-sm text-slate-600 leading-relaxed">
-            {[
-              <>Analyze the <strong className="text-slate-900">compulsory papers first</strong>, since these apply to every PMS candidate and often carry significant weightage.</>,
-              <>Use <strong className="text-slate-900">optional-subject papers strategically</strong> — solve past papers only for the optional subjects you&apos;ve actually chosen.</>,
-              <>Identify <strong className="text-slate-900">recurring themes</strong> in essay topics, general knowledge questions and subject-specific questions.</>,
-              <>Work on <strong className="text-slate-900">answer writing, not just recall</strong> — PMS papers frequently require descriptive answers.</>,
-              <>Combine past paper practice with the syllabus — past papers show question style, but the{" "}<Link href="/government-exams/kppsc/syllabus" className="font-bold text-[#1565C0] hover:underline">KPPSC syllabus</Link>{" "}tells you the full range of topics you&apos;re responsible for.</>,
-            ].map((item, i) => (
-              <li key={i} className="flex gap-2 items-start">
-                <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-            Treating PMS preparation as a combination of syllabus coverage, past paper analysis and
-            consistent answer-writing practice gives a far more realistic preparation path than relying
-            on any one resource alone.
-          </p>
-        </Section>
-
-        <Section id="download-pdf" title="How to Download KPPSC Past Papers PDF">
-          <Prose>
-            <p>
-              If you&apos;re looking to download and organize KPPSC past papers PDF, follow this
-              process:
-            </p>
-          </Prose>
-          <div className="mt-4">
-            <ol className="space-y-3 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
-              {downloadSteps.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
-          </div>
-          <p className="mt-5 text-sm text-slate-600 leading-relaxed bg-amber-50 border border-amber-100 rounded-xl p-4">
-            Not every KPPSC paper is currently available as a downloadable PDF on PakLearners or
-            elsewhere — availability depends on which papers have been published and verified. Where a
-            PDF isn&apos;t available, use the paper details provided on the page as a study reference
-            instead.
-          </p>
-        </Section>
-
-        <Section id="how-to-use" title="How to Use KPPSC Past Papers for Preparation">
-          <Prose>
-            <p>
-              Solving past papers is only useful if it&apos;s done with a clear method. Here&apos;s a
-              step-by-step approach:
+              Solving past papers gives your preparation direction instead of leaving you to study everything with equal weight. Here&apos;s specifically how they help:
             </p>
           </Prose>
           <div className="mt-5 space-y-4">
-            {preparationSteps.map((step) => (
-              <article key={step.title} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 md:p-5">
-                <h3 className="text-base font-black text-[#1565C0] mb-2">{step.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{step.text}</p>
+            {whyPoints.map((point) => (
+              <article key={point.title} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 md:p-5">
+                <h3 className="text-base font-black text-[#1565C0] mb-2">{point.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{point.text}</p>
               </article>
             ))}
           </div>
         </Section>
 
-        <Section id="benefits" title="Benefits of Solving KPPSC Past Papers">
+        <Section id="kppsc-past-papers-by-exam" title="KPPSC Past Papers by Exam">
           <Prose>
-            <p>Consistent past paper practice offers several concrete advantages:</p>
+            <p>
+              KPPSC doesn&apos;t run one uniform test — it conducts a wide range of examinations across different services and posts within Khyber Pakhtunkhwa. Treating all KPPSC papers as interchangeable is a common preparation mistake, so it&apos;s worth understanding the main categories.
+            </p>
+          </Prose>
+          <div className="mt-5 space-y-6">
+            {examCategories.map((cat) => (
+              <article key={cat.title} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 md:p-5">
+                <h3 className="text-base font-black text-[#1565C0] mb-2">{cat.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{cat.content}</p>
+              </article>
+            ))}
+          </div>
+        </Section>
+
+        <Section id="kppsc-past-papers-by-subject" title="KPPSC Past Papers by Subject">
+          <Prose>
+            <p>
+              KPPSC examinations draw from a range of subjects, and which ones matter to you depends entirely on the specific exam and post you&apos;re targeting. Commonly tested subject areas across KPPSC exams include:
+            </p>
+          </Prose>
+          <div className="overflow-x-auto rounded-xl border border-slate-200 mt-4">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-slate-50 text-slate-900">
+                <tr>
+                  <th className="px-4 py-3 font-black text-xs uppercase tracking-wide">Subject Area</th>
+                  <th className="px-4 py-3 font-black text-xs uppercase tracking-wide">Typically Relevant For</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 text-slate-600">
+                {subjectTableRows.map(([subject, relevance]) => (
+                  <tr key={subject} className="align-top">
+                    <td className="px-4 py-3 font-bold text-slate-900 leading-relaxed">{subject}</td>
+                    <td className="px-4 py-3 leading-relaxed">{relevance}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+            <strong className="text-slate-900">Not every subject applies to every KPPSC examination.</strong> Subjects depend on the specific examination, post, advertisement, and official syllabus — a general recruitment test for an administrative post typically draws on a compulsory core of general subjects, while specialized posts like Lecturer or judicial roles weigh subject-specific knowledge much more heavily. Always confirm the exact subject mix for your post from the official KPPSC advertisement and syllabus before building your study plan.
+          </p>
+        </Section>
+
+        <Section id="kppsc-pms-past-papers" title="KPPSC PMS Past Papers">
+          <Prose>
+            <p>
+              The Provincial Management Service (PMS) exam deserves its own detailed look, since it&apos;s the most competitive and widely pursued examination conducted by KPPSC. PMS recruits officers into administrative positions in Khyber Pakhtunkhwa, and many candidates treat it as the provincial counterpart to CSS.
+            </p>
+            <p>Here&apos;s how PMS past papers fit into a focused preparation strategy:</p>
           </Prose>
           <div className="mt-4">
-            <BulletList items={benefits} />
-          </div>
-        </Section>
-
-        <Section id="past-papers-vs-mcqs" title="KPPSC Past Papers vs KPPSC MCQs">
-          <Prose>
-            <p>Both past papers and MCQs are useful, but they serve different purposes in your preparation:</p>
-          </Prose>
-          <div className="mt-5 grid sm:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-5">
-              <h3 className="text-base font-black text-emerald-800 mb-3">KPPSC Past Papers</h3>
-              <ul className="space-y-2 text-sm text-slate-600 leading-relaxed">
-                <li>• Contain actual previous exam questions.</li>
-                <li>• Best for understanding real exam style and structure.</li>
-                <li>• Help identify recurring concepts and question patterns specific to your post.</li>
-              </ul>
-            </div>
-            <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-5">
-              <h3 className="text-base font-black text-[#1565C0] mb-3">KPPSC MCQs</h3>
-              <ul className="space-y-2 text-sm text-slate-600 leading-relaxed">
-                <li>• Offer broader, topic-wise practice beyond what past papers alone can cover.</li>
-                <li>• Useful for consistent daily preparation and building subject strength.</li>
-                <li>• Allow focused revision on individual topics rather than full papers.</li>
-              </ul>
-            </div>
+            <BulletList items={pmsPrepPoints} />
           </div>
           <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-            The most effective candidates use both together: past papers to understand exam style and
-            recurring themes, and{" "}
-            <Link href="/government-exams/kppsc/mcqs" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC MCQs
-            </Link>{" "}
-            for daily, topic-wise practice that keeps every subject fresh. Relying on only one of the
-            two usually leaves a gap — either in exam familiarity or in overall subject coverage.
+            <strong className="text-slate-900">We won&apos;t invent specific PMS subjects, marks distribution, or current stage-by-stage rules on this page</strong>, since PMS structure is reviewed periodically by KPPSC. Candidates should treat the <strong className="text-slate-900">latest official KPPSC syllabus and advertisement</strong> as the authoritative source for current PMS eligibility, stages, subjects, and marks before finalizing a study plan.
           </p>
         </Section>
 
-        <Section id="past-papers-vs-syllabus" title="KPPSC Past Papers vs KPPSC Syllabus">
+        <Section id="kppsc-past-papers-by-post" title="KPPSC Past Papers for Different Posts">
           <Prose>
-            <p>It&apos;s easy to confuse these two resources, but they answer different questions:</p>
+            <p>
+              One of the most important things to understand about KPPSC exams is that they are frequently <strong className="text-slate-900">post-specific</strong>. The commission recruits for a very wide range of roles, and paper content can differ substantially between them. Examples of posts commonly recruited through KPPSC include:
+            </p>
           </Prose>
-          <ul className="mt-4 space-y-3 text-sm text-slate-600 leading-relaxed">
-            {[
-              <>Syllabus = <strong className="text-slate-900">what to study.</strong> It defines the full range of subjects and topics relevant to your post.</>,
-              <>Past papers = <strong className="text-slate-900">how questions are asked.</strong> They show you the real format, phrasing and difficulty level used in previous exams.</>,
-            ].map((item, i) => (
-              <li key={i} className="flex gap-2 items-start">
-                <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
-                <span>{item}</span>
+          <div className="mt-4">
+            <BulletList items={postExamples} />
+          </div>
+          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+            These examples illustrate <em>why</em> post-specific preparation matters — they are not a claim that any of these posts share an identical, fixed paper pattern. The goal is simply to help you find and study the paper genuinely relevant to your exact post, rather than assuming any single &quot;KPPSC pattern&quot; applies universally. Always confirm current requirements from your post&apos;s official advertisement.
+          </p>
+        </Section>
+
+        <Section id="kppsc-past-papers-pdf" title="KPPSC Past Papers PDF">
+          <Prose>
+            <p>
+              Many candidates prefer studying past papers in <strong className="text-slate-900">PDF format</strong>, since it supports focused, offline preparation. PDFs are useful for:
+            </p>
+          </Prose>
+          <div className="mt-4">
+            <BulletList
+              items={[
+                "Offline study — preparing without relying on a constant internet connection",
+                "Printing — working through a physical copy that feels closer to the real exam",
+                "Annotation — marking up questions and highlighting recurring themes",
+                "Revision — quickly reviewing key questions before exam day",
+                "Timed practice — running a full paper attempt under real time constraints",
+                "Building a personal paper collection — compiling notes and frequently missed questions in one place",
+              ]}
+            />
+          </div>
+          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+            As PakLearners&apos; past papers library for KPPSC continues to grow, this page will be updated with available papers and formats as they&apos;re published. Where a downloadable resource isn&apos;t yet available for a specific post or exam, treat this page as a guide to what&apos;s coming rather than assuming a file exists that hasn&apos;t been uploaded yet.
+          </p>
+        </Section>
+
+        <Section id="solved-vs-unsolved" title="Solved and Unsolved KPPSC Past Papers">
+          <Prose>
+            <p>KPPSC past papers are generally available in two forms, and each plays a different role in preparation.</p>
+            <p className="font-bold text-slate-900">Solved papers are useful for:</p>
+          </Prose>
+          <div className="mt-3">
+            <BulletList
+              items={[
+                "Checking your answers against a reference",
+                "Understanding the concepts behind questions you got wrong",
+                "Reviewing recurring mistakes",
+                "Focused revision closer to exam day",
+              ]}
+            />
+          </div>
+          <Prose>
+            <p className="font-bold text-slate-900 mt-4">Unsolved papers are useful for:</p>
+          </Prose>
+          <div className="mt-3">
+            <BulletList
+              items={[
+                "Honest self-testing",
+                "Timed practice under real conditions",
+                "Full exam simulation",
+                "Measuring how your preparation is actually progressing",
+              ]}
+            />
+          </div>
+          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+            A practical approach is to attempt unsolved papers first, under timed conditions, and refer to solved versions only afterward for review. This keeps your practice close to real exam pressure. One important note: unless an answer key is explicitly sourced from or verified against KPPSC, treat it as a helpful study aid rather than an official reference — third-party solutions can occasionally contain errors, particularly for subjective or interpretation-heavy questions.
+          </p>
+        </Section>
+
+        <Section id="how-to-prepare" title="How to Prepare with KPPSC Past Papers">
+          <Prose>
+            <p>
+              A structured routine gets significantly more value out of past papers than solving them at random. Here&apos;s a practical sequence to follow:
+            </p>
+          </Prose>
+          <ol className="mt-4 space-y-3 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
+            {prepareSteps.map((step, i) => (
+              <li key={i}>
+                {typeof step === "string" ? (
+                  step
+                ) : step.link2 ? (
+                  <>
+                    {step.text}{" "}
+                    <Link href={step.link.href} className="font-bold text-[#1565C0] hover:underline">
+                      {step.link.label}
+                    </Link>{" "}
+                    {step.suffix}{" "}
+                    <Link href={step.link2.href} className="font-bold text-[#1565C0] hover:underline">
+                      {step.link2.label}
+                    </Link>{" "}
+                    {step.suffix2}
+                  </>
+                ) : (
+                  <>
+                    {step.text}{" "}
+                    <Link href={step.link.href} className="font-bold text-[#1565C0] hover:underline">
+                      {step.link.label}
+                    </Link>{" "}
+                    {step.suffix}
+                  </>
+                )}
               </li>
             ))}
-          </ul>
+          </ol>
           <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
-            Neither resource replaces the other. If you prepare only from past papers, you risk missing
-            topics that are part of the syllabus but haven&apos;t appeared in recent papers yet. If you
-            prepare only from the syllabus without ever practicing past papers, you may know the content
-            but struggle with the actual exam format and timing. Check the{" "}
-            <Link href="/government-exams/kppsc/syllabus" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC syllabus
-            </Link>{" "}
-            page first to confirm your subject coverage, then use past papers to sharpen how you apply
-            that knowledge under real exam conditions.
+            Following this sequence turns past-paper practice from passive reading into an active, diagnostic part of your preparation.
           </p>
         </Section>
 
-        <Section id="common-mistakes" title="Common Mistakes When Solving KPPSC Past Papers">
+        <Section id="how-many-papers" title="How Many KPPSC Past Papers Should You Practice?">
           <Prose>
-            <p>Avoid these frequent errors, which reduce the real value of past paper practice:</p>
+            <p>
+              There&apos;s no official, fixed number here — and any resource claiming otherwise is oversimplifying. The right amount depends on:
+            </p>
           </Prose>
-          <ol className="mt-4 space-y-2.5 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
-            {commonMistakes.map((m) => (
-              <li key={m}>{m}</li>
-            ))}
-          </ol>
+          <div className="mt-4">
+            <BulletList
+              items={[
+                "Exam type — PMS preparation generally benefits from a broader range of papers than a single-post general recruitment test",
+                "Post — some posts, especially specialized or newer ones, have limited past-paper availability",
+                "Syllabus — if the subject requirements for your post have changed recently, older papers may be less representative for those areas",
+                "Availability of authentic papers — practice is naturally limited by what genuine papers actually exist for your exam",
+                "Time available — a longer preparation timeline allows for more thorough, iterative practice",
+                "Your current preparation level — candidates just starting out may benefit more from fewer, closely reviewed papers than from rushing through many",
+              ]}
+            />
+          </div>
+          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+            As a general preparation strategy — not an official KPPSC requirement — most candidates find it useful to prioritize <strong className="text-slate-900">recent and relevant papers first</strong>, since these best reflect the current pattern for their specific exam, and then expand to older papers for additional pattern analysis and practice once the recent pattern feels familiar.
+          </p>
         </Section>
 
-        <Section id="faq" title="Frequently Asked Questions About KPPSC Past Papers">
+        <Section id="kppsc-practice-mcqs" title="15 KPPSC Past Paper Preparation MCQs">
+          <Prose>
+            <p className="text-xs text-slate-500 border-l-4 border-blue-200 pl-4 py-2 bg-blue-50/50 rounded-r-lg">
+              The following 15 questions are <strong>original practice MCQs written by PakLearners</strong> for KPPSC exam preparation. They are designed to reflect the subject range commonly tested in KPPSC exams, but they are <strong>not</strong> official KPPSC past-paper questions.
+            </p>
+            <p>
+              Attempt these 15 practice MCQs covering subjects commonly tested in KPPSC exams. Try answering each one before checking the correct answer and explanation.
+            </p>
+          </Prose>
+          <div className="mt-6 space-y-5">
+            {kppscPastPapersMcqs.map((mcq) => (
+              <PracticeMcqCard key={mcq.id} mcq={mcq} />
+            ))}
+          </div>
+        </Section>
+
+        <Section id="online-preparation-resources" title="KPPSC Past Papers and Online Preparation Resources">
+          <Prose>
+            <p>
+              Past papers work best as part of a broader, connected preparation routine rather than as a standalone resource. Once you&apos;ve reviewed papers relevant to your specific post or exam, build these habits into your study plan:
+            </p>
+          </Prose>
+          <div className="mt-4 space-y-3 text-sm text-slate-600 leading-relaxed">
+            <div className="flex gap-2 items-start">
+              <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
+              <span>
+                Practice regularly with subject-organized{" "}
+                <Link href="/mcqs/kppsc" className="font-bold text-[#1565C0] hover:underline">KPPSC MCQs</Link>{" "}
+                to reinforce what past papers reveal about frequently tested topics
+              </span>
+            </div>
+            <div className="flex gap-2 items-start">
+              <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
+              <span>
+                Use{" "}
+                <Link href="/government-exams/kppsc/online-tests" className="font-bold text-[#1565C0] hover:underline">KPPSC online tests</Link>{" "}
+                to simulate real exam timing and pressure ahead of your test date, or the dedicated{" "}
+                <Link href="/government-exams/kppsc/online-tests/pms" className="font-bold text-[#1565C0] hover:underline">PMS online tests</Link>{" "}
+                if PMS is your target exam
+              </span>
+            </div>
+            <div className="flex gap-2 items-start">
+              <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
+              <span>
+                Read the{" "}
+                <Link href="/government-exams/kppsc" className="font-bold text-[#1565C0] hover:underline">KPPSC exam guide</Link>{" "}
+                for a broader understanding of eligibility, application steps, and the exam process
+              </span>
+            </div>
+            <div className="flex gap-2 items-start">
+              <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
+              <span>
+                Explore{" "}
+                <Link href="/past-papers" className="font-bold text-[#1565C0] hover:underline">all government exam past papers</Link>{" "}
+                if you&apos;re also considering opportunities through FPSC, PPSC, BPSC, SPSC, or AJKPSC
+              </span>
+            </div>
+            <div className="flex gap-2 items-start">
+              <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
+              <span>
+                Browse general{" "}
+                <Link href="/study-resources" className="font-bold text-[#1565C0] hover:underline">competitive exam study resources</Link>{" "}
+                for topics that span multiple provincial and federal exams
+              </span>
+            </div>
+          </div>
+          <p className="mt-5 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+            Combining authentic past papers with consistent subject-wise MCQ practice and timed mock tests is, by most accounts, the most reliable way to prepare for a KPPSC exam — not because any single resource is a shortcut, but because together they build recall, understanding, and exam-day readiness.
+          </p>
+        </Section>
+
+        <Section id="kppsc-vs-other-commissions" title="KPPSC vs Other Public Service Commissions">
+          <Prose>
+            <p>
+              Pakistan has several public service commissions, each responsible for recruitment within its own jurisdiction — including <strong className="text-slate-900">KPPSC</strong> (Khyber Pakhtunkhwa), <strong className="text-slate-900">FPSC</strong> (federal), <strong className="text-slate-900">PPSC</strong> (Punjab), <strong className="text-slate-900">BPSC</strong> (Balochistan), <strong className="text-slate-900">SPSC</strong> (Sindh), and <strong className="text-slate-900">AJKPSC</strong> (Azad Jammu &amp; Kashmir). KPPSC specifically focuses on recruitment and competitive examinations for posts within the Government of Khyber Pakhtunkhwa, while the other commissions serve their respective provinces or federal departments.
+            </p>
+            <p>
+              If you&apos;re preparing for opportunities across more than one commission, it&apos;s worth treating each one&apos;s syllabus and pattern separately rather than assuming overlap, since subject weightage and exam structure can differ meaningfully between them. You can browse{" "}
+              <Link href="/past-papers" className="font-bold text-[#1565C0] hover:underline">all past papers</Link>{" "}
+              on PakLearners to explore preparation resources across all of Pakistan&apos;s major public service commissions in one place.
+            </p>
+          </Prose>
+        </Section>
+
+        <Section id="faq" title="Frequently Asked Questions">
           <div className="space-y-2">
             {kppscPastPapersFaqs.map((faq, i) => {
               const open = openFaq === i;
@@ -473,65 +649,23 @@ export default function KppscPastPapersPillar() {
           </div>
         </Section>
 
-        <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
-          <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-4">Final Thoughts</h2>
-          <p className="text-sm md:text-[15px] text-slate-600 leading-relaxed mb-5">
-            KPPSC past papers are one of the most practical tools available for exam preparation, but
-            they work best as part of a complete strategy — not as a replacement for understanding the
-            syllabus or practicing broader MCQs. Begin by reviewing the{" "}
-            <Link href="/government-exams/kppsc/syllabus" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC syllabus
-            </Link>{" "}
-            for your post, work through the relevant past papers by year and exam type, reinforce your
-            preparation with{" "}
-            <Link href="/government-exams/kppsc/mcqs" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC MCQs
-            </Link>
-            , and test your readiness with{" "}
-            <Link href="/government-exams/kppsc/online-test" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC online tests
-            </Link>
-            . For broader guidance on posts, eligibility and test schedules, visit the main{" "}
-            <Link href="/government-exams/kppsc" className="font-bold text-[#1565C0] hover:underline">
-              KPPSC exam preparation
-            </Link>{" "}
-            page, or explore PakLearners&apos; wider{" "}
-            <Link href="/government-exams" className="font-bold text-[#1565C0] hover:underline">
-              government exam preparation
-            </Link>{" "}
-            resources as you continue building toward your test.
+        <section className="bg-gradient-to-br from-[#0d47a1] via-[#1565C0] to-slate-900 rounded-2xl p-6 md:p-8 text-white shadow-xl">
+          <h2 className="text-xl md:text-2xl font-black mb-4">Start Your KPPSC Preparation</h2>
+          <p className="text-sm md:text-[15px] text-blue-100/90 leading-relaxed mb-6">
+            Working through <strong className="text-white">KPPSC past papers</strong> gives your preparation clear, evidence-based direction — showing you how a specific exam is actually structured rather than leaving you to guess. Combine that understanding with regular subject-wise MCQ practice, timed mock tests, and a syllabus you&apos;ve checked against KPPSC&apos;s latest official advertisement, and you have a preparation routine built on substance instead of shortcuts.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {relatedLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className="group flex items-center justify-between gap-3 rounded-xl px-4 py-3.5 bg-slate-50 border border-slate-100 text-slate-800 hover:border-blue-200 hover:bg-blue-50/60 transition-all"
-              >
-                <span className="text-sm font-bold">{link.name}</span>
-                <FaArrowRight
-                  size={11}
-                  className="text-slate-300 group-hover:text-[#1565C0] group-hover:translate-x-0.5 transition-all"
-                />
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-slate-500 mb-3">
-            <span>
-              <strong className="text-slate-900">Written By:</strong> PakLearners Editorial Team
-            </span>
-            <span>
-              <strong className="text-slate-900">Last Updated:</strong> August 2026
-            </span>
-          </div>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            This page is maintained as an educational resource hub. Paper availability, formats and
-            post-specific details should always be verified against official KPPSC advertisements and
-            published materials.
+          <p className="text-sm md:text-[15px] text-blue-100/90 leading-relaxed mb-6">
+            Continue building your study plan with PakLearners: practice with{" "}
+            <Link href="/mcqs/kppsc" className="font-bold text-sky-200 hover:text-white underline">KPPSC MCQs</Link>, simulate real exam conditions using{" "}
+            <Link href="/government-exams/kppsc/online-tests" className="font-bold text-sky-200 hover:text-white underline">KPPSC online tests</Link>, and review the full{" "}
+            <Link href="/government-exams/kppsc" className="font-bold text-sky-200 hover:text-white underline">KPPSC exam guide</Link> for eligibility and application details.
           </p>
+          <Link
+            href="#kppsc-practice-mcqs"
+            className="inline-flex items-center gap-2 bg-white text-[#1565C0] text-sm font-bold px-5 py-3 rounded-xl hover:bg-blue-50"
+          >
+            Practice KPPSC MCQs Now <FaArrowRight size={11} />
+          </Link>
         </section>
       </div>
     </div>

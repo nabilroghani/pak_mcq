@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Force title, description and robots into <head> for crawlers (Next.js 15 streaming metadata).
+  htmlLimitedBots: /.*/,
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -46,8 +48,8 @@ const nextConfig = {
       ["jobs", "/government-exams/kppsc/jobs"],
       ["eligibility", "/government-exams/kppsc/eligibility"],
       ["preparation", "/government-exams/kppsc/preparation"],
-      ["online-test", "/government-exams/kppsc/online-test"],
-      ["online-tests", "/government-exams/kppsc/online-test"],
+      ["online-test", "/government-exams/kppsc/online-tests"],
+      ["online-tests", "/government-exams/kppsc/online-tests"],
     ].flatMap(([segment, destination]) => [
       { source: `/kppsc/${segment}`, destination, permanent: true },
       { source: `/kppsc/${segment}/`, destination, permanent: true },
@@ -64,6 +66,10 @@ const nextConfig = {
       { source: "/admin", destination: "/admin/dashboard", permanent: false },
       { source: "/kppsc", destination: "/government-exams/kppsc", permanent: true },
       { source: "/kppsc/", destination: "/government-exams/kppsc", permanent: true },
+      { source: "/government-exams/kppsc/online-test", destination: "/government-exams/kppsc/online-tests", permanent: true },
+      { source: "/government-exams/kppsc/online-test/", destination: "/government-exams/kppsc/online-tests", permanent: true },
+      { source: "/online-tests/kppsc", destination: "/government-exams/kppsc/online-tests", permanent: true },
+      { source: "/online-tests/kppsc/", destination: "/government-exams/kppsc/online-tests", permanent: true },
       ...examRedirects,
       ...kppscSubRedirects,
     ];

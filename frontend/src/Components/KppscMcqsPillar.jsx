@@ -144,7 +144,7 @@ const relatedLinks = [
   { name: "KPPSC MCQs hub", path: "/mcqs/kppsc" },
   { name: "KPPSC syllabus", path: "/government-exams/kppsc/syllabus" },
   { name: "KPPSC past papers", path: "/government-exams/kppsc/past-papers" },
-  { name: "KPPSC online tests", path: "/government-exams/kppsc/online-test" },
+  { name: "KPPSC online tests", path: "/government-exams/kppsc/online-tests" },
   { name: "KPPSC exam guide", path: "/government-exams/kppsc" },
 ];
 
@@ -485,7 +485,7 @@ export default function KppscMcqsPillar() {
               KPPSC past papers
             </Link>{" "}
             to see how questions are actually framed, and test your overall readiness with{" "}
-            <Link href="/government-exams/kppsc/online-test" className="font-bold text-[#1565C0] hover:underline">
+            <Link href="/government-exams/kppsc/online-tests" className="font-bold text-[#1565C0] hover:underline">
               KPPSC online tests
             </Link>
             . For broader guidance on posts, eligibility and test schedules, visit the main{" "}

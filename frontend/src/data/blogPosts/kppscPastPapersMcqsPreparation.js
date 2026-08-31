@@ -15,6 +15,8 @@ export const kppscPastPapersMcqsPreparation = {
   dateModified: "2026-08-27",
   readTime: "16 min read",
   author: "PakLearners Editorial Team",
+  coverVariant: "past-papers-mcqs",
+  imageAlt: "KPPSC past papers and MCQs preparation cycle diagram",
   intro:
     "Solving past papers and MCQs without a system is one of the biggest time-wasters in KPPSC preparation. Many candidates attempt paper after paper, check the answer key, and move on — without ever asking why a question was missed. The result: the same mistakes repeat in the next paper too.",
   lead:

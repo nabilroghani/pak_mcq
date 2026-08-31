@@ -17,7 +17,7 @@ export const kppscSubPages = {
       { name: "Full KPPSC exam guide", path: "/government-exams/kppsc" },
       { name: "KPPSC MCQs", path: "/government-exams/kppsc/mcqs" },
       { name: "KPPSC past papers", path: "/government-exams/kppsc/past-papers" },
-      { name: "KPPSC online tests", path: "/government-exams/kppsc/online-test" },
+      { name: "KPPSC online tests", path: "/government-exams/kppsc/online-tests" },
     ],
   },
   "past-papers": {
@@ -144,46 +144,10 @@ export const kppscSubPages = {
     relatedLinks: [
       { name: "KPPSC MCQs", path: "/mcqs/kppsc" },
       { name: "KPPSC past papers", path: "/past-papers/kppsc" },
-      { name: "Online tests", path: "/online-tests/kppsc" },
+      { name: "Online tests", path: "/government-exams/kppsc/online-tests" },
       { name: "Current affairs", path: "/current-affairs" },
     ],
     anchorOnMain: "#preparation-strategy",
-  },
-  "online-test": {
-    slug: "online-test",
-    title: "KPPSC Online Tests",
-    headline: "KPPSC Online Tests – Timed Practice for Exam Day",
-    description:
-      "Attempt timed KPPSC online tests to build speed, accuracy and exam-day confidence. Simulate real MCQ paper conditions before your written test.",
-    metaTitle: "KPPSC Online Tests – Timed Practice Exams | PakLearners",
-    metaDescription:
-      "Take free KPPSC online tests — timed MCQ practice to improve speed, accuracy and confidence before your KPPSC written examination.",
-    intro:
-      "Timed online tests help KPPSC candidates practice under real exam pressure. Most general and assistant-level KPPSC papers are objective MCQ-based, so simulating time limits during practice reveals whether your accuracy holds up at exam pace — not just in untimed study sessions.",
-    sections: [
-      {
-        title: "When to Start Online Tests",
-        body:
-          "Begin timed tests once your foundational content review is largely complete — typically in the final 6–8 weeks before your exam. Early on, prioritize topic-wise MCQs; later, shift to mixed full-length mocks.",
-      },
-      {
-        title: "Using Test Results",
-        body:
-          "Treat each mock as diagnostic. Allocate the next study block to subjects where you lost the most marks rather than repeating tests without reviewing errors.",
-      },
-      {
-        title: "Negative Marking Practice",
-        body:
-          "If your specific KPPSC paper uses negative marking, practice selective answering during mocks — accuracy strategy matters as much as speed.",
-      },
-    ],
-    relatedLinks: [
-      { name: "All online tests", path: "/online-tests" },
-      { name: "KPPSC MCQs", path: "/mcqs/kppsc" },
-      { name: "KPPSC past papers", path: "/past-papers/kppsc" },
-      { name: "KPPSC preparation guide", path: "/government-exams/kppsc/preparation" },
-    ],
-    primaryCta: { label: "Attempt KPPSC online tests", path: "/online-tests/kppsc" },
   },
 };
 
