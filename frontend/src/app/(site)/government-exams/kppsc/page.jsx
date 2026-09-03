@@ -6,24 +6,24 @@ import { absoluteUrl, siteConfig } from "@/data/siteConfig";
 import { kppscFaqs } from "@/data/kppscFaqs";
 
 export const metadata = {
-  title: "KPPSC Exam Preparation – MCQs & Past Papers",
+  title: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests",
   description:
-    "KPPSC exam preparation with free MCQs, past papers & subject-wise tests for PMS, Assistant, Tehsildar, Patwari & other KPPSC posts on PakLearners.",
+    "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
   alternates: {
     canonical: "/government-exams/kppsc",
   },
   openGraph: {
-    title: "KPPSC Exam Preparation – MCQs & Past Papers | PakLearners",
+    title: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests | PakLearners",
     description:
-      "KPPSC exam preparation with free MCQs, past papers & subject-wise tests for PMS, Assistant, Tehsildar, Patwari & other KPPSC posts on PakLearners.",
+      "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
     url: "/government-exams/kppsc",
     type: "article",
   },
   twitter: {
     card: "summary_large_image",
-    title: "KPPSC Exam Preparation – MCQs & Past Papers | PakLearners",
+    title: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests | PakLearners",
     description:
-      "KPPSC exam preparation with free MCQs, past papers & subject-wise tests for PMS, Assistant, Tehsildar, Patwari & other KPPSC posts.",
+      "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
   },
 };
 
@@ -37,11 +37,11 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "KPPSC Exam Preparation – MCQs & Past Papers",
+          name: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests",
           url: pageUrl,
           about: { "@type": "Thing", name: "KPPSC Exam Preparation" },
           description:
-            "KPPSC exam preparation with free MCQs, past papers and subject-wise tests for PMS, Assistant, Tehsildar, Patwari and other KPPSC posts.",
+            "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
           isPartOf: { "@id": absoluteUrl("/#organization") },
         }}
       />
@@ -50,7 +50,7 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: "KPPSC Exam Preparation – MCQs & Past Papers",
+          headline: "KPPSC Exam Preparation – Past Papers, MCQs, Syllabus & Online Tests",
           author: {
             "@type": "Organization",
             name: "PakLearners Editorial Team",
@@ -65,7 +65,7 @@ export default function KppscExamPage() {
             },
           },
           datePublished: "2026-07-01",
-          dateModified: "2026-07-30",
+          dateModified: "2026-09-03",
           mainEntityOfPage: pageUrl,
           about: "KPPSC Exam Preparation 2026",
         }}
@@ -75,9 +75,9 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "LearningResource",
-          name: "KPPSC Exam Preparation – MCQs & Past Papers",
+          name: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests",
           description:
-            "KPPSC exam preparation with free MCQs, past papers, subject-wise tests and online mock tests for PMS, Assistant, Tehsildar, Patwari and other KPPSC posts.",
+            "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
           learningResourceType: "Guide",
           educationalLevel: "Adult education",
           inLanguage: "en",
@@ -86,7 +86,7 @@ export default function KppscExamPage() {
             "@type": "Organization",
             name: "PakLearners Editorial Team",
           },
-          dateModified: "2026-07-30",
+          dateModified: "2026-09-03",
         }}
       />
       <JsonLd
