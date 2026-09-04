@@ -76,7 +76,7 @@ function getDotColor(index) {
   return "bg-blue-500";
 }
 
-export default function MCQS_cart({ defaultSlug }) {
+export default function MCQS_cart({ defaultSlug, suppressHeading = false }) {
   const { categoryName } = useParams();
   const [subCats, setSubCats] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -200,7 +200,7 @@ export default function MCQS_cart({ defaultSlug }) {
                   <Breadcrumbs items={breadcrumbItems} variant="light" />
                 </div>
               )}
-              {!bannerHasTitle && (
+              {!bannerHasTitle && !suppressHeading && (
                 <>
                   <h1 className="text-white text-2xl md:text-5xl font-black drop-shadow-2xl uppercase tracking-tight leading-tight">
                     {subjectName}
@@ -210,7 +210,17 @@ export default function MCQS_cart({ defaultSlug }) {
                   </p>
                 </>
               )}
-              {bannerHasTitle && (
+              {!bannerHasTitle && suppressHeading && (
+                <>
+                  <p className="text-white text-2xl md:text-5xl font-black drop-shadow-2xl uppercase tracking-tight leading-tight">
+                    {subjectName}
+                  </p>
+                  <p className="text-white/75 text-xs md:text-sm font-bold uppercase tracking-[0.15em] mt-2">
+                    {getHeroSubtitle()}
+                  </p>
+                </>
+              )}
+              {bannerHasTitle && !suppressHeading && (
                 <h1 className="sr-only">{subjectName} — {getHeroSubtitle()}</h1>
               )}
               {examContext && !isExamCategory && (
