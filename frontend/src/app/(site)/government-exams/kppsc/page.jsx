@@ -6,24 +6,24 @@ import { absoluteUrl, siteConfig } from "@/data/siteConfig";
 import { kppscFaqs } from "@/data/kppscFaqs";
 
 export const metadata = {
-  title: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests",
+  title: "KPPSC Exam Prep – Past Papers, MCQs & Syllabus",
   description:
-    "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
+    "Post-wise KPPSC exam preparation: use the official syllabus with past papers, subject MCQs and timed online tests. Practical guidance for KP candidates.",
   alternates: {
     canonical: "/government-exams/kppsc",
   },
   openGraph: {
-    title: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests | PakLearners",
+    title: "KPPSC Exam Prep – Past Papers, MCQs & Syllabus | PakLearners",
     description:
-      "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
+      "Post-wise KPPSC exam preparation: use the official syllabus with past papers, subject MCQs and timed online tests. Practical guidance for KP candidates.",
     url: "/government-exams/kppsc",
     type: "article",
   },
   twitter: {
     card: "summary_large_image",
-    title: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests | PakLearners",
+    title: "KPPSC Exam Prep – Past Papers, MCQs & Syllabus | PakLearners",
     description:
-      "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
+      "Post-wise KPPSC exam preparation: use the official syllabus with past papers, subject MCQs and timed online tests. Practical guidance for KP candidates.",
   },
 };
 
@@ -37,11 +37,11 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests",
+          name: "KPPSC Exam Preparation – Past Papers, MCQs, Syllabus & Online Tests",
           url: pageUrl,
           about: { "@type": "Thing", name: "KPPSC Exam Preparation" },
           description:
-            "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
+            "Post-wise KPPSC exam preparation: use the official syllabus with past papers, subject MCQs and timed online tests. Practical guidance for KP candidates.",
           isPartOf: { "@id": absoluteUrl("/#organization") },
         }}
       />
@@ -65,9 +65,9 @@ export default function KppscExamPage() {
             },
           },
           datePublished: "2026-07-01",
-          dateModified: "2026-09-03",
+          dateModified: "2026-09-04",
           mainEntityOfPage: pageUrl,
-          about: "KPPSC Exam Preparation 2026",
+          about: "KPPSC Exam Preparation",
         }}
       />
       <JsonLd
@@ -75,9 +75,9 @@ export default function KppscExamPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "LearningResource",
-          name: "KPPSC Exam Preparation 2026 – Past Papers, MCQs, Syllabus & Online Tests",
+          name: "KPPSC Exam Preparation – Past Papers, MCQs, Syllabus & Online Tests",
           description:
-            "Prepare for KPPSC exams with organized past papers, subject-wise MCQs, syllabus guidance, and timed online tests. A practical, post-wise preparation guide for KPPSC candidates.",
+            "Post-wise KPPSC exam preparation: use the official syllabus with past papers, subject MCQs and timed online tests. Practical guidance for KP candidates.",
           learningResourceType: "Guide",
           educationalLevel: "Adult education",
           inLanguage: "en",
@@ -86,7 +86,7 @@ export default function KppscExamPage() {
             "@type": "Organization",
             name: "PakLearners Editorial Team",
           },
-          dateModified: "2026-09-03",
+          dateModified: "2026-09-04",
         }}
       />
       <JsonLd
@@ -117,7 +117,7 @@ export default function KppscExamPage() {
         }}
       />
       <FaqSchema id="schema-faq-kppsc" faqs={kppscFaqs} />
-      <MCQS_cart defaultSlug="kppsc-exams" />
+      <MCQS_cart defaultSlug="kppsc-exams" suppressHeading />
       <KppscExamPrepContent />
     </>
   );
