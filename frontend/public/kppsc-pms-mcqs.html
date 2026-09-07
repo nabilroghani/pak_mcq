@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KPPSC / PMS MCQs — 80 Practice Questions | PakLearners</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    .navbar { background: #1565C0; color: #fff; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+    .navbar-brand { font-size: 1.35rem; font-weight: 900; font-style: italic; letter-spacing: -.03em; }
+    .navbar-brand span { color: #fbbf24; }
+    .hero { background: linear-gradient(135deg, #0d47a1 0%, #1565C0 55%, #0f172a 100%); color: #fff; padding: 3rem 1.5rem 4.5rem; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(251,191,36,.18); border: 1px solid rgba(251,191,36,.4); color: #fbbf24; font-size: .65rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; padding: .3rem .9rem; border-radius: 999px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.7rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; margin-bottom: .75rem; }
+    .hero p { max-width: 600px; margin: 0 auto; color: rgba(219,234,254,.85); font-size: .95rem; }
+    .hero-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.75rem; flex-wrap: wrap; }
+    .stat-pill { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: .75rem; padding: .55rem 1.2rem; font-size: .78rem; font-weight: 700; }
+    .stat-pill span { color: #fbbf24; font-size: 1.15rem; font-weight: 900; display: block; }
+    .toolbar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: .7rem 1.5rem; display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; position: sticky; top: 56px; z-index: 800; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+    .toolbar label { font-size: .78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .06em; }
+    .toolbar select, .toolbar input { border: 1px solid #cbd5e1; border-radius: .5rem; padding: .45rem .75rem; font-size: .82rem; color: #334155; background: #f8fafc; outline: none; }
+    .toolbar-count { margin-left: auto; font-size: .78rem; color: #94a3b8; font-weight: 600; }
+    .container { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .section-heading { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; }
+    .section-heading h2 { font-size: 1.15rem; font-weight: 900; color: #0f172a; }
+    .section-heading .pill { background: #dcfce7; color: #15803d; font-size: .7rem; font-weight: 800; padding: .2rem .65rem; border-radius: 999px; letter-spacing: .05em; }
+    .mcq-card { background: #fff; border-radius: 1rem; border: 1.5px solid #e2e8f0; padding: 1.5rem; margin-bottom: 1.1rem; }
+    .mcq-meta { display: flex; align-items: center; gap: .55rem; margin-bottom: .85rem; flex-wrap: wrap; }
+    .q-num { width: 30px; height: 30px; background: #1565C0; color: #fff; border-radius: .45rem; font-size: .75rem; font-weight: 900; display: grid; place-items: center; flex-shrink: 0; }
+    .cat-badge { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; padding: .22rem .65rem; border-radius: 999px; background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
+    .question-text { font-size: .97rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; line-height: 1.55; }
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
+    @media (max-width: 520px) { .options-grid { grid-template-columns: 1fr; } }
+    .option { display: flex; align-items: flex-start; gap: .6rem; padding: .7rem .9rem; border-radius: .65rem; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: .87rem; font-weight: 500; color: #334155; }
+    .option.correct { background: #dcfce7; border-color: #4ade80; color: #15803d; font-weight: 700; }
+    .option-key { width: 22px; height: 22px; border-radius: 50%; font-size: .72rem; font-weight: 900; display: grid; place-items: center; flex-shrink: 0; background: #e2e8f0; color: #475569; }
+    .option.correct .option-key { background: #22c55e; color: #fff; }
+    .correct-icon { margin-left: auto; font-size: 1rem; flex-shrink: 0; }
+    .explanation { margin-top: .9rem; background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 0 .5rem .5rem 0; padding: .65rem .85rem; font-size: .82rem; color: #78350f; line-height: 1.55; }
+    .explanation strong { color: #92400e; }
+    .no-results { text-align: center; padding: 3rem 1rem; color: #94a3b8; font-size: .95rem; display: none; }
+    .back-top { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #1565C0; color: #fff; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(21,101,192,.4); cursor: pointer; font-size: 1rem; border: none; opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .back-top.show { opacity: 1; pointer-events: auto; }
+    .footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 1.5rem 1rem; font-size: .8rem; }
+    .footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-brand">PAK <span>LEARNERS</span></div>
+</nav>
+<div class="hero">
+  <div class="hero-badge">KPPSC &nbsp;/&nbsp; PMS Practice</div>
+  <h1>KPPSC / PMS MCQs</h1>
+  <p>80 must-know Multiple Choice Questions for KPPSC Provincial Management Service (PMS) exam preparation — correct answers highlighted in green.</p>
+  <div class="hero-stats">
+    <div class="stat-pill"><span>80</span>Total MCQs</div>
+    <div class="stat-pill"><span>8</span>Categories</div>
+    <div class="stat-pill"><span>Free</span>Practice</div>
+  </div>
+</div>
+<div class="toolbar">
+  <label for="catFilter">Category:</label>
+  <select id="catFilter" onchange="filterMCQs()">
+    <option value="">All Categories</option>
+    <option value="Pakistan Affairs">Pakistan Affairs</option>
+    <option value="Pakistan History">Pakistan History</option>
+    <option value="Pakistan Geography">Pakistan Geography</option>
+    <option value="Islamic Studies">Islamic Studies</option>
+    <option value="Everyday Science">Everyday Science</option>
+    <option value="General Knowledge">General Knowledge</option>
+    <option value="World Affairs">World Affairs</option>
+    <option value="Computer / IT">Computer / IT</option>
+  </select>
+  <label for="searchBox">Search:</label>
+  <input type="text" id="searchBox" placeholder="Type keyword..." oninput="filterMCQs()" />
+  <div class="toolbar-count" id="countDisplay">Showing 80 of 80</div>
+</div>
+<div class="container">
+  <div class="section-heading">
+    <h2>Practice MCQs</h2>
+    <span class="pill">Correct Answer = Green</span>
+  </div>
+  <div id="mcqList"></div>
+  <div class="no-results" id="noResults">No questions match your filter.</div>
+</div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">^</button>
+<footer class="footer">
+  <p>2026 <a href="https://paklearners.com" target="_blank">PakLearners</a> - Free KPPSC / PMS Exam Preparation</p>
+</footer>
+<script>
+const mcqs=[
+{id:1,cat:"Pakistan Affairs",q:"The Constitution of Pakistan was enforced on:",opts:["14-Aug-73","23-Mar-56","25-Dec-73","14-Aug-47"],correct:0,exp:"The Constitution of Pakistan 1973 was enforced on 14 August 1973."},
+{id:2,cat:"Pakistan Affairs",q:"The first Governor General of Pakistan was:",opts:["Liaquat Ali Khan","Muhammad Ali Jinnah","Iskander Mirza","Ayub Khan"],correct:1,exp:"Muhammad Ali Jinnah (Quaid-e-Azam) was the first Governor General of Pakistan."},
+{id:3,cat:"Pakistan Affairs",q:"The first President of Pakistan was:",opts:["Ayub Khan","Iskander Mirza","Yahya Khan","Zulfikar Ali Bhutto"],correct:1,exp:"Iskander Mirza became the first President of Pakistan on 23 March 1956."},
+{id:4,cat:"Pakistan History",q:"The Lahore Resolution was passed in:",opts:["1930","1940","1947","1956"],correct:1,exp:"The Lahore Resolution was passed on 23 March 1940 at the annual session of the All-India Muslim League."},
+{id:5,cat:"Pakistan Affairs",q:"The Objective Resolution was presented by:",opts:["Liaquat Ali Khan","Khawaja Nazimuddin","Ayub Khan","Muhammad Ali Bogra"],correct:0,exp:"Prime Minister Liaquat Ali Khan presented the Objectives Resolution on 7 March 1949."},
+{id:6,cat:"Pakistan Geography",q:"The longest river of Pakistan is:",opts:["Chenab","Ravi","Indus","Jhelum"],correct:2,exp:"The Indus River is the longest river in Pakistan, flowing about 3,180 km."},
+{id:7,cat:"Pakistan Affairs",q:"The national language of Pakistan is:",opts:["Punjabi","Urdu","Sindhi","English"],correct:1,exp:"Urdu is the national language of Pakistan as stated in Article 251 of the Constitution."},
+{id:8,cat:"Pakistan Affairs",q:"The capital of Pakistan was shifted from Karachi to Islamabad in:",opts:["1956","1959","1967","1973"],correct:2,exp:"The capital was officially shifted from Karachi to Islamabad in 1967."},
+{id:9,cat:"Islamic Studies",q:"The first Islamic month is:",opts:["Ramadan","Muharram","Rajab","Shawwal"],correct:1,exp:"Muharram is the first month of the Islamic Hijri calendar."},
+{id:10,cat:"Islamic Studies",q:"The Holy Quran was revealed in:",opts:["Arabic","Persian","Hebrew","Urdu"],correct:0,exp:"The Holy Quran was revealed in the Arabic language."},
+{id:11,cat:"Islamic Studies",q:"The first revelation of the Holy Quran was in the cave of:",opts:["Hira","Thawr","Uhud","Safa"],correct:0,exp:"The first revelation was received by Prophet Muhammad (PBUH) in the Cave of Hira."},
+{id:12,cat:"Islamic Studies",q:"The number of Surahs in the Holy Quran is:",opts:["112","113","114","115"],correct:2,exp:"The Holy Quran contains 114 Surahs (chapters)."},
+{id:13,cat:"Islamic Studies",q:"The first mosque in Islam was:",opts:["Masjid-e-Nabawi","Masjid-e-Quba","Masjid-e-Haram","Masjid-e-Aqsa"],correct:1,exp:"Masjid-e-Quba, built in Madinah, is considered the first mosque in Islam."},
+{id:14,cat:"Everyday Science",q:"The largest planet of the solar system is:",opts:["Earth","Mars","Jupiter","Saturn"],correct:2,exp:"Jupiter is the largest planet in our solar system."},
+{id:15,cat:"Everyday Science",q:"The nearest planet to the Sun is:",opts:["Venus","Mercury","Earth","Mars"],correct:1,exp:"Mercury is the closest planet to the Sun."},
+{id:16,cat:"Everyday Science",q:"The chemical formula of water is:",opts:["CO2","H2O","O2","NaCl"],correct:1,exp:"Water's chemical formula is H2O - two hydrogen atoms bonded to one oxygen atom."},
+{id:17,cat:"Everyday Science",q:"The speed of light is approximately:",opts:["300,000 km/s","150,000 km/s","500,000 km/s","100,000 km/s"],correct:0,exp:"The speed of light in a vacuum is approximately 300,000 km/s."},
+{id:18,cat:"General Knowledge",q:"The largest ocean in the world is:",opts:["Atlantic Ocean","Indian Ocean","Pacific Ocean","Arctic Ocean"],correct:2,exp:"The Pacific Ocean is the largest ocean, covering more than 165 million sq km."},
+{id:19,cat:"General Knowledge",q:"The largest continent by area is:",opts:["Africa","Asia","Europe","North America"],correct:1,exp:"Asia is the largest continent in both size and population."},
+{id:20,cat:"World Affairs",q:"The United Nations was established in:",opts:["1940","1945","1950","1955"],correct:1,exp:"The United Nations was officially established on 24 October 1945."},
+{id:21,cat:"World Affairs",q:"The headquarters of United Nations is located in:",opts:["Geneva","Paris","New York","London"],correct:2,exp:"The UN headquarters is located in New York City, United States."},
+{id:22,cat:"World Affairs",q:"WHO headquarters is located in:",opts:["Geneva","Rome","Paris","Vienna"],correct:0,exp:"The World Health Organization (WHO) is headquartered in Geneva, Switzerland."},
+{id:23,cat:"World Affairs",q:"The currency of Japan is:",opts:["Yuan","Yen","Won","Dollar"],correct:1,exp:"The Japanese Yen is the official currency of Japan."},
+{id:24,cat:"World Affairs",q:"The currency of Saudi Arabia is:",opts:["Dinar","Riyal","Dirham","Pound"],correct:1,exp:"The Saudi Riyal is the official currency of Saudi Arabia."},
+{id:25,cat:"General Knowledge",q:"The first man to walk on the Moon was:",opts:["Yuri Gagarin","Neil Armstrong","Buzz Aldrin","John Glenn"],correct:1,exp:"Neil Armstrong became the first human to walk on the Moon on 20 July 1969."},
+{id:26,cat:"Computer / IT",q:"The Father of Computer is:",opts:["Alan Turing","Charles Babbage","Bill Gates","Steve Jobs"],correct:1,exp:"Charles Babbage is widely credited as the Father of the Computer."},
+{id:27,cat:"Computer / IT",q:"CPU stands for:",opts:["Central Processing Unit","Computer Processing Unit","Central Program Unit","Control Processing Unit"],correct:0,exp:"CPU stands for Central Processing Unit."},
+{id:28,cat:"Computer / IT",q:"RAM is:",opts:["Permanent memory","Temporary memory","External memory","Optical memory"],correct:1,exp:"RAM (Random Access Memory) is temporary/volatile memory."},
+{id:29,cat:"Computer / IT",q:"The brain of computer is:",opts:["Monitor","Keyboard","CPU","Printer"],correct:2,exp:"The CPU (Central Processing Unit) is often called the brain of the computer."},
+{id:30,cat:"Computer / IT",q:"MS Word is a:",opts:["Operating system","Word processing software","Browser","Antivirus"],correct:1,exp:"Microsoft Word is a word processing software application."},
+{id:31,cat:"Pakistan Affairs",q:"The first Pakistani Nobel Prize winner was:",opts:["Dr. Abdus Salam","Malala Yousafzai","Abdul Sattar Edhi","Imran Khan"],correct:0,exp:"Dr. Abdus Salam won the Nobel Prize in Physics in 1979."},
+{id:32,cat:"Pakistan Affairs",q:"Dr. Abdus Salam received Nobel Prize in:",opts:["Chemistry","Physics","Medicine","Mathematics"],correct:1,exp:"Dr. Abdus Salam was awarded the Nobel Prize in Physics in 1979."},
+{id:33,cat:"Pakistan Affairs",q:"The national flower of Pakistan is:",opts:["Rose","Jasmine","Tulip","Lily"],correct:1,exp:"Jasmine (Chameli) is the national flower of Pakistan."},
+{id:34,cat:"Pakistan Affairs",q:"The national animal of Pakistan is:",opts:["Snow Leopard","Markhor","Lion","Deer"],correct:1,exp:"The Markhor is the national animal of Pakistan."},
+{id:35,cat:"Pakistan Affairs",q:"The national bird of Pakistan is:",opts:["Eagle","Chukar","Peacock","Dove"],correct:1,exp:"The Chukar Partridge is the national bird of Pakistan."},
+{id:36,cat:"Pakistan Geography",q:"The highest mountain peak of Pakistan is:",opts:["Nanga Parbat","K2","Tirich Mir","Rakaposhi"],correct:1,exp:"K2 (8,611 m) is the highest peak in Pakistan and second-highest in the world."},
+{id:37,cat:"Pakistan Geography",q:"K2 is located in:",opts:["Punjab","Sindh","Gilgit-Baltistan","Khyber Pakhtunkhwa"],correct:2,exp:"K2 is located in the Karakoram Range in Gilgit-Baltistan, Pakistan."},
+{id:38,cat:"Pakistan Geography",q:"The largest desert of Pakistan is:",opts:["Thar Desert","Cholistan Desert","Kharan Desert","Thal Desert"],correct:0,exp:"The Thar Desert is the largest desert in Pakistan."},
+{id:39,cat:"Pakistan Affairs",q:"The first census of Pakistan was held in:",opts:["1947","1951","1961","1972"],correct:1,exp:"The first census of Pakistan was conducted in 1951."},
+{id:40,cat:"Pakistan History",q:"The first martial law in Pakistan was imposed in:",opts:["1956","1958","1969","1977"],correct:1,exp:"The first martial law was imposed by General Ayub Khan on 7 October 1958."},
+{id:41,cat:"Pakistan History",q:"The first Chief Martial Law Administrator of Pakistan was:",opts:["Yahya Khan","Ayub Khan","Zia-ul-Haq","Pervez Musharraf"],correct:1,exp:"General Ayub Khan was the first CMLA of Pakistan in 1958."},
+{id:42,cat:"Pakistan Affairs",q:"The first female Prime Minister of Pakistan was:",opts:["Fatima Jinnah","Benazir Bhutto","Hina Rabbani Khar","Maryam Nawaz"],correct:1,exp:"Benazir Bhutto was the first female Prime Minister of Pakistan."},
+{id:43,cat:"Pakistan Affairs",q:"The Objectives Resolution was passed in:",opts:["1948","1949","1950","1956"],correct:1,exp:"The Objectives Resolution was passed on 12 March 1949."},
+{id:44,cat:"Pakistan Affairs",q:"The Constitution of 1973 was passed during the government of:",opts:["Ayub Khan","Yahya Khan","Zulfikar Ali Bhutto","Nawaz Sharif"],correct:2,exp:"Pakistan's 1973 Constitution was passed under PM Zulfikar Ali Bhutto."},
+{id:45,cat:"Pakistan Affairs",q:"The Supreme Law of Pakistan is:",opts:["Parliament","Constitution","President","Supreme Court"],correct:1,exp:"The Constitution of Pakistan is the supreme law of the land."},
+{id:46,cat:"Pakistan Affairs",q:"The national poet of Pakistan is:",opts:["Faiz Ahmed Faiz","Allama Muhammad Iqbal","Hafeez Jalandhari","Mir Taqi Mir"],correct:1,exp:"Allama Muhammad Iqbal is the national poet of Pakistan."},
+{id:47,cat:"Pakistan History",q:"Allama Iqbal delivered Allahabad Address in:",opts:["1928","1930","1932","1940"],correct:1,exp:"Allama Iqbal delivered his historic Allahabad Address in 1930."},
+{id:48,cat:"Pakistan History",q:"Quaid-e-Azam Muhammad Ali Jinnah joined Muslim League in:",opts:["1906","1913","1920","1930"],correct:1,exp:"Muhammad Ali Jinnah joined the All India Muslim League in 1913."},
+{id:49,cat:"Pakistan History",q:"The Simla Deputation was held in:",opts:["1905","1906","1911","1916"],correct:1,exp:"The Simla Deputation met Viceroy Minto in October 1906."},
+{id:50,cat:"Pakistan History",q:"The All India Muslim League was founded in:",opts:["Lahore","Karachi","Dhaka","Delhi"],correct:2,exp:"The All India Muslim League was founded in Dhaka on 30 December 1906."},
+{id:51,cat:"General Knowledge",q:"The largest country in the world by area is:",opts:["Canada","China","Russia","USA"],correct:2,exp:"Russia is the largest country, covering about 17.1 million km2."},
+{id:52,cat:"General Knowledge",q:"The smallest country in the world is:",opts:["Monaco","Vatican City","Maldives","Nepal"],correct:1,exp:"Vatican City is the smallest country in the world."},
+{id:53,cat:"General Knowledge",q:"The capital of Turkey is:",opts:["Istanbul","Ankara","Izmir","Bursa"],correct:1,exp:"Ankara is the capital city of Turkey."},
+{id:54,cat:"General Knowledge",q:"The capital of Australia is:",opts:["Sydney","Melbourne","Canberra","Perth"],correct:2,exp:"Canberra is the capital of Australia."},
+{id:55,cat:"General Knowledge",q:"The currency of China is:",opts:["Yen","Yuan","Won","Dollar"],correct:1,exp:"The official currency of China is the Yuan (Renminbi)."},
+{id:56,cat:"World Affairs",q:"The European Union headquarters is mainly located in:",opts:["Brussels","London","Berlin","Madrid"],correct:0,exp:"Brussels, Belgium is the main headquarters of the European Union."},
+{id:57,cat:"World Affairs",q:"NATO was established in:",opts:["1945","1947","1949","1955"],correct:2,exp:"NATO was established on 4 April 1949."},
+{id:58,cat:"World Affairs",q:"OIC headquarters is located in:",opts:["Riyadh","Jeddah","Doha","Cairo"],correct:1,exp:"The OIC is headquartered in Jeddah, Saudi Arabia."},
+{id:59,cat:"World Affairs",q:"SAARC was established in:",opts:["1980","1985","1990","1995"],correct:1,exp:"SAARC was established in 1985 in Dhaka, Bangladesh."},
+{id:60,cat:"World Affairs",q:"The headquarters of SAARC is in:",opts:["Islamabad","Kathmandu","Dhaka","Colombo"],correct:1,exp:"The SAARC Secretariat is located in Kathmandu, Nepal."},
+{id:61,cat:"Everyday Science",q:"The largest organ of human body is:",opts:["Heart","Liver","Skin","Brain"],correct:2,exp:"The skin is the largest organ of the human body."},
+{id:62,cat:"Everyday Science",q:"The human heart has:",opts:["Two chambers","Three chambers","Four chambers","Five chambers"],correct:2,exp:"The human heart has four chambers: two atria and two ventricles."},
+{id:63,cat:"Everyday Science",q:"The red color of blood is due to:",opts:["Plasma","Hemoglobin","Platelets","White cells"],correct:1,exp:"The red color is due to hemoglobin in red blood cells."},
+{id:64,cat:"Everyday Science",q:"Vitamin C deficiency causes:",opts:["Rickets","Scurvy","Night blindness","Beriberi"],correct:1,exp:"Vitamin C deficiency causes Scurvy."},
+{id:65,cat:"Everyday Science",q:"Vitamin D deficiency causes:",opts:["Scurvy","Rickets","Anemia","Diabetes"],correct:1,exp:"Vitamin D deficiency causes Rickets in children."},
+{id:66,cat:"Everyday Science",q:"The largest gland in human body is:",opts:["Pancreas","Liver","Thyroid","Pituitary"],correct:1,exp:"The liver is the largest gland in the human body."},
+{id:67,cat:"Everyday Science",q:"Photosynthesis occurs in:",opts:["Roots","Leaves","Flowers","Stem only"],correct:1,exp:"Photosynthesis primarily occurs in the leaves of plants."},
+{id:68,cat:"Everyday Science",q:"The gas essential for breathing is:",opts:["Nitrogen","Oxygen","Carbon dioxide","Hydrogen"],correct:1,exp:"Oxygen is essential for human breathing and cellular respiration."},
+{id:69,cat:"Everyday Science",q:"The boiling point of water is:",opts:["50C","75C","100C","150C"],correct:2,exp:"Water boils at 100 degrees Celsius at standard atmospheric pressure."},
+{id:70,cat:"Everyday Science",q:"The freezing point of water is:",opts:["0C","10C","50C","100C"],correct:0,exp:"Water freezes at 0 degrees Celsius at standard atmospheric pressure."},
+{id:71,cat:"General Knowledge",q:"The largest mammal in the world is:",opts:["Elephant","Blue Whale","Giraffe","Shark"],correct:1,exp:"The Blue Whale is the largest mammal on Earth."},
+{id:72,cat:"General Knowledge",q:"The fastest land animal is:",opts:["Lion","Horse","Cheetah","Leopard"],correct:2,exp:"The Cheetah is the fastest land animal, reaching speeds up to 112 km/h."},
+{id:73,cat:"Everyday Science",q:"The study of earthquakes is called:",opts:["Biology","Seismology","Ecology","Astronomy"],correct:1,exp:"Seismology is the scientific study of earthquakes."},
+{id:74,cat:"Everyday Science",q:"The instrument used to measure earthquakes is:",opts:["Thermometer","Barometer","Seismograph","Hygrometer"],correct:2,exp:"A Seismograph is used to measure and record earthquake vibrations."},
+{id:75,cat:"Everyday Science",q:"The study of weather is called:",opts:["Meteorology","Geology","Zoology","Botany"],correct:0,exp:"Meteorology is the scientific study of the atmosphere and weather."},
+{id:76,cat:"Everyday Science",q:"The hardest natural substance is:",opts:["Gold","Iron","Diamond","Silver"],correct:2,exp:"Diamond is the hardest known natural substance (10 on Mohs scale)."},
+{id:77,cat:"Everyday Science",q:"The chemical symbol of gold is:",opts:["Ag","Au","Fe","Gd"],correct:1,exp:"The chemical symbol of gold is Au, from the Latin word Aurum."},
+{id:78,cat:"Everyday Science",q:"The chemical symbol of sodium is:",opts:["So","Na","S","N"],correct:1,exp:"The chemical symbol of sodium is Na, from the Latin word Natrium."},
+{id:79,cat:"Everyday Science",q:"The largest planet in solar system is:",opts:["Earth","Jupiter","Saturn","Neptune"],correct:1,exp:"Jupiter is the largest planet in our solar system."},
+{id:80,cat:"Everyday Science",q:"The planet known as the Red Planet is:",opts:["Venus","Mars","Mercury","Jupiter"],correct:1,exp:"Mars is called the Red Planet due to iron oxide (rust) on its surface."}
+];
+const KEYS=["A","B","C","D"];
+function renderMCQs(list){
+  const container=document.getElementById("mcqList");
+  const noRes=document.getElementById("noResults");
+  const countEl=document.getElementById("countDisplay");
+  if(list.length===0){container.innerHTML="";noRes.style.display="block";countEl.textContent="Showing 0 of "+mcqs.length;return;}
+  noRes.style.display="none";
+  countEl.textContent="Showing "+list.length+" of "+mcqs.length;
+  container.innerHTML=list.map(m=>{
+    const optsHTML=m.opts.map((opt,i)=>{
+      const isCorrect=i===m.correct;
+      return '<div class="option'+(isCorrect?" correct":"")+'">'
+        +'<span class="option-key">'+KEYS[i]+'</span>'
+        +'<span>'+opt+'</span>'
+        +(isCorrect?'<span class="correct-icon">&#10003;</span>':"")
+        +'</div>';
+    }).join("");
+    return '<div class="mcq-card" id="q'+m.id+'">'
+      +'<div class="mcq-meta"><div class="q-num">'+m.id+'</div><span class="cat-badge">'+m.cat+'</span></div>'
+      +'<p class="question-text">'+m.q+'</p>'
+      +'<div class="options-grid">'+optsHTML+'</div>'
+      +'<div class="explanation"><strong>Explanation:</strong> '+m.exp+'</div>'
+      +'</div>';
+  }).join("");
+}
+function filterMCQs(){
+  const cat=document.getElementById("catFilter").value.toLowerCase();
+  const search=document.getElementById("searchBox").value.toLowerCase().trim();
+  const filtered=mcqs.filter(m=>{
+    const matchCat=!cat||m.cat.toLowerCase()===cat;
+    const matchSearch=!search||m.q.toLowerCase().includes(search)||m.opts.some(o=>o.toLowerCase().includes(search));
+    return matchCat&&matchSearch;
+  });
+  renderMCQs(filtered);
+}
+window.addEventListener("scroll",()=>{
+  const btn=document.getElementById("backTop");
+  if(window.scrollY>400)btn.classList.add("show");
+  else btn.classList.remove("show");
+});
+renderMCQs(mcqs);
+</script>
+</body>
+</html>
