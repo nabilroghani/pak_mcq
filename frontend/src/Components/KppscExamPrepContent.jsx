@@ -24,6 +24,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import { kppscFaqs } from "@/data/kppscFaqs";
+import { kppscPmsMcqs } from "@/data/kppscPmsMcqs";
 
 function Section({ id, title, children }) {
   return (
@@ -594,6 +595,84 @@ export default function KppscExamPrepContent() {
               when that area is in your syllabus.
             </p>
           </Prose>
+
+          {/* ── 80 KPPSC / PMS Practice MCQs ─────────────────────── */}
+          <div className="mt-10">
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                KPPSC / PMS Practice MCQs
+              </h3>
+              <span className="bg-emerald-100 text-emerald-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wide">
+                Correct Answer = Green ✓
+              </span>
+              <span className="ml-auto bg-[#1565C0]/10 text-[#1565C0] text-[11px] font-black px-3 py-1 rounded-full">
+                {kppscPmsMcqs.length} MCQs
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              {kppscPmsMcqs.map((mcq) => (
+                <div
+                  key={mcq.id}
+                  className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all"
+                >
+                  {/* Meta row */}
+                  <div className="flex items-center gap-2 mb-3 flex-wrap">
+                    <span className="w-8 h-8 bg-[#1565C0] text-white rounded-lg text-xs font-black flex items-center justify-center shrink-0">
+                      {mcq.id}
+                    </span>
+                    <span className="text-[11px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                      {mcq.category}
+                    </span>
+                  </div>
+
+                  {/* Question */}
+                  <p className="text-sm font-bold text-slate-800 mb-4 leading-snug">
+                    {mcq.question}
+                  </p>
+
+                  {/* Options grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {mcq.options.map((opt) => {
+                      const isCorrect = opt.key === mcq.correct;
+                      return (
+                        <div
+                          key={opt.key}
+                          className={`flex items-start gap-2.5 px-3.5 py-2.5 rounded-xl border text-sm transition-all ${
+                            isCorrect
+                              ? "bg-emerald-50 border-emerald-400 text-emerald-800 font-bold"
+                              : "bg-slate-50 border-slate-200 text-slate-600 font-medium"
+                          }`}
+                        >
+                          <span
+                            className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shrink-0 ${
+                              isCorrect
+                                ? "bg-emerald-500 text-white"
+                                : "bg-slate-200 text-slate-500"
+                            }`}
+                          >
+                            {opt.key}
+                          </span>
+                          <span className="flex-1 leading-snug">{opt.text}</span>
+                          {isCorrect && (
+                            <FaCheck className="text-emerald-500 shrink-0 mt-0.5" size={12} />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Explanation */}
+                  {mcq.explanation && (
+                    <div className="mt-3 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl px-4 py-2.5 text-xs text-amber-900 leading-relaxed">
+                      <span className="font-black">💡 Explanation: </span>
+                      {mcq.explanation}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </Section>
 
         <Section id="kppsc-online-tests" title="KPPSC Online Tests and Mock Practice">
