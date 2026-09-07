@@ -1,7 +1,9 @@
 import { absoluteUrl } from "@/data/siteConfig";
 import { getPublicSitemapPaths } from "@/seo/getPublicSitemapPaths";
 
-export const dynamic = "force-dynamic";
+// Generate the sitemap during each production build so it is available as the
+// canonical /sitemap.xml route without depending on source files at runtime.
+export const dynamic = "force-static";
 
 export default function sitemap() {
   const now = new Date();
