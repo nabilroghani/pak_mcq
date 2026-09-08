@@ -35,11 +35,12 @@ export function buildPageMetadata({
 /** Metadata for exam-style pillar pages (/mcqs/:slug, /past-papers/:slug, etc.). */
 export function buildExamPillarMetadata(exam, basePath, titleLabel) {
   return buildPageMetadata({
-    title: `${exam.name} ${titleLabel}`,
-    description: exam.description,
+    title: exam.seoTitle ?? `${exam.name} ${titleLabel}`,
+    description: exam.metaDescription ?? exam.description,
     path: `${basePath}/${exam.slug}`,
   });
 }
+
 
 /** Metadata for map-based topic pillars (/current-affairs/:slug, etc.). */
 export function buildTopicPillarMetadata(item, basePath) {

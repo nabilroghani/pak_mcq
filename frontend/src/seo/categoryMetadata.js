@@ -15,6 +15,15 @@ const subjectMap = {
   math: "Mathematics",
 };
 
+/** Custom SEO overrides for specific category slugs */
+const customCategoryMeta = {
+  "general-knowledge": {
+    title: "General Knowledge MCQs – Practice for FPSC, PPSC, KPPSC & NTS Exams",
+    description:
+      "General Knowledge MCQs and topic-wise practice for FPSC, PPSC, KPPSC, NTS and other Pakistan competitive exams — organized by subject to help you study smarter, not longer.",
+  },
+};
+
 function formatSlug(slug) {
   return slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 }
@@ -31,6 +40,17 @@ export function getCategoryDisplayName(slug) {
 }
 
 export function buildCategoryMetadata(categoryName) {
+  const slugLower = categoryName?.toLowerCase()?.trim();
+  const custom = customCategoryMeta[slugLower];
+
+  if (custom) {
+    return buildPageMetadata({
+      title: custom.title,
+      description: custom.description,
+      path: `/category/${categoryName}`,
+    });
+  }
+
   const displayName = getCategoryDisplayName(categoryName);
   const path = `/category/${categoryName}`;
 

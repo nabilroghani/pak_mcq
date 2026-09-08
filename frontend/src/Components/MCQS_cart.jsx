@@ -5,12 +5,19 @@ import api from "../utils/api.js";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { LuBookOpen, LuChevronRight } from "react-icons/lu";
+import { FaChevronDown, FaCheck } from "react-icons/fa";
 import MCQs_cart_RightSide from "./MCQs_cart_RightSide.jsx";
 import MCQs_Cart_leftSide from "./MCQs_Cart_leftSide.jsx";
 import Breadcrumbs from "./Breadcrumbs.jsx";
 import { examCategoryMap } from "../data/siteStructure";
 import { kppscExamCategories } from "../data/kppscExamCategories";
 import { imgSrc } from "../utils/imgSrc";
+import {
+  gkCategoryFaqs,
+  gkTopicAreas,
+  gkPreparationTips,
+} from "../data/gkCategoryContent";
+
 
 import pakCurrentAffairs from "../assets/1.webp";
 import GK from "../assets/2.webp";
@@ -74,6 +81,172 @@ function getDotColor(index) {
   if (col === 0) return "bg-emerald-500";
   if (col === 1) return "bg-amber-400";
   return "bg-blue-500";
+}
+
+// ─── General Knowledge SEO Content Section ───────────────────────────────────
+
+function GKSeoContent() {
+  const [openFaq, setOpenFaq] = useState(-1);
+
+  return (
+    <div className="space-y-6 mt-6">
+      {/* Intro */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-4">
+          General Knowledge MCQs – Practice for Competitive Exams
+        </h2>
+        <div className="space-y-4 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+          <p>
+            General Knowledge is one of the few subjects that shows up in almost every major competitive exam in Pakistan — FPSC, PPSC, KPPSC, NTS, and most other public service commission tests include it in some form, usually as an objective-type paper. What makes it tricky isn&apos;t the difficulty of any single question; it&apos;s the sheer range of topics it can draw from, which is why candidates often either over-prepare narrow areas or under-prepare broad ones.
+          </p>
+          <p>
+            Browse the categories above to start practicing, or read on for a short breakdown of what General Knowledge actually covers and how to prepare it efficiently.
+          </p>
+        </div>
+      </section>
+
+      {/* What GK Covers */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-4">
+          What &quot;General Knowledge&quot; Usually Covers
+        </h2>
+        <p className="text-sm md:text-[15px] text-slate-600 leading-relaxed mb-5">
+          General Knowledge papers commonly draw from a mix of the following areas, though exact weightage and topic selection vary by exam and post:
+        </p>
+        <ul className="space-y-3">
+          {gkTopicAreas.map((area) => (
+            <li key={area.title} className="flex gap-3 items-start">
+              <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
+              <span className="text-sm text-slate-600 leading-relaxed">
+                <strong className="text-slate-900">{area.title}</strong> — {area.desc}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-5 text-sm text-slate-500 leading-relaxed bg-slate-50 border border-slate-100 rounded-xl p-4">
+          Not every exam tests all of these equally — some posts lean heavily on world geography and organizations, others focus more on Pakistan-specific content. If you&apos;re preparing for a specific exam, it&apos;s worth checking that exam&apos;s syllabus or past papers to see which areas actually get tested, rather than trying to cover everything with equal effort.
+        </p>
+      </section>
+
+      {/* Why GK is hard to finish */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-4">
+          Why General Knowledge Is Hard to &quot;Finish&quot; Studying
+        </h2>
+        <div className="space-y-4 text-sm md:text-[15px] text-slate-600 leading-relaxed">
+          <p>
+            Unlike a subject with a fixed syllabus — say, a specific chapter of Pakistan Studies — General Knowledge doesn&apos;t have a clear endpoint. There&apos;s always another country, another organization, another fact you haven&apos;t covered. That&apos;s normal, and it&apos;s not a sign you&apos;re behind. The more realistic goal is broad, consistent familiarity built over time, rather than trying to memorize an exhaustive list before your exam.
+          </p>
+          <p>
+            This is also why candidates who study General Knowledge in short, regular sessions over weeks tend to retain more than those who try to cram it in the final few days — the subject rewards repeated, spaced exposure more than intensive last-minute review.
+          </p>
+        </div>
+      </section>
+
+      {/* How to Prepare */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-5">
+          How to Prepare General Knowledge Efficiently
+        </h2>
+        <div className="space-y-4">
+          {gkPreparationTips.map((tip) => (
+            <article
+              key={tip.title}
+              className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 md:p-5"
+            >
+              <h3 className="text-sm font-black text-[#1565C0] mb-1">{tip.title}</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">{tip.desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Related Resources */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-4">
+          Related Practice Resources
+        </h2>
+        <p className="text-sm md:text-[15px] text-slate-600 leading-relaxed mb-5">
+          Once you&apos;ve worked through the General Knowledge MCQs on this page, a few resources can help you build on that foundation:
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            {
+              name: "KPPSC Exam Guide",
+              path: "/government-exams/kppsc",
+              desc: "See how General Knowledge fits into that exam's overall syllabus and weightage.",
+            },
+            {
+              name: "Current Affairs",
+              path: "/current-affairs",
+              desc: "Pairs naturally with static GK — the two subjects often overlap in real exam papers.",
+            },
+            {
+              name: "All Subject MCQs",
+              path: "/mcqs",
+              desc: "Compare how GK weightage differs from other subjects across various exams.",
+            },
+          ].map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              className="group flex flex-col gap-2 rounded-xl px-4 py-4 bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/60 transition-all"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-black text-slate-900 group-hover:text-[#1565C0]">
+                  {link.name}
+                </span>
+                <LuChevronRight size={14} className="text-slate-300 group-hover:text-[#1565C0] transition-colors" />
+              </div>
+              <p className="text-xs text-slate-500 leading-relaxed">{link.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-4">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-2">
+          {gkCategoryFaqs.map((faq, i) => {
+            const open = openFaq === i;
+            return (
+              <div key={faq.q} className="border border-slate-100 rounded-xl overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(open ? -1 : i)}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left bg-slate-50 hover:bg-slate-100/80 transition-colors"
+                  aria-expanded={open}
+                >
+                  <span className="text-sm font-bold text-slate-900">
+                    {i + 1}. {faq.q}
+                  </span>
+                  <FaChevronDown
+                    size={12}
+                    className={`text-slate-400 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {open && (
+                  <div className="px-4 py-3 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-white">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="bg-white rounded-2xl border border-slate-100 p-5 md:p-6 shadow-sm">
+        <p className="text-sm text-slate-500 leading-relaxed">
+          This page and its MCQs are practice resources compiled by PakLearners for exam preparation, <strong className="text-slate-700">not official content</strong> from FPSC, PPSC, KPPSC, or any other commission. Always verify exam-specific requirements from the relevant official source.
+        </p>
+      </section>
+    </div>
+  );
 }
 
 export default function MCQS_cart({ defaultSlug, suppressHeading = false }) {
@@ -334,7 +507,11 @@ export default function MCQS_cart({ defaultSlug, suppressHeading = false }) {
                 />
               </div>
             )}
+
+            {/* General Knowledge SEO content — renders below MCQs */}
+            {slugLower === "general-knowledge" && <GKSeoContent />}
           </div>
+
 
           <div className="lg:col-span-4 w-full lg:sticky lg:top-[100px] px-0 md:px-0">
             <MCQs_cart_RightSide />
