@@ -1,43 +1,43 @@
 /** FAQ data for KPPSC MCQs page — shared by UI accordion and FAQPage schema */
 export const kppscMcqsFaqs = [
   {
-    q: "What are KPPSC MCQs?",
-    a: "KPPSC MCQs are multiple-choice practice questions built around the subjects commonly tested in KPPSC written and screening tests. They help candidates build accuracy, speed and recall through active practice rather than passive reading.",
+    q: "Are these MCQs official KPPSC past paper questions?",
+    a: "No. These are practice MCQs covering common subjects tested in KPPSC exams (Pakistan Studies, General Knowledge, Islamic Studies, Science, English, and Computer). For actual previously-asked questions, check the KPPSC Past Papers section.",
   },
   {
-    q: "Where can I practice KPPSC MCQs online?",
-    a: "KPPSC MCQs can be practiced through PakLearners' subject-wise MCQ resources, which are organized to help candidates focus on specific topics relevant to their post. Check the subject categories on this page and practice consistently as new material is added.",
+    q: "Which subjects are most important for KPPSC MCQ-based exams?",
+    a: "This depends on the specific post. General posts commonly test Pakistan Studies, General Knowledge, Current Affairs, Islamic Studies, and English, while technical and subject-specialist posts weight subject-specific content more heavily. Always confirm from your post's official syllabus.",
   },
   {
-    q: "Are KPPSC MCQs available with answers?",
-    a: "Yes, well-structured KPPSC MCQ practice should always include the correct answer along with a brief explanation, since understanding why an answer is correct builds much stronger retention than memorizing the answer alone.",
+    q: "How many MCQs are usually in a KPPSC paper?",
+    a: "This varies by post and advertisement — KPPSC specifies the exact paper format (number of questions, time limit, marking scheme) in each advertisement, so check your specific notification rather than assuming a fixed number.",
   },
   {
-    q: "Which subjects should I practice for KPPSC MCQs?",
-    a: "Common subjects include English, General Knowledge, Current Affairs, Pakistan Affairs, Islamiat, Everyday Science and Computer Science, along with post-specific subjects where relevant. The exact combination depends on your specific KPPSC post, so always confirm against your syllabus first.",
+    q: "Is there negative marking in KPPSC exams?",
+    a: "Whether negative marking applies, and how much, depends on the specific exam and is stated in the official advertisement. Don't assume a marking scheme — verify it before your exam.",
   },
   {
-    q: "How should I prepare KPPSC MCQs for screening tests?",
-    a: "Focus on timed practice that builds both speed and accuracy, since screening tests are typically time-limited and MCQ-based. Practice elimination techniques, review your mistakes after each session, and gradually shift to full-length timed sets as your test date approaches.",
+    q: "How should I prepare for KPPSC MCQs effectively?",
+    a: "Practice by subject first to build a strong foundation, then move to timed mock tests to build speed and accuracy. Review every wrong answer carefully rather than just noting the correct option.",
   },
   {
-    q: "Are KPPSC past paper MCQs useful?",
-    a: "Yes, MCQs based on past papers are particularly valuable because they reflect the real style and difficulty level used in actual KPPSC exams. They work well alongside full past paper practice for a complete picture of what to expect.",
+    q: "Are Islamic Studies MCQs compulsory in all KPPSC exams?",
+    a: "Not necessarily for every post — subject inclusion depends on the specific exam and post category. Check your official syllabus to confirm which subjects apply to your test.",
   },
   {
-    q: "How many KPPSC MCQs should I practice every day?",
-    a: "There's no fixed number that works for everyone — what matters more is consistency and quality of review. A steady daily practice routine with proper mistake review is generally more effective than occasional, large practice sessions without follow-up revision.",
+    q: "How often should I revise these MCQs?",
+    a: "Spaced revision works better than a single read-through — revisit topics you got wrong after a day or two, and again closer to your exam date, rather than reviewing everything only once.",
   },
   {
-    q: "Can I prepare for KPPSC using online MCQs?",
-    a: "Yes, online MCQ practice is an effective and convenient way to prepare, especially when combined with syllabus review and past paper solving. It allows for repeated, subject-wise practice that's harder to organize with printed material alone.",
+    q: "Do KPPSC exams repeat questions from past papers?",
+    a: "Some general knowledge and Pakistan Studies topics do reappear across different years and posts, though exact repetition varies. Reviewing past papers is the most reliable way to spot patterns relevant to your specific post.",
   },
   {
-    q: "How can I improve my score in KPPSC MCQ tests?",
-    a: "Focus on understanding concepts rather than memorizing answers, review every mistake carefully, and practice consistently across all relevant subjects. Combining MCQ practice with past papers and syllabus review also helps close gaps that MCQs alone might miss.",
+    q: "Are computer MCQs relevant for all KPPSC posts?",
+    a: "No — computer-related MCQs are more relevant for posts like Computer Operator or IT-related roles. General posts may not test this subject at all; check your syllabus.",
   },
   {
-    q: "Should I study the KPPSC syllabus before practicing MCQs?",
-    a: "Yes, reviewing the syllabus first helps you understand which subjects and topics are actually relevant to your post, so your MCQ practice stays focused and efficient rather than covering areas that may not apply to your exam.",
+    q: "Where can I practice more KPPSC MCQs and mock tests?",
+    a: "Explore the KPPSC Exam Guide for a full preparation roadmap, and try KPPSC Online Tests for timed practice.",
   },
 ];

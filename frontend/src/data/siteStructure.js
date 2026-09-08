@@ -301,9 +301,13 @@ export const mcqExamPillars = {
     slug: "kppsc",
     name: "KPPSC",
     fullName: "Khyber Pakhtunkhwa Public Service Commission",
-    headline: "KPPSC MCQs Practice",
+    headline: "KPPSC MCQs – Practice Questions with Answers",
+    seoTitle:
+      "KPPSC MCQs – 50 Practice Questions with Answers (Pak Study, GK, Islamiat & More)",
     description:
-      "Practice KPPSC MCQs for Khyber Pakhtunkhwa competitive exams. Question banks will be added here.",
+      "Practice 50 KPPSC MCQs with answers covering Pakistan Studies, General Knowledge, Islamic Studies, Everyday Science, English and Computer. Free KPPSC MCQ practice with explanations.",
+    metaDescription:
+      "Practice 50 KPPSC MCQs with answers covering Pakistan Studies, General Knowledge, Islamic Studies, Everyday Science, English and Computer. Free KPPSC MCQ practice with explanations.",
   },
   etea: {
     slug: "etea",
@@ -341,9 +345,13 @@ export const mcqExamPillars = {
     slug: "ajkpsc",
     name: "AJKPSC",
     fullName: "Azad Jammu & Kashmir Public Service Commission",
-    headline: "AJKPSC MCQs Practice",
+    headline: "AJKPSC MCQs – Practice Questions with Answers",
+    seoTitle:
+      "AJKPSC MCQs – 20 Practice Questions with Answers (AJK GK, Pak Study & More)",
     description:
-      "Practice AJKPSC MCQs for Azad Kashmir competitive exams. Question banks will be added here.",
+      "Practice 20 AJKPSC MCQs with answers — Azad Kashmir general knowledge, Pakistan Studies, Islamic Studies, Science and English. Free MCQ practice for AJKPSC exams.",
+    metaDescription:
+      "Practice 20 AJKPSC MCQs with answers — Azad Kashmir general knowledge, Pakistan Studies, Islamic Studies, Science and English. Free MCQ practice for AJKPSC exams.",
   },
 };
 
@@ -371,11 +379,25 @@ const buildExamPillars = (headlineSuffix, descriptionFn) =>
   );
 
 /** Past paper pillars: /past-papers/:slug */
-export const pastPaperPillars = buildExamPillars(
-  "Past Papers",
-  (e) =>
-    `Download and practice ${e.name} past papers. Paper collections and solved sets will be added on this page.`
-);
+export const pastPaperPillars = {
+  ...buildExamPillars(
+    "Past Papers",
+    (e) =>
+      `Download and practice ${e.name} past papers. Paper collections and solved sets will be added on this page.`
+  ),
+  ajkpsc: {
+    slug: "ajkpsc",
+    name: "AJKPSC",
+    fullName: "Azad Jammu & Kashmir Public Service Commission",
+    headline: "AJKPSC Past Papers – Preparation Guide",
+    seoTitle:
+      "AJKPSC Past Papers – Preparation Guide & How to Use Them Effectively",
+    description:
+      "Everything you need to know about AJKPSC past papers — why they matter, how to analyze them, and how to prepare for AJKPSC exams while papers are added to this page.",
+    metaDescription:
+      "Everything you need to know about AJKPSC past papers — why they matter, how to analyze them, and how to prepare for AJKPSC exams while papers are added to this page.",
+  },
+};
 
 /** Online test pillars: /online-tests/:slug */
 export const onlineTestPillars = buildExamPillars(
