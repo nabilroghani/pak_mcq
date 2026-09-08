@@ -11,6 +11,9 @@ export const metadata = {
   },
   description:
     "Prepare for FPSC, PPSC, KPPSC, ETEA & NTS with updated MCQs, past papers and free online tests. A focused platform for Pakistan's government job seekers.",
+  verification: {
+    google: "JR-pUEqf5Dln6fY6wqYdiJktHkd9MfQ7fuwYoy4dU1s",
+  },
   openGraph: {
     type: "website",
     locale: "en_PK",
