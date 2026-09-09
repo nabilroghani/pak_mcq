@@ -1,6 +1,10 @@
 /** Blog post registry — add posts here for /blog/[slug] */
 
 import { kppscPastPapersMcqsPreparation } from "./blogPosts/kppscPastPapersMcqsPreparation";
+import { fpscWrittenTestOctober2026 } from "./blogPosts/fpscWrittenTestOctober2026";
+import { fpscVsPpscVsKppscGuide } from "./blogPosts/fpscVsPpscVsKppscGuide";
+import { bpsPayScale2026Pakistan } from "./blogPosts/bpsPayScale2026Pakistan";
+import { fpscOctober2026SubjectHub } from "./blogPosts/fpscOctober2026SubjectHub";
 
 export const blogPosts = {
   "how-to-prepare-for-kppsc-exams-2026": {
@@ -527,6 +531,14 @@ export const blogPosts = {
   },
 
   "kppsc-past-papers-mcqs-preparation": kppscPastPapersMcqsPreparation,
+
+  "fpsc-written-test-october-2026-preparation-guide": fpscWrittenTestOctober2026,
+
+  "fpsc-vs-ppsc-vs-kppsc-public-service-commissions-pakistan": fpscVsPpscVsKppscGuide,
+
+  "bps-pay-scale-2026-pakistan-explained": bpsPayScale2026Pakistan,
+
+  "fpsc-october-2026-test-subject-wise-preparation-hub": fpscOctober2026SubjectHub,
 };
 
 export const blogPostList = Object.values(blogPosts).sort(
