@@ -12,7 +12,7 @@ import { ppscFaqs } from "@/data/ppscFaqs";
 
 const examTypes = [
   {
-    title: "Administrative Posts",
+    title: "Administrative and Management Posts",
     body: (
       <>
         PPSC recruits provincial administrative officers — such as Section Officers and other
@@ -33,44 +33,20 @@ const examTypes = [
     ),
   },
   {
-    title: "Assistant/Clerical Posts",
-    body: "General BPS-scale assistant, clerk, and junior clerk posts are advertised regularly across Punjab government departments. These roles typically require Intermediate or a Bachelor's degree depending on the specific post, and involve a single objective-type MCQ paper covering general knowledge, Punjab Affairs, and basic subject-relevant content.",
+    title: "General and Clerical Posts",
+    body: "General BPS-scale assistant, clerk, and junior clerk posts are advertised regularly across Punjab government departments, alongside civilian administrative and clerical posts within departments like Punjab Police. These roles typically require Intermediate or a Bachelor's degree depending on the specific post, and involve a single objective-type MCQ paper covering general knowledge, Punjab Affairs, and basic subject-relevant content.",
   },
   {
-    title: "Lecturer Posts",
-    body: "PPSC recruits college lecturers across a wide range of subjects for Punjab's higher education institutions. These posts require a relevant Master's degree in the subject being taught, and typically involve a subject-specific written test in addition to general sections, given the specialized nature of teaching roles.",
+    title: "Teaching Posts",
+    body: "PPSC recruits college lecturers, subject specialists, and educators (including Elementary and Secondary School Educator cadres) across a wide range of subjects for Punjab's higher education and school education departments. Qualification requirements range from a Bachelor's degree with teaching certification up to a Master's degree with additional criteria such as M.Phil for senior subject specialist roles. Most teaching posts involve a subject-specific written test alongside general sections, given the specialized nature of these roles.",
   },
   {
-    title: "Subject Specialists",
-    body: "Subject Specialist posts are senior teaching roles requiring advanced subject qualification — often a Master's degree with additional criteria such as M.Phil in certain cases — and are tested through a dedicated subject-specific paper that goes deeper than the standard lecturer-level syllabus.",
+    title: "Technical and Professional Posts",
+    body: "Medical Officer, Engineer, Law Officer, and Agriculture Officer posts each require a specific professional qualification — MBBS with PMDC/PMC registration for medical posts, a relevant engineering degree with PEC registration for engineering posts, an LLB for law officer posts, and a Bachelor's or Master's in Agriculture Sciences for agriculture officer posts. All of these typically include a dedicated subject-specific written paper testing specialized knowledge, followed by an interview.",
   },
   {
-    title: "Educators",
-    body: "Educator posts (including Elementary and Secondary School Educator cadres) are recruited for Punjab's School Education Department, requiring qualifications ranging from a Bachelor's degree with a teaching certification to a relevant Master's degree, depending on the specific cadre and subject.",
-  },
-  {
-    title: "Medical Officers",
-    body: "Medical Officer and related healthcare posts recruited through PPSC require an MBBS degree (or equivalent recognized medical qualification) and valid PMDC/PMC registration, with a subject-specific written test in addition to standard sections for most posts.",
-  },
-  {
-    title: "Engineers",
-    body: "Engineering posts across Punjab departments such as Irrigation, Communication & Works, and Public Health Engineering require a relevant engineering degree and PEC registration, and include subject-specific technical questions alongside general knowledge and Punjab Affairs sections.",
-  },
-  {
-    title: "Law Officers",
-    body: "Law Officer posts — including roles such as Assistant District Public Prosecutor and other legal-cadre positions — require an LLB degree and typically involve a subject-specific written paper covering relevant law and procedure, followed by an interview assessing legal reasoning and communication ability.",
-  },
-  {
-    title: "Agriculture Officers",
-    body: "Agriculture Officer posts recruited for Punjab's Agriculture Department require a relevant Bachelor's or Master's degree in Agriculture Sciences, and include a subject-specific written test covering crop sciences, agronomy, and related technical content relevant to the role.",
-  },
-  {
-    title: "Revenue Department",
+    title: "Revenue Department Posts",
     body: "Revenue-related posts — such as Patwari, Naib Tehsildar, and Tehsildar — are recruited through PPSC and require a qualification typically ranging from Intermediate to a Bachelor's degree depending on the post, with a written test covering general knowledge alongside revenue laws and land record procedures relevant to the role.",
-  },
-  {
-    title: "Police-Related Administrative Posts",
-    body: "PPSC also recruits for civilian administrative and clerical posts within Punjab Police that are distinct from operational law-enforcement recruitment. These posts generally require a Bachelor's degree and involve a standard objective MCQ paper followed by an interview.",
   },
   {
     title: "Specialized Posts",
@@ -79,15 +55,18 @@ const examTypes = [
 ];
 
 const eligibilityRows = [
-  ["Assistant/Clerical", "Intermediate/Bachelor's (varies by post)", "Objective MCQ", "Often, depending on post"],
-  ["Administrative", "Bachelor's/Master's", "Objective MCQ (sometimes + written)", "Yes"],
-  ["Lecturer", "Master's (subject-relevant)", "Subject-specific written", "Yes"],
-  ["Subject Specialist", "Master's/M.Phil (subject-relevant)", "Subject-specific written", "Yes"],
-  ["Medical Officer", "MBBS/equivalent + PMDC/PMC registration", "Subject-specific written", "Yes"],
-  ["Engineer", "Relevant engineering degree + PEC registration", "Subject-specific technical", "Yes"],
-  ["Law Officer", "LLB", "Subject-specific written (law)", "Yes"],
-  ["Agriculture Officer", "Bachelor's/Master's in Agriculture Sciences", "Subject-specific written", "Yes"],
-  ["Revenue Dept. (e.g., Patwari)", "Intermediate/Bachelor's (post-dependent)", "Objective MCQ", "Often, depending on post"],
+  ["Administrative", "Bachelor's/Master's", "MCQ (sometimes + written) + interview"],
+  ["Assistant/Clerical", "Intermediate/Bachelor's", "Objective MCQ + interview (often)"],
+  ["Lecturer", "Master's (subject-relevant)", "Subject-specific written + interview"],
+  ["Subject Specialist", "Master's/M.Phil", "Subject-specific written + interview"],
+  ["Educator", "Bachelor's (with certification) to Master's", "Subject-specific written + interview"],
+  ["Medical Officer", "MBBS + PMDC/PMC registration", "Subject-specific written + interview"],
+  ["Engineer", "Engineering degree + PEC registration", "Subject-specific technical + interview"],
+  ["Law Officer", "LLB", "Subject-specific written (law) + interview"],
+  ["Agriculture Officer", "Bachelor's/Master's in Agriculture Sciences", "Subject-specific written + interview"],
+  ["Revenue (Patwari, Tehsildar, etc.)", "Intermediate/Bachelor's", "Objective MCQ + interview (often)"],
+  ["Police-related admin/clerical", "Bachelor's", "Objective MCQ + interview"],
+  ["Specialized (finance, IT, scientific)", "Varies by post", "Defined per advertisement"],
 ];
 
 const patternRows = [
@@ -153,55 +132,21 @@ const syllabusItems = [
   },
 ];
 
-const mistakes = [
-  "Applying without carefully reading the full eligibility criteria for the specific post.",
-  "Assuming general preparation is enough without reviewing the specific post's syllabus.",
-  "Ignoring current affairs until the final weeks before the exam.",
-  "Relying on outdated current affairs or general knowledge material.",
-  "Skipping past papers entirely and walking into the exam without a sense of real difficulty level.",
-  "Underestimating how much Punjab Affairs matters, since it's often neglected in favor of general Pakistan Affairs.",
-  "Not practicing under timed conditions before the actual exam.",
-  "Submitting incomplete or mismatched documentation with the application.",
-  "Missing the application deadline due to last-minute submission attempts.",
-  "Not confirming age relaxation eligibility that may actually apply to their category.",
-  "Assuming Punjab domicile requirements don't apply to their specific post.",
-  "Neglecting interview preparation until after written results are announced.",
-  "Studying passively (re-reading) instead of active recall through MCQs and practice questions.",
-  "Failing to track roll number slip issuance in time.",
-  "Not verifying updated exam pattern or syllabus changes before starting preparation.",
-  "Over-focusing on one subject while neglecting others with equal weightage.",
-  "Ignoring domicile/quota documentation requirements relevant to their application.",
-  "Assuming a Bachelor's degree qualifies for posts that actually require a Master's or specific professional degree.",
-  "Not preparing a structured study schedule, leading to inconsistent coverage of the syllabus.",
-  "Relying on unofficial or unverified sources for exam dates, fee details, or eligibility changes.",
-];
-
-const tips = [
-  "Start by reading the full official advertisement for your target post before opening any study material.",
-  "Build a written study schedule that maps out subject coverage across your available preparation time.",
-  "Treat current affairs as a daily habit, not a subject you review once.",
-  "Give Punjab Affairs dedicated study time rather than assuming general Pakistan Affairs preparation covers it.",
-  "Use topic-wise MCQs practice before moving to full-length mock tests.",
-  "Solve past papers early to understand realistic difficulty and pacing, not just in the final week.",
-  "Keep concise revision notes rather than re-reading entire textbooks repeatedly.",
-  "Focus extra time on subjects where your past paper or mock test performance is weakest.",
-  "Practice negative-marking-aware MCQ strategy if your specific paper uses negative marking.",
-  "Review your incorrect answers specifically — don't just track your overall score.",
-  "Build general knowledge gradually through consistent daily exposure rather than cramming.",
-  "For subject-specific posts, align your prep material closely with your actual academic background.",
-  "Simulate real exam timing during mock tests, including breaks if applicable.",
-  "Stay updated on any changes to PPSC's syllabus or exam pattern for your specific post.",
-  "Prepare your application documents well ahead of the deadline to avoid last-minute errors.",
-  "Practice verbal, structured answers for interview preparation, not just written content review.",
-  "Avoid switching study material frequently — consistency with one well-organized resource beats scattered studying.",
-  "Track your own progress with periodic self-assessment tests, not just passive review.",
-  "Prioritize accuracy over speed initially, then build speed once your accuracy is consistently strong.",
-  "Join structured revision cycles (e.g., weekly review of the past week's topics) to reinforce retention.",
-  "Don't neglect Islamic Studies or Urdu in favor of only focusing on English and current affairs.",
-  "For technical/subject-specific posts, revisit your degree-level coursework as core preparation material.",
-  "Rest and pace your preparation over time — burnout close to the exam date reduces retention and performance.",
-  "Double-check your domicile and quota documentation well before the application deadline.",
-  "Verify every detail — fee, schedule, eligibility, syllabus — against PPSC's official announcement before finalizing your preparation plan.",
+const mistakesToAvoidRows = [
+  ["Applying without reading the full eligibility criteria", "Read the complete advertisement before opening any study material"],
+  ["Assuming general prep covers a specific post's syllabus", "Check the specific post's syllabus and align your study plan to it"],
+  ["Underestimating Punjab Affairs, treating it as covered by general Pakistan Affairs", "Give Punjab Affairs dedicated study time and resources"],
+  ["Leaving current affairs until the final weeks", "Treat it as a daily habit from the start of your preparation"],
+  ["Using outdated current affairs/general knowledge material", "Use sources updated within the last year, especially close to the exam"],
+  ["Skipping past papers entirely", "Solve past papers early — not just in the final week — to gauge real difficulty and pacing"],
+  ["Never practicing under timed conditions", "Build timed mock tests into your plan once foundational review is done"],
+  ["Preparing written content but ignoring the interview", "Start interview prep once you're approaching the written stage, not after results"],
+  ["Studying passively (re-reading)", "Use active recall — MCQs and practice questions — over re-reading textbooks"],
+  ["Assuming Punjab domicile requirements don't apply to a specific post", "Verify domicile and quota requirements for your exact post from the advertisement"],
+  ["Missing application deadlines or submitting incomplete documents", "Prepare documents well ahead of the deadline and double-check against the advertisement's checklist"],
+  ["Not confirming age relaxation eligibility", "Check current relaxation provisions for your category directly in the advertisement"],
+  ["Assuming a Bachelor's degree qualifies for posts requiring a Master's or professional degree", "Confirm the exact qualification requirement for your specific post before applying"],
+  ["Relying on unofficial sources for dates, fees, or eligibility changes", "Cross-verify anything time-sensitive against PPSC's official announcement"],
 ];
 
 function Section({ id, title, children }) {
@@ -368,14 +313,14 @@ export default function PpscPillar() {
               underperform.
             </p>
             <p>
-              This is where PakLearners fits in. Rather than offering generic competitive exam content,
-              this guide and the wider{" "}
+              This guide, part of the wider{" "}
               <Link href="/government-exams" className="font-bold text-[#1565C0] hover:underline">
                 government exams in Pakistan
               </Link>{" "}
-              section it belongs to are organized specifically around how PPSC exams actually work —
-              supported by organized MCQs, solved past papers, and a structured preparation roadmap you
-              can follow from day one through to your interview.
+              section, is organized around how PPSC exams actually work, rather than generic competitive
+              exam content — bringing together the syllabus breakdown, eligibility details, and preparation
+              strategy above with organized MCQs and solved past papers, so you can move from studying to
+              practicing without piecing together scattered resources.
             </p>
           </Prose>
         </Section>
@@ -448,27 +393,6 @@ export default function PpscPillar() {
               breakdown of the major categories.
             </p>
           </Prose>
-          <div
-            className="mt-5 mb-6 grid sm:grid-cols-3 gap-3"
-            role="img"
-            aria-label="Types of PPSC exams in Pakistan infographic"
-          >
-            {[
-              { title: "Administrative", items: "Administrative Posts · Assistant/Clerical · Revenue Dept." },
-              { title: "Teaching", items: "Lecturer · Subject Specialist · Educators" },
-              { title: "Technical", items: "Medical · Engineer · Law Officer · Agriculture Officer" },
-            ].map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-blue-100 bg-gradient-to-b from-blue-50 to-white px-4 py-3 text-center"
-              >
-                <p className="text-[10px] font-black uppercase tracking-wider text-[#1565C0] mb-1">
-                  {col.title}
-                </p>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed">{col.items}</p>
-              </div>
-            ))}
-          </div>
           <div className="space-y-4">
             {examTypes.map((item) => (
               <article key={item.title} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 md:p-5">
@@ -481,6 +405,12 @@ export default function PpscPillar() {
             Across nearly all these categories, one thing holds true: the general knowledge, Punjab
             Affairs, current affairs, and English/Urdu components remain fairly consistent, while the
             subject-specific portion is what truly differs based on the post.
+          </p>
+          <h3 className="text-base font-black text-slate-900 mt-6 mb-3">PPSC Exam Comparison</h3>
+          <DataTable headers={["Post Type", "Typical Qualification", "Test Format"]} rows={eligibilityRows} />
+          <p className="text-xs text-slate-500 leading-relaxed mt-3 bg-slate-50 border border-slate-100 rounded-xl p-3">
+            This table reflects general patterns, not guaranteed current requirements — always verify exact
+            qualification and test format for your target post from the specific PPSC advertisement.
           </p>
         </Section>
 
@@ -669,110 +599,43 @@ export default function PpscPillar() {
               preparation and online preparation practice.
             </p>
           </Prose>
-          <div
-            className="my-5 grid sm:grid-cols-3 gap-3"
-            role="img"
-            aria-label="PPSC exam preparation roadmap and study plan"
-          >
-            {[
-              { title: "Daily", items: "Focused blocks · Current affairs · Short MCQs" },
-              { title: "Weekly", items: "Subject rotation · Affairs review · Timed practice" },
-              { title: "Monthly", items: "Syllabus milestones · Mocks · Weak-area revision" },
-            ].map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-emerald-100 bg-gradient-to-b from-emerald-50 to-white px-4 py-3 text-center"
-              >
-                <p className="text-[10px] font-black uppercase tracking-wider text-emerald-700 mb-1">
-                  {col.title}
-                </p>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed">{col.items}</p>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-5 text-sm text-slate-600 leading-relaxed">
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Daily Routine</h3>
-              <BulletList
-                items={[
-                  "Dedicate focused study blocks (e.g., 2–3 hours) rather than long, unfocused sessions.",
-                  "Include at least one current affairs review session daily, even if brief.",
-                  "End each day with a short MCQs practice set covering that day's topic.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Weekly Routine</h3>
-              <BulletList
-                items={[
-                  "Rotate through your core subjects (general knowledge, Punjab Affairs, Pakistan Affairs, English/Urdu, and post-specific content) across the week rather than focusing on just one subject at a time.",
-                  "Set aside one day weekly for a consolidated current affairs review covering the week's major developments.",
-                  "Attempt at least one timed mock test or past paper set weekly as your preparation progresses.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Monthly Plan</h3>
-              <BulletList
-                items={[
-                  "Break your overall syllabus into monthly milestones, ensuring each core subject area is covered at least once before your exam date.",
-                  "Use the final month primarily for past paper practice, mock tests, and targeted revision of weak areas rather than introducing new content.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Revision Strategy</h3>
-              <BulletList
-                items={[
-                  "Maintain concise revision notes for each subject as you study, rather than re-reading full source material repeatedly.",
-                  "Revisit incorrect MCQs from practice sessions specifically, since repeated mistakes reveal genuine knowledge gaps.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Current Affairs Strategy</h3>
-              <BulletList
-                items={[
-                  "Review current affairs at least a few times a week rather than in one long session, since this subject shifts constantly.",
-                  "Prioritize developments relevant to Punjab and Pakistan specifically, alongside major international events.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">MCQ Strategy</h3>
-              <BulletList
-                items={[
-                  "Work through MCQs organized by subject before mixing subjects together in practice sets.",
-                  "Practice negative-marking-aware selection if your specific paper penalizes wrong answers.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Mock Tests</h3>
-              <BulletList
-                items={[
-                  "Begin timed mock tests once your foundational content review is largely complete, typically in the final 6–8 weeks before your exam.",
-                  "Treat mock test results as diagnostic — focus subsequent study time on the specific topics where you're losing marks.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Interview Preparation</h3>
-              <BulletList
-                items={[
-                  "Once you've cleared or are approaching the written stage, begin preparing for the interview by reviewing your academic background, staying current on major national and Punjab-specific developments, and practicing clear, structured verbal answers to common interview question types.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Time Management</h3>
-              <BulletList
-                items={[
-                  "Practice pacing yourself during MCQs sessions to match the actual exam's time constraints, not just accuracy.",
-                  "For subject-specific written papers, practice structuring full answers within a set time limit to build exam-day speed.",
-                ]}
-              />
-            </div>
+          <div className="space-y-4 text-sm text-slate-600 leading-relaxed">
+            <p>
+              <strong className="text-slate-900">Build a routine, not just a to-do list.</strong> Set aside
+              focused study blocks (2–3 hours works for most people) rather than long, unfocused sessions,
+              and rotate through your core subjects — general knowledge, Punjab Affairs, Pakistan Affairs,
+              English/Urdu, and post-specific content — across the week instead of fixating on one subject at
+              a time. Treat current affairs as a daily habit: a short review each day, plus one consolidated
+              weekly session covering the week&apos;s major developments, keeps this fast-changing subject from
+              becoming a last-minute scramble. Prioritize developments relevant to Punjab specifically,
+              alongside major national and international events, since Punjab Affairs is often under-covered
+              in general preparation material.
+            </p>
+            <p>
+              <strong className="text-slate-900">Break your syllabus into monthly milestones</strong> so every
+              core subject area gets covered at least once before your exam date. Use the final month mainly
+              for past-paper practice, mock tests, and revising weak areas — not for introducing new content.
+            </p>
+            <p>
+              <strong className="text-slate-900">Keep concise revision notes</strong> as you study, rather than
+              re-reading full source material repeatedly, and specifically revisit MCQs you got wrong in past
+              sessions — repeated mistakes are the clearest signal of a genuine gap. Work through MCQs
+              organized by subject before mixing them together, and practice negative-marking-aware selection
+              if your specific paper penalizes wrong answers.
+            </p>
+            <p>
+              <strong className="text-slate-900">Practice under real time constraints.</strong> Once your
+              foundational review is largely complete (typically the final 6–8 weeks before the exam), start
+              timed mock tests and treat the results as diagnostic — put your next study block into whatever
+              topic cost you the most marks. For subject-specific written papers, practice structuring full
+              answers within a time limit well ahead of the exam, not just in the final week.
+            </p>
+            <p>
+              <strong className="text-slate-900">Start interview preparation once you&apos;re approaching the
+              written stage</strong> — review your academic background, stay current on major national and
+              Punjab-specific developments, and practice structured verbal answers to common interview question
+              types.
+            </p>
           </div>
         </Section>
 
@@ -909,11 +772,8 @@ export default function PpscPillar() {
             <p>
               <strong className="text-slate-900">Results:</strong> Following each stage of testing, PPSC
               releases results through official channels, moving qualifying candidates forward in the
-              recruitment process. Track PPSC results and related updates through our{" "}
-              <Link href="/results" className="font-bold text-[#1565C0] hover:underline">
-                results page
-              </Link>
-              , alongside official PPSC announcements.
+              recruitment process. Track PPSC results and related updates through PPSC&apos;s official website
+              and announcements.
             </p>
             <p>
               We do not publish speculative, unconfirmed, or outdated job listings — check our{" "}
@@ -926,38 +786,11 @@ export default function PpscPillar() {
           </Prose>
         </Section>
 
-        <Section id="common-mistakes" title="Common Mistakes PPSC Candidates Make">
-          <ol className="space-y-2.5 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
-            {mistakes.map((m) => (
-              <li key={m}>{m}</li>
-            ))}
-          </ol>
-        </Section>
-
-        <Section id="expert-tips" title="Expert Preparation Tips">
-          <ol className="space-y-2.5 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
-            {tips.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ol>
-        </Section>
-
-        <Section id="why-paklearners" title="Why Choose PakLearners?">
-          <BulletList
-            items={[
-              "Content organized specifically around how PPSC exams actually work, rather than generic competitive exam material.",
-              "MCQs and past papers structured by post category, so you can focus on exactly what your target exam tests.",
-              "Regularly reviewed and updated content, reflecting current PPSC patterns and syllabus emphasis.",
-              "A structured preparation roadmap covering daily, weekly, and monthly study planning.",
-              "Dedicated coverage of Punjab Affairs and other PPSC-specific content often missed by general study guides.",
-              "A single, organized platform connecting MCQs, past papers, current affairs, and job tracking in one place.",
-            ]}
+        <Section id="mistakes-to-avoid" title="Mistakes to Avoid (and What Works Instead)">
+          <DataTable
+            headers={["Common Mistake", "What Works Instead"]}
+            rows={mistakesToAvoidRows}
           />
-          <p className="text-sm text-slate-600 leading-relaxed mt-5">
-            Preparing for PPSC exams doesn&apos;t have to mean piecing together scattered resources from
-            multiple sources. PakLearners brings structured, PPSC-specific preparation material together in
-            one place, so you can spend your time studying rather than searching for the right content.
-          </p>
         </Section>
 
         {/* FAQ */}
