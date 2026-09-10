@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -555,7 +555,18 @@ export default function FpscPillar() {
             role="img"
             aria-label="FPSC recruitment process timeline"
           >
-            {["Advertisement", "Application", "Written Test", "Interview", "Medical", "Appointment"].map(
+            {[
+              "Advertisement",
+              "Application",
+              "Fee",
+              "Admission Certificate",
+              "Written Test",
+              "Result",
+              "Interview",
+              "Medical",
+              "Recommendation",
+              "Appointment",
+            ].map(
               (step, i) => (
                 <div
                   key={step}
