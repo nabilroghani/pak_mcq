@@ -12,48 +12,24 @@ import { spscFaqs } from "@/data/spscFaqs";
 
 const examTypes = [
   {
-    title: "Administrative Posts",
-    body: "General administrative and secretariat-level posts across Sindh government departments, typically requiring a Bachelor's degree. Depending on the seniority of the post, this may involve either an objective-type MCQ paper or, for more senior administrative roles, a subjective written component, generally followed by an interview.",
+    title: "Administrative and Assistant Posts",
+    body: "General administrative, secretariat-level, and clerical/assistant posts across Sindh government departments. Assistant-level posts typically accept Intermediate to Bachelor's-level qualifications with an MCQ-based test focused on general knowledge, basic English, and Urdu, while more senior administrative posts require a Bachelor's degree and may include a subjective written component alongside the objective paper, generally followed by an interview.",
   },
   {
-    title: "Assistant Posts",
-    body: "Clerical and assistant-level posts, often accepting Intermediate to Bachelor's-level qualifications depending on the specific post, with an MCQ-based written test focused on general knowledge, basic English, and Urdu.",
+    title: "Teaching and Education Posts",
+    body: "Lecturer positions at government colleges, subject specialist roles, and other education department posts (administrative and supervisory roles within the sector). Lecturer and subject specialist posts require a relevant Master's degree and include a subject-specific written test alongside general sections; other education department posts vary in eligibility and pattern by specific role.",
   },
   {
-    title: "Lecturer Jobs",
-    body: "Teaching positions at government colleges in Sindh, requiring a relevant Master's degree in the subject being taught. Lecturer recruitment typically includes a subject-specific written test in addition to general sections.",
+    title: "Medical and Health Department Posts",
+    body: "Medical Officer and related healthcare posts requiring an MBBS or equivalent qualification, often including a subject-specific written component and relevant professional registration (such as PMDC/PMC where applicable). Broader health department recruitment also includes administrative, paramedical, and allied health posts, each matching the specific role's qualification needs.",
   },
   {
-    title: "Subject Specialists",
-    body: "Specialist posts requiring advanced qualification in a specific field, generally involving a Master's degree requirement and a subject-focused written test alongside general knowledge components.",
+    title: "Engineering and IT/Technical Posts",
+    body: "Engineering posts require a relevant engineering degree, typically including subject-specific technical questions alongside general knowledge and current affairs sections. IT and technical posts across Sindh departments require relevant computer science, IT, or technical qualifications, with a technical written component testing skills relevant to the role.",
   },
   {
-    title: "Medical Officers",
-    body: "Medical officer and related healthcare posts requiring an MBBS or equivalent medical qualification, often including a subject-specific written component and standard registration requirements (such as PMDC/PMC registration where applicable) alongside the general SPSC process.",
-  },
-  {
-    title: "Engineers",
-    body: "Engineering posts across Sindh government departments requiring a relevant engineering degree, typically including subject-specific technical questions alongside general knowledge and current affairs sections.",
-  },
-  {
-    title: "Agriculture Officers",
-    body: "Agriculture department posts requiring a relevant agricultural sciences degree, with subject-specific technical content forming a significant part of the written test alongside general knowledge components.",
-  },
-  {
-    title: "Revenue Department Posts",
-    body: "Posts within Sindh's revenue department generally requiring Intermediate to Bachelor's-level qualification, with a written test focused on general knowledge, basic mathematics, and revenue-related awareness.",
-  },
-  {
-    title: "Education Department Posts",
-    body: "Beyond lecturer roles, SPSC recruits for other education department positions — including administrative and supervisory roles within the sector — with eligibility and test pattern varying by specific post.",
-  },
-  {
-    title: "Health Department Posts",
-    body: "Beyond medical officer roles, health department recruitment includes administrative, paramedical, and allied health posts, each with eligibility requirements matching the specific role's qualification needs.",
-  },
-  {
-    title: "IT & Technical Posts",
-    body: "Information technology and technical posts across Sindh departments require relevant computer science, IT, or technical qualifications, typically including a technical written component testing relevant skills for the role.",
+    title: "Agriculture and Revenue Department Posts",
+    body: "Agriculture department posts require a relevant agricultural sciences degree, with subject-specific technical content forming a significant part of the written test. Revenue department posts generally require Intermediate to Bachelor's-level qualification, with a written test focused on general knowledge, basic mathematics, and revenue-related awareness.",
   },
   {
     title: "Specialized Government Posts",
@@ -70,6 +46,22 @@ const eligibilityRows = [
   ["Engineer", "Relevant engineering degree", "Subject-specific technical", "Yes"],
   ["Agriculture Officer", "Agriculture sciences degree", "Subject-specific written", "Yes"],
   ["Revenue Dept.", "Intermediate/Bachelor's", "Objective MCQ", "Often, depending on post"],
+];
+
+const spscExamComparisonRows = [
+  ["Assistant/Clerical", "Intermediate/Bachelor's", "Objective MCQ + interview (often)"],
+  ["Administrative (general)", "Bachelor's", "Objective MCQ + interview"],
+  ["Administrative (senior)", "Bachelor's", "Objective MCQ + subjective component + interview"],
+  ["Lecturer", "Master's (subject-relevant)", "Subject-specific written + interview"],
+  ["Subject Specialist", "Master's (subject-relevant)", "Subject-specific written + interview"],
+  ["Education Dept. (other posts)", "Varies by role", "Varies by role"],
+  ["Medical Officer", "MBBS/equivalent", "Subject-specific written + interview"],
+  ["Health Dept. (admin/paramedical)", "Varies by role", "Varies by role"],
+  ["Engineer", "Relevant engineering degree", "Subject-specific technical + interview"],
+  ["IT & Technical", "Computer science/IT/technical degree", "Technical written + interview"],
+  ["Agriculture Officer", "Agriculture sciences degree", "Subject-specific written + interview"],
+  ["Revenue Dept.", "Intermediate/Bachelor's", "Objective MCQ + interview (often)"],
+  ["Specialized (finance, technical, admin)", "Varies by post", "Defined per advertisement"],
 ];
 
 const patternRows = [
@@ -136,55 +128,23 @@ const syllabusItems = [
   },
 ];
 
-const mistakes = [
-  "Applying without carefully reading the full eligibility criteria for the specific post.",
-  "Assuming general preparation is enough without reviewing the specific post's syllabus.",
-  "Ignoring current affairs until the final weeks before the exam.",
-  "Relying on outdated current affairs or general knowledge material.",
-  "Skipping past papers entirely and walking into the exam without a sense of realistic difficulty.",
-  "Underestimating how much Sindh Affairs matters specifically for SPSC compared to general Pakistan Studies content.",
-  "Assuming every SPSC post uses a pure MCQ format, when certain senior posts include a subjective written component.",
-  "Not practicing under timed conditions before the actual exam.",
-  "Submitting incomplete or mismatched documentation with the application.",
-  "Missing the application deadline due to last-minute submission attempts.",
-  "Not confirming age relaxation eligibility that may actually apply to their category.",
-  "Failing to verify district/zone-level domicile quota requirements before applying.",
-  "Neglecting interview preparation until after written results are announced.",
-  "Studying passively (re-reading) instead of active recall through MCQs and practice questions.",
-  "Failing to download and verify the roll number slip in time before the exam.",
-  "Not verifying updated exam pattern or marking criteria before starting preparation.",
-  "Over-focusing on one subject while neglecting others with similar weightage.",
-  "Ignoring mandatory professional registration requirements for medical or technical posts.",
-  "Assuming a Bachelor's degree qualifies for posts that actually require a Master's or professional qualification.",
-  "Relying on unofficial or unverified sources for exam dates, fee details, or eligibility changes.",
-];
-
-const tips = [
-  "Start by reading the full official advertisement for your target post before opening any study material.",
-  "Build a written study schedule mapping subject coverage across your available preparation time.",
-  "Treat current affairs as a daily habit, not a subject you review once.",
-  "Confirm early whether your target post involves a pure MCQ paper or a subjective written component, since preparation differs significantly between the two.",
-  "Use topic-wise MCQs practice before moving to full-length mock tests.",
-  "Solve past papers early to understand realistic difficulty and pacing, not just in the final week.",
-  "Dedicate specific study time to Sindh Affairs rather than assuming general Pakistan Studies content covers it.",
-  "Keep concise revision notes rather than re-reading entire textbooks repeatedly.",
-  "Focus extra time on subjects where your past paper or mock test performance is weakest.",
-  "Verify current marking criteria (including any negative marking) before finalizing your MCQ-attempt strategy.",
-  "Review your incorrect answers specifically — don't just track your overall score.",
-  "Build general knowledge gradually through consistent daily exposure rather than cramming.",
-  "For subject-specific posts, align your prep material closely with your actual academic background.",
-  "Simulate real exam timing during mock tests, including any breaks if applicable.",
-  "Stay updated on any changes to SPSC's syllabus or exam pattern for your specific post.",
-  "Prepare your application documents well ahead of the deadline to avoid last-minute errors.",
-  "Practice verbal, structured answers for interview preparation, not just written content review.",
-  "For posts with a subjective component, practice essay writing under timed conditions well before your exam date.",
-  "Confirm required professional registration (e.g., PMDC/PMC) is in order before applying for relevant posts.",
-  "Avoid switching study material frequently — consistency with one well-organized resource beats scattered studying.",
-  "Track your own progress with periodic self-assessment tests, not just passive review.",
-  "Prioritize accuracy over speed initially, then build speed once accuracy is consistently strong.",
-  "Join structured weekly revision cycles to reinforce retention of earlier material.",
-  "Don't neglect Urdu or Islamic Studies in favor of only focusing on English and current affairs.",
-  "Verify every detail — fee, schedule, eligibility, syllabus, exam pattern — against SPSC's official announcement before finalizing your preparation plan.",
+const mistakesToAvoidRows = [
+  ["Applying without reading the full eligibility criteria", "Read the complete advertisement before opening any study material"],
+  ["Assuming general prep covers a specific post's syllabus", "Check the specific post's syllabus and align your study plan to it"],
+  ["Underestimating Sindh Affairs, relying on general Pakistan Studies content instead", "Give Sindh Affairs dedicated study time and resources"],
+  ["Assuming every SPSC post uses a pure MCQ format", "Confirm early whether your target post includes a subjective written component, since preparation differs significantly"],
+  ["Leaving current affairs until the final weeks", "Treat it as a daily habit from the start of your preparation"],
+  ["Using outdated current affairs/general knowledge material", "Use sources updated within the last year, especially close to the exam"],
+  ["Skipping past papers entirely", "Solve past papers early — including reviewing past essay topics for posts with a subjective component"],
+  ["Never practicing under timed conditions", "Build timed mock tests into your plan once foundational review is done"],
+  ["Preparing written content but ignoring the interview", "Start interview prep once you're approaching the written stage, not after results"],
+  ["Studying passively (re-reading)", "Use active recall — MCQs and practice questions — over re-reading textbooks"],
+  ["Failing to verify district/zone-level domicile quota requirements", "Confirm domicile and quota requirements for your exact post from the advertisement"],
+  ["Missing application deadlines or submitting incomplete documents", "Prepare documents well ahead of the deadline and double-check against the advertisement's checklist"],
+  ["Not confirming age relaxation eligibility", "Check current relaxation provisions for your category directly in the advertisement"],
+  ["Ignoring mandatory professional registration (e.g., PMDC/PMC) for medical/technical posts", "Confirm required registration is in order before applying"],
+  ["Assuming a Bachelor's degree qualifies for posts requiring a Master's or professional degree", "Confirm the exact qualification requirement for your specific post before applying"],
+  ["Relying on unofficial sources for dates, fees, or eligibility changes", "Cross-verify anything time-sensitive against SPSC's official announcement"],
 ];
 
 function Section({ id, title, children }) {
@@ -426,27 +386,6 @@ export default function SpscPillar() {
               categories, each with distinct eligibility and exam patterns.
             </p>
           </Prose>
-          <div
-            className="mt-5 mb-6 grid sm:grid-cols-3 gap-3"
-            role="img"
-            aria-label="Types of SPSC exams in Pakistan infographic"
-          >
-            {[
-              { title: "Administrative", items: "Administrative Posts · Assistant Posts · Revenue Dept." },
-              { title: "Teaching/Education", items: "Lecturer · Subject Specialist · Education Dept. Posts" },
-              { title: "Technical/Specialized", items: "Medical · Engineer · Agriculture · IT & Technical · Specialized" },
-            ].map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-blue-100 bg-gradient-to-b from-blue-50 to-white px-4 py-3 text-center"
-              >
-                <p className="text-[10px] font-black uppercase tracking-wider text-[#1565C0] mb-1">
-                  {col.title}
-                </p>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed">{col.items}</p>
-              </div>
-            ))}
-          </div>
           <div className="space-y-4">
             {examTypes.map((item) => (
               <article key={item.title} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 md:p-5">
@@ -460,6 +399,12 @@ export default function SpscPillar() {
             affairs, and English/Urdu components remain fairly consistent, while the subject-specific
             portion — and, for senior posts, the subjective/essay component — is what differs most based on
             the specific post.
+          </p>
+          <h3 className="text-base font-black text-slate-900 mt-6 mb-3">SPSC Exam Comparison</h3>
+          <DataTable headers={["Post Type", "Typical Qualification", "Test Format"]} rows={spscExamComparisonRows} />
+          <p className="text-xs text-slate-500 leading-relaxed mt-3 bg-slate-50 border border-slate-100 rounded-xl p-3">
+            This table reflects general patterns, not guaranteed current requirements — always verify exact
+            qualification and test format for your target post from the specific SPSC advertisement.
           </p>
         </Section>
 
@@ -646,110 +591,45 @@ export default function SpscPillar() {
               A structured, time-bound preparation plan consistently outperforms unstructured studying.
             </p>
           </Prose>
-          <div
-            className="my-5 grid sm:grid-cols-3 gap-3"
-            role="img"
-            aria-label="SPSC exam preparation roadmap and study plan"
-          >
-            {[
-              { title: "Daily", items: "Focused blocks · Current affairs · Short MCQs" },
-              { title: "Weekly", items: "Subject rotation · Affairs review · Timed practice" },
-              { title: "Monthly", items: "Syllabus milestones · Mocks · Weak-area revision" },
-            ].map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-emerald-100 bg-gradient-to-b from-emerald-50 to-white px-4 py-3 text-center"
-              >
-                <p className="text-[10px] font-black uppercase tracking-wider text-emerald-700 mb-1">
-                  {col.title}
-                </p>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed">{col.items}</p>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-5 text-sm text-slate-600 leading-relaxed">
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Daily Study Plan</h3>
-              <BulletList
-                items={[
-                  "Dedicate focused study blocks rather than long, unfocused sessions.",
-                  "Include a brief current affairs review every day, even during busy periods.",
-                  "End each day with a short MCQs practice set covering that day's topic.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Weekly Plan</h3>
-              <BulletList
-                items={[
-                  "Rotate through core subjects (general knowledge, Pakistan Affairs, Sindh Affairs, English/Urdu, and post-specific content) across the week.",
-                  "Set aside one day weekly for a consolidated current affairs review.",
-                  "Attempt at least one timed mock test or past paper set weekly as preparation progresses.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Monthly Plan</h3>
-              <BulletList
-                items={[
-                  "Break your overall syllabus into monthly milestones, ensuring each subject area is covered before your exam date.",
-                  "Use the final month primarily for past paper practice and targeted revision of weak areas.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Revision Strategy</h3>
-              <BulletList
-                items={[
-                  "Maintain concise revision notes for each subject as you study, rather than re-reading full source material repeatedly.",
-                  "Revisit incorrect MCQs from practice sessions specifically, since repeated mistakes reveal genuine knowledge gaps.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">MCQ Practice</h3>
-              <BulletList
-                items={[
-                  "Practice topic-wise MCQs before moving to full-length, mixed-subject mock tests.",
-                  "Track which subjects consistently show lower accuracy and adjust your study time accordingly.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Mock Tests</h3>
-              <BulletList
-                items={[
-                  "Begin timed mock tests once your foundational content review is largely complete, typically in the final 6–8 weeks before your exam.",
-                  "Treat mock test results as diagnostic, directing subsequent study time toward your weakest areas.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Current Affairs Strategy</h3>
-              <BulletList
-                items={[
-                  "Review current affairs daily in short sessions rather than in occasional long blocks.",
-                  "Focus especially on developments relevant to Sindh alongside national and international news, since SPSC papers often test Sindh-specific current events.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Interview Preparation</h3>
-              <BulletList
-                items={[
-                  "Once approaching or clearing the written stage, prepare for the interview by reviewing your academic background, staying current on major developments, and practicing clear, structured verbal answers.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Time Management</h3>
-              <BulletList
-                items={[
-                  "Practice pacing yourself during MCQs sessions to match actual exam time constraints, not just accuracy.",
-                  "For posts with a subjective/essay component, practice writing full answers within a set time limit to build exam-day speed.",
-                ]}
-              />
-            </div>
+          <div className="space-y-4 text-sm text-slate-600 leading-relaxed">
+            <p>
+              Structured, time-bound preparation consistently outperforms open-ended studying. Adapt this to
+              your own timeline:
+            </p>
+            <p>
+              <strong className="text-slate-900">Build a routine, not just a to-do list.</strong> Set aside
+              focused study blocks rather than long, unfocused sessions, and rotate through your core subjects
+              — general knowledge, Pakistan Affairs, Sindh Affairs, English/Urdu, and post-specific content —
+              across the week instead of fixating on one subject at a time. Treat current affairs as a daily
+              habit: a short review each day, plus one consolidated weekly session covering the week&apos;s major
+              developments, keeps this fast-changing subject from becoming a last-minute scramble. Focus
+              especially on developments relevant to Sindh alongside national and international news, since
+              SPSC papers often test Sindh-specific current events.
+            </p>
+            <p>
+              <strong className="text-slate-900">Break your syllabus into monthly milestones</strong> so every
+              subject area gets covered before your exam date. Use the final month mainly for past-paper
+              practice and targeted revision of weak areas rather than introducing new content.
+            </p>
+            <p>
+              <strong className="text-slate-900">Keep concise revision notes</strong> as you study, rather than
+              re-reading full source material repeatedly, and specifically revisit MCQs you got wrong in past
+              sessions — repeated mistakes are the clearest signal of a genuine gap. Work through MCQs
+              organized by subject before mixing them together, and track which subjects consistently show lower
+              accuracy so you can adjust your study time accordingly.
+            </p>
+            <p>
+              <strong className="text-slate-900">Practice under real time constraints.</strong> Once your
+              foundational review is largely complete (typically the final 6–8 weeks before the exam), start
+              timed mock tests and treat the results as diagnostic — direct your next study block toward
+              whatever topic cost you the most marks. For posts with a subjective/essay component, practice
+              writing full answers within a set time limit well ahead of the exam, not just in the final week.
+            </p>
+            <p>
+              <strong className="text-slate-900">Start interview preparation once you&apos;re approaching or
+              have cleared the written stage</strong> — review your academic background, stay current on major
+              developments, and practice clear, structured verbal answers to common interview question types.
+            </p>
           </div>
         </Section>
 
@@ -887,12 +767,11 @@ export default function SpscPillar() {
           </p>
         </Section>
 
-        <Section id="common-mistakes" title="Common Mistakes Candidates Make">
-          <BulletList items={mistakes} />
-        </Section>
-
-        <Section id="expert-tips" title="Expert Preparation Tips">
-          <BulletList items={tips} />
+        <Section id="mistakes-to-avoid" title="Mistakes to Avoid (and What Works Instead)">
+          <DataTable
+            headers={["Common Mistake", "What Works Instead"]}
+            rows={mistakesToAvoidRows}
+          />
         </Section>
 
         <Section id="why-paklearners" title="Why Choose PakLearners?">
