@@ -11,17 +11,26 @@ import {
 import { bpscFaqs } from "@/data/bpscFaqs";
 
 const jobCategories = [
-  { title: "Teaching", body: "Lecturer and subject specialist posts in government colleges, requiring a relevant Master's degree and typically a subject-specific written test." },
-  { title: "Administration", body: "General administrative and secretariat roles, usually requiring a Bachelor's degree and an objective MCQ test." },
-  { title: "Health", body: "Medical officer and allied health posts, requiring MBBS/equivalent or relevant health qualifications." },
-  { title: "Engineering", body: "Technical posts requiring a relevant engineering degree, with subject-specific technical content in the written test." },
-  { title: "Police", body: "Administrative and support posts affiliated with police department functions, distinct from direct police force recruitment." },
-  { title: "Education (non-teaching)", body: "Supervisory and administrative posts within the education department." },
-  { title: "Revenue", body: "Posts requiring general knowledge and basic numerical ability, often at Intermediate to Bachelor's level." },
-  { title: "Finance", body: "Posts requiring relevant commerce, accounting, or finance qualifications." },
-  { title: "Agriculture", body: "Agriculture officer posts requiring a relevant agricultural sciences degree." },
-  { title: "Forest", body: "Forestry department posts requiring relevant environmental or forestry science qualifications." },
-  { title: "Planning", body: "Posts within planning and development departments, often requiring relevant economics, statistics, or planning-related qualifications." },
+  {
+    title: "Teaching and Education",
+    body: "Lecturer and subject specialist posts in government colleges require a relevant Master's degree and typically a subject-specific written test. Other education department posts include supervisory and administrative roles, with eligibility and pattern varying by specific role.",
+  },
+  {
+    title: "Administration and Police",
+    body: "General administrative and secretariat roles usually require a Bachelor's degree and an objective MCQ test. Administrative and support posts affiliated with police department functions follow a similar pattern, distinct from direct police force recruitment.",
+  },
+  {
+    title: "Health and Engineering",
+    body: "Medical officer and allied health posts require MBBS/equivalent or relevant health qualifications, often with a subject-specific written component. Engineering posts require a relevant engineering degree, with subject-specific technical content in the written test.",
+  },
+  {
+    title: "Revenue and Finance",
+    body: "Revenue posts typically require Intermediate to Bachelor's-level qualification, with a written test focused on general knowledge and basic numerical ability. Finance posts require relevant commerce or accounting qualifications, with subject content added to the general paper.",
+  },
+  {
+    title: "Agriculture, Forest, and Planning",
+    body: "Agriculture officer posts require a relevant agricultural sciences degree; forest department posts require relevant environmental or forestry science qualifications; planning department posts require relevant economics, statistics, or planning-related qualifications. All three typically include subject-specific content in the written test.",
+  },
 ];
 
 const jobCategoryRows = [
@@ -74,53 +83,6 @@ const syllabusItems = [
     title: "Subject-Specific Syllabus",
     text: "For teaching, medical, engineering, agriculture, and forestry posts, subject-specific content follows the relevant academic or professional field. Align study material directly with your degree-level knowledge.",
   },
-];
-
-const mistakes = [
-  "Applying without carefully reading the full eligibility criteria for the specific post.",
-  "Assuming general preparation is enough without reviewing the specific post's syllabus.",
-  "Ignoring current affairs until the final weeks before the exam.",
-  "Relying on outdated current affairs or general knowledge material.",
-  "Skipping past papers entirely and walking into the exam without a sense of realistic difficulty.",
-  "Assuming every BPSC post uses a pure MCQ format, when some senior posts include a descriptive component.",
-  "Not practicing under timed conditions before the actual exam.",
-  "Submitting incomplete or mismatched documentation with the application.",
-  "Missing the application deadline due to last-minute submission attempts.",
-  "Not confirming age relaxation eligibility that may actually apply to their category.",
-  "Failing to verify district-level domicile quota requirements before applying.",
-  "Neglecting interview preparation until after written results are announced.",
-  "Studying passively (re-reading) instead of active recall through MCQs and practice questions.",
-  "Failing to download and verify the roll number slip in time before the exam.",
-  "Assuming last year's eligibility or exam pattern still applies without checking the current advertisement.",
-  "Over-focusing on one subject while neglecting others with similar weightage.",
-  "Ignoring mandatory professional registration requirements for medical or technical posts.",
-  "Relying on unofficial or unverified sources for exam dates, fee details, or eligibility changes.",
-];
-
-const tips = [
-  "Start by reading the full official advertisement for your target post before opening any study material.",
-  "Build a written study schedule mapping subject coverage across your available preparation time.",
-  "Treat current affairs as a daily habit, not a subject you review once.",
-  "Confirm early whether your target post involves a pure MCQ paper or a descriptive component.",
-  "Use topic-wise MCQs practice before moving to full-length mock tests.",
-  "Solve past papers early to understand realistic difficulty and pacing, not just in the final week.",
-  "Keep concise revision notes rather than re-reading entire textbooks repeatedly.",
-  "Focus extra time on subjects where your past paper or mock test performance is weakest.",
-  "Review your incorrect answers specifically — don't just track your overall score.",
-  "Build general knowledge gradually through consistent daily exposure rather than cramming.",
-  "For subject-specific posts, align your prep material closely with your actual academic background.",
-  "Simulate real exam timing during mock tests.",
-  "Stay updated on any changes to BPSC's syllabus or exam pattern for your specific post.",
-  "Prepare your application documents well ahead of the deadline to avoid last-minute errors.",
-  "Practice verbal, structured answers for interview preparation, not just written content review.",
-  "For posts with a descriptive component, practice essay writing under timed conditions well before your exam date.",
-  "Confirm required professional registration is in order before applying for relevant posts.",
-  "Avoid switching study material frequently — consistency with one well-organized resource beats scattered studying.",
-  "Track your own progress with periodic self-assessment tests, not just passive review.",
-  "Prioritize accuracy over speed initially, then build speed once accuracy is consistently strong.",
-  "Join structured weekly revision cycles to reinforce retention of earlier material.",
-  "Don't neglect Islamic Studies or Everyday Science in favor of only focusing on English and current affairs.",
-  "Verify every detail — fee, schedule, eligibility, syllabus — against BPSC's official announcement before finalizing your preparation plan.",
 ];
 
 const materialTable = [
@@ -696,96 +658,41 @@ export default function BpscPillar() {
         <Section id="preparation-strategy" title="BPSC Test Preparation Strategy">
           <Prose>
             <p className="font-semibold text-slate-800">
-              A structured, time-bound preparation plan consistently outperforms unstructured studying.
+              A structured, time-bound preparation plan consistently outperforms unstructured studying. Adapt this to
+              your own timeline:
+            </p>
+            <p>
+              <strong className="text-slate-900">Daily:</strong> Dedicate focused study blocks rather than long,
+              unfocused sessions, and include a brief current affairs review every day. End each day with a short MCQs
+              practice set covering that day&apos;s topic, working through questions by subject so you can spot weak areas
+              clearly.
+            </p>
+            <p>
+              <strong className="text-slate-900">Weekly:</strong> Rotate through your core subjects — general
+              knowledge, Pakistan Affairs, English, and post-specific content — across the week. Set aside one day
+              weekly for a consolidated current affairs review, and attempt at least one timed mock test or past paper
+              set weekly as your preparation progresses. Maintain concise revision notes and revisit MCQs you got wrong
+              in past sessions rather than re-reading full source material.
+            </p>
+            <p>
+              <strong className="text-slate-900">Monthly:</strong> Break your overall syllabus into monthly
+              milestones, ensuring every subject area is covered before your exam date. Use the final month mainly for
+              past-paper practice under timed conditions and targeted revision of weak areas. Use recent, updated
+              preparation material matched to your specific post&apos;s syllabus rather than generic guides.
+            </p>
+            <p>
+              <strong className="text-slate-900">Time management and interview prep:</strong> Practice pacing
+              yourself during MCQ sessions to match actual exam time constraints, and for posts with a descriptive
+              component, practice writing full answers within a set time limit. Once approaching or clearing the
+              written stage, start interview preparation by reviewing your academic background, staying current on
+              major developments, and practicing clear, structured verbal answers.
+            </p>
+            <p>
+              <strong className="text-slate-900">Tip:</strong> Build your study schedule around your weakest subjects
+              first, not your strongest ones. Marks lost in weak areas are usually easier to recover than marks gained
+              by over-preparing a subject you&apos;re already comfortable with.
             </p>
           </Prose>
-          <div
-            className="my-5 grid sm:grid-cols-3 gap-3"
-            role="img"
-            aria-label="BPSC exam preparation roadmap"
-          >
-            {[
-              { title: "Daily", items: "Focused blocks · Current affairs · Short MCQs" },
-              { title: "Weekly", items: "Subject rotation · Affairs review · Timed practice" },
-              { title: "Monthly", items: "Syllabus milestones · Mocks · Weak-area revision" },
-            ].map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-emerald-100 bg-gradient-to-b from-emerald-50 to-white px-4 py-3 text-center"
-              >
-                <p className="text-[10px] font-black uppercase tracking-wider text-emerald-700 mb-1">
-                  {col.title}
-                </p>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed">{col.items}</p>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-5 text-sm text-slate-600 leading-relaxed">
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Daily Routine</h3>
-              <BulletList
-                items={[
-                  "Dedicate focused study blocks rather than long, unfocused sessions.",
-                  "Include a brief current affairs review daily.",
-                  "End each day with a short MCQs practice set covering that day's topic.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Books</h3>
-              <p>
-                Use updated, exam-relevant preparation material matched to your specific post&apos;s syllabus
-                rather than generic competitive exam guides (see the next section for guidance on choosing
-                preparation material).
-              </p>
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">MCQs</h3>
-              <BulletList
-                items={[
-                  "Practice topic-wise MCQs before moving to full-length, mixed-subject mock tests, tracking which subjects consistently show lower accuracy.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Mock Tests</h3>
-              <BulletList
-                items={[
-                  "Begin timed mock tests once your foundational content review is largely complete, typically in the final 6–8 weeks before your exam.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Revision</h3>
-              <BulletList
-                items={[
-                  "Maintain concise revision notes for each subject as you study, and revisit incorrect MCQs specifically, since repeated mistakes reveal genuine knowledge gaps.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Time Management</h3>
-              <BulletList
-                items={[
-                  "Practice pacing yourself during MCQs sessions to match actual exam time constraints, and for posts with a descriptive paper, practice writing full answers within a set time limit.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Interview Preparation</h3>
-              <BulletList
-                items={[
-                  "Once approaching or clearing the written stage, prepare for the interview by reviewing your academic background, staying current on major developments, and practicing clear, structured verbal answers.",
-                ]}
-              />
-            </div>
-          </div>
-          <p className="text-sm text-slate-600 leading-relaxed mt-4 bg-slate-50 border border-slate-100 rounded-xl p-3">
-            <strong className="text-slate-900">Tip:</strong> Build your study schedule around your weakest
-            subjects first, not your strongest ones. It&apos;s tempting to spend more time on subjects you
-            already enjoy — but marks lost in weak areas are usually easier to recover than marks gained by
-            over-preparing a strong subject.
-          </p>
         </Section>
 
         <Section id="preparation-material" title="Recommended Preparation Material">
@@ -941,36 +848,88 @@ export default function BpscPillar() {
           />
         </Section>
 
-        <Section id="common-mistakes" title="Common Mistakes">
-          <BulletList items={mistakes} />
-        </Section>
-
-        <Section id="expert-tips" title="Expert Tips">
-          <BulletList items={tips} />
-        </Section>
-
-        <Section id="why-paklearners" title="Why Choose PakLearners for BPSC Preparation">
-          <Prose>
-            <p>
-              PakLearners is built around Pakistan&apos;s government exam landscape, including BPSC&apos;s range
-              of post categories, rather than mixing this content with unrelated general education material.
-            </p>
-          </Prose>
-          <BulletList
-            items={[
-              "Updated notes — content reviewed and refreshed on an ongoing basis, particularly for current affairs and general knowledge sections.",
-              "MCQs — topic-wise practice questions covering general knowledge, current affairs, and post-specific subjects.",
-              "Past papers — organized by post category, supporting focused, pattern-based revision.",
-              "Preparation guides — structured roadmaps that account for the real differences between MCQ-based and descriptive-paper posts.",
-              "Study plans — daily, weekly, and monthly structures you can adapt to your own preparation timeline.",
-              "Free resources — organized MCQs and guides accessible without unnecessary barriers.",
-            ]}
-          />
-          <p className="text-sm text-slate-600 leading-relaxed mt-4">
-            We don&apos;t claim to be Pakistan&apos;s largest platform, and we avoid making unverifiable claims
-            about user numbers or guaranteed outcomes. What we focus on is making sure the BPSC content we
-            provide is accurate, organized, and genuinely useful for candidates preparing for a specific post.
-          </p>
+        <Section id="mistakes-to-avoid" title="Mistakes to Avoid (and What Works Instead)">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[720px] text-left text-sm border-collapse">
+              <thead>
+                <tr className="bg-[#1565C0] text-white">
+                  <th className="px-3 py-3 font-bold rounded-tl-lg">Common Mistake</th>
+                  <th className="px-3 py-3 font-bold rounded-tr-lg">What Works Instead</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-600">
+                {[
+                  [
+                    "Applying without reading the full eligibility criteria",
+                    "Read the complete advertisement before opening any study material",
+                  ],
+                  [
+                    "Assuming general prep covers a specific post's syllabus",
+                    "Check the specific post's syllabus and align your study plan to it",
+                  ],
+                  [
+                    "Assuming every BPSC post uses a pure MCQ format",
+                    "Confirm early whether your target post includes a descriptive component",
+                  ],
+                  [
+                    "Leaving current affairs until the final weeks",
+                    "Treat it as a daily habit from the start of your preparation",
+                  ],
+                  [
+                    "Using outdated current affairs/general knowledge material",
+                    "Use sources updated within the last year, especially close to the exam",
+                  ],
+                  [
+                    "Skipping past papers entirely",
+                    "Solve past papers early to understand realistic difficulty and pacing",
+                  ],
+                  [
+                    "Never practicing under timed conditions",
+                    "Build timed mock tests into your plan once foundational review is done",
+                  ],
+                  [
+                    "Preparing written content but ignoring the interview",
+                    "Start interview prep once approaching the written stage, not after results",
+                  ],
+                  [
+                    "Studying passively (re-reading)",
+                    "Use active recall — MCQs and practice questions — over re-reading textbooks",
+                  ],
+                  [
+                    "Failing to verify district-level domicile quota requirements",
+                    "Confirm domicile and quota requirements for your exact post from the advertisement",
+                  ],
+                  [
+                    "Missing application deadlines or submitting incomplete documents",
+                    "Prepare documents well ahead of the deadline and double-check against the checklist",
+                  ],
+                  [
+                    "Not confirming age relaxation eligibility",
+                    "Check current relaxation provisions for your category in the advertisement",
+                  ],
+                  [
+                    "Ignoring mandatory professional registration for medical/technical posts",
+                    "Confirm required registration is in order before applying",
+                  ],
+                  [
+                    "Over-focusing on one subject while neglecting others with similar weightage",
+                    "Build a study schedule that covers all syllabus areas, weighted appropriately",
+                  ],
+                  [
+                    "Relying on unofficial sources for dates, fees, or eligibility changes",
+                    "Cross-verify anything time-sensitive against BPSC's official announcement",
+                  ],
+                ].map(([mistake, alternative], index) => (
+                  <tr key={mistake} className={index % 2 === 0 ? "bg-slate-50" : "bg-white"}>
+                    <td className="px-3 py-3 border-b border-slate-100 align-top font-semibold text-slate-900">
+                      {mistake}
+                    </td>
+                    <td className="px-3 py-3 border-b border-slate-100 align-top">{alternative}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </Section>
 
         <Section id="conclusion" title="Conclusion">

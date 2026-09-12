@@ -9,7 +9,6 @@ import {
   FaBookOpen,
   FaClipboardList,
   FaFileAlt,
-  FaShieldAlt,
   FaUserGraduate,
 } from "react-icons/fa";
 import Breadcrumbs from "@/Components/Breadcrumbs";
@@ -313,11 +312,8 @@ export default function GovernmentExamsPillar() {
               <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
               <span>
                 <strong className="text-slate-900">Results</strong> — After a test is conducted, results are usually
-                announced through the official exam body&apos;s website, and you can also check our{" "}
-                <Link href="/results" className="font-bold text-[#1565C0] hover:underline">
-                  results
-                </Link>{" "}
-                page for updates as they become available.
+                announced through the official exam body&apos;s website, and you can also check the relevant exam
+                body&apos;s official announcements for updates as they become available.
               </span>
             </li>
             <li className="flex gap-2 items-start">
@@ -845,11 +841,7 @@ export default function GovernmentExamsPillar() {
             <Link href="/jobs" className="font-bold text-[#1565C0] hover:underline">
               jobs
             </Link>{" "}
-            section and track outcomes through our{" "}
-            <Link href="/results" className="font-bold text-[#1565C0] hover:underline">
-              results
-            </Link>{" "}
-            page as part of a complete preparation-to-application cycle.
+            section as part of a complete preparation-to-application cycle.
           </p>
         </section>
 
@@ -901,32 +893,6 @@ export default function GovernmentExamsPillar() {
             Treating preparation guides and MCQs resources — including this one — as supporting material rather than a
             replacement for official information is the safest approach, since only the conducting authority can confirm
             current, binding requirements.
-          </p>
-        </section>
-
-        {/* Why PakLearners */}
-        <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">
-          <div className="flex items-center gap-2 mb-4">
-            <FaShieldAlt className="text-[#1565C0]" />
-            <h2 className="text-xl md:text-2xl font-black text-slate-900">Why Choose PakLearners?</h2>
-          </div>
-          <ul className="space-y-2 text-sm text-slate-600 mb-4">
-            {[
-              "Built around Pakistan's government exam landscape — federal, provincial, competitive, and testing services",
-              "Updated resources — syllabus direction, current affairs MCQs, and past papers refreshed ongoing",
-              "Student-focused guides organized by exam body, not generic education clutter",
-              "Plain-language explanations of patterns, eligibility, and requirements",
-              "MCQs, past papers, and online tests as a connected preparation system",
-            ].map((t) => (
-              <li key={t} className="flex gap-2 items-start">
-                <FaCheck className="text-emerald-500 mt-0.5 shrink-0" size={12} />
-                {t}
-              </li>
-            ))}
-          </ul>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            We focus on covering FPSC, PPSC, KPPSC, CSS, PMS, NTS, and related services accurately and keeping them
-            current — rather than claiming equal depth on every exam in the country.
           </p>
         </section>
 
