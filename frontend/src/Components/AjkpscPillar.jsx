@@ -739,95 +739,43 @@ export default function AjkpscPillar() {
         <Section id="preparation-strategy" title="AJKPSC Test Preparation Strategy">
           <Prose>
             <p className="font-semibold text-slate-800">
-              A structured, time-bound preparation plan consistently outperforms unstructured studying.
+              A structured, time-bound preparation plan consistently outperforms unstructured studying. Adapt this to
+              your own timeline:
+            </p>
+            <p>
+              <strong className="text-slate-900">Daily:</strong> Dedicate focused study blocks rather than long,
+              unfocused sessions, and include a brief current affairs review every day, even during busy periods. End
+              each day with a short MCQs practice set covering that day&apos;s topic, working through questions by subject
+              rather than mixed sets so you can spot weak areas clearly.
+            </p>
+            <p>
+              <strong className="text-slate-900">Weekly:</strong> Rotate through your core subjects — general
+              knowledge, Pakistan Affairs, English, and post-specific content — across the week instead of fixating on
+              one subject at a time. Set aside one day weekly for a consolidated current affairs review, and attempt at
+              least one timed mock test or past paper set weekly as your preparation progresses. Maintain concise
+              revision notes as you go, and specifically revisit MCQs you got wrong in past sessions rather than
+              re-reading full source material repeatedly.
+            </p>
+            <p>
+              <strong className="text-slate-900">Monthly:</strong> Break your overall syllabus into monthly
+              milestones, ensuring every subject area is covered at least once before your exam date. Use the final
+              month mainly for past-paper practice under timed conditions and targeted revision of weak areas rather
+              than introducing new content. Use recent, updated preparation material rather than generic competitive
+              exam guides, matched to your specific post&apos;s syllabus.
+            </p>
+            <p>
+              <strong className="text-slate-900">Time management and interview prep:</strong> Practice pacing
+              yourself during MCQ sessions to match actual exam time constraints, and for posts with a subjective
+              component, practice writing full answers within a set time limit. Once you&apos;re approaching or have
+              cleared the written stage, start interview preparation by reviewing your academic background, staying
+              current on major developments, and practicing clear, structured verbal answers.
+            </p>
+            <p className="bg-slate-50 border border-slate-100 rounded-xl p-3">
+              <strong className="text-slate-900">Tip:</strong> Build your study schedule around your weakest subjects
+              first, not your strongest ones. Marks lost in weak areas are usually easier to recover than marks gained
+              by over-preparing a subject you&apos;re already comfortable with.
             </p>
           </Prose>
-          <div
-            className="my-5 grid sm:grid-cols-3 gap-3"
-            role="img"
-            aria-label="AJKPSC exam preparation roadmap"
-          >
-            {[
-              { title: "Daily", items: "Focused blocks · Current affairs · Short MCQs" },
-              { title: "Weekly", items: "Subject rotation · Affairs review · Timed practice" },
-              { title: "Monthly", items: "Syllabus milestones · Mocks · Weak-area revision" },
-            ].map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-emerald-100 bg-gradient-to-b from-emerald-50 to-white px-4 py-3 text-center"
-              >
-                <p className="text-[10px] font-black uppercase tracking-wider text-emerald-700 mb-1">
-                  {col.title}
-                </p>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed">{col.items}</p>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-5 text-sm text-slate-600 leading-relaxed">
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Daily Study Plan</h3>
-              <BulletList
-                items={[
-                  "Dedicate focused study blocks rather than long, unfocused sessions.",
-                  "Include a brief current affairs review daily.",
-                  "End each day with a short MCQs practice set covering that day's topic.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Books</h3>
-              <p>
-                Use updated, exam-relevant preparation material matched to your specific post&apos;s syllabus
-                rather than generic competitive exam guides (see the next section for guidance on choosing
-                preparation material).
-              </p>
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">MCQs</h3>
-              <BulletList
-                items={[
-                  "Practice topic-wise MCQs before moving to full-length, mixed-subject mock tests, tracking which subjects consistently show lower accuracy.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Past Papers</h3>
-              <BulletList
-                items={[
-                  "Solve past papers under timed conditions as your exam date approaches, treating incorrect answers as a signal pointing to a genuine knowledge gap rather than just a wrong guess.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Revision Strategy</h3>
-              <BulletList
-                items={[
-                  "Maintain concise revision notes for each subject as you study, and revisit incorrect MCQs specifically rather than re-reading full source material repeatedly.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Time Management</h3>
-              <BulletList
-                items={[
-                  "Practice pacing yourself during MCQs sessions to match actual exam time constraints, and for posts with a subjective component, practice writing full answers within a set time limit.",
-                ]}
-              />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900 mb-2">Interview Preparation</h3>
-              <BulletList
-                items={[
-                  "Once approaching or clearing the written stage, prepare for the interview by reviewing your academic background, staying current on major developments, and practicing clear, structured verbal answers.",
-                ]}
-              />
-            </div>
-          </div>
-          <p className="text-sm text-slate-600 leading-relaxed mt-4 bg-slate-50 border border-slate-100 rounded-xl p-3">
-            <strong className="text-slate-900">Tip:</strong> Build your study schedule around your weakest
-            subjects first, not your strongest ones. Marks lost in weak areas are usually easier to recover
-            than marks gained by over-preparing a subject you&apos;re already comfortable with.
-          </p>
         </Section>
 
         <Section id="preparation-material" title="Best Preparation Material for AJKPSC">
