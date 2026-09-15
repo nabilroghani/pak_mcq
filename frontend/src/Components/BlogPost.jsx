@@ -223,6 +223,9 @@ function formatDate(dateStr) {
 
 export default function BlogPost({ post }) {
   const [openFaq, setOpenFaq] = useState(0);
+  const officialCommission = post.category.startsWith("FPSC")
+    ? { name: "FPSC", url: "https://www.fpsc.gov.pk/" }
+    : { name: "KPPSC", url: "https://www.kppsc.gov.pk/" };
 
   const breadcrumbs = [
     { name: "Home", path: "/" },
@@ -429,12 +432,12 @@ export default function BlogPost({ post }) {
             This article is part of PakLearners&apos; exam preparation guides. Always verify eligibility, syllabus,
             and exam dates against{" "}
             <a
-              href="https://www.kppsc.gov.pk/"
+              href={officialCommission.url}
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold text-[#1565C0] hover:underline"
             >
-              official KPPSC announcements
+              official {officialCommission.name} announcements
             </a>{" "}
             before applying or finalizing your study plan.
           </p>
