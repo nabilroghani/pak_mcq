@@ -113,6 +113,25 @@ export const kppscSubPages = {
     ],
     anchorOnMain: "#eligibility",
   },
+  "test-schedule": {
+    slug: "test-schedule",
+    title: "Test Schedule",
+    headline: "KPPSC Test Schedule 2026 – Physical, Written & Interview Dates",
+    description:
+      "Track official KPPSC test schedules 2026 — physical test, written exam, and interview dates by post, advertisement number, and case number.",
+    metaTitle: "KPPSC Test Schedule 2026 – Written, Physical & Interview Dates by Post | PakLearners",
+    metaDescription:
+      "Track official KPPSC test schedules 2026 — physical test, written exam, and interview dates by post, advertisement number, and case number. Updated as KPPSC announces new schedules.",
+    intro:
+      "Physical tests, written exams, and interviews organized by post and advertisement number, updated as KPPSC announces new schedules.",
+    sections: [],
+    relatedLinks: [
+      { name: "KPPSC exam guide", path: "/government-exams/kppsc" },
+      { name: "Latest jobs", path: "/jobs" },
+      { name: "KPPSC MCQs", path: "/mcqs/kppsc" },
+      { name: "KPPSC past papers", path: "/past-papers/kppsc" },
+    ],
+  },
   preparation: {
     slug: "preparation",
     title: "KPPSC Preparation",

@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return Object.keys(kppscSubPages)
-    .filter((topic) => !["syllabus", "past-papers", "mcqs", "jobs"].includes(topic))
+    .filter((topic) => !["syllabus", "past-papers", "mcqs", "jobs", "test-schedule"].includes(topic))
     .map((topic) => ({ topic }));
 }
 
