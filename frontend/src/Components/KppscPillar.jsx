@@ -340,6 +340,7 @@ export default function KppscPillar() {
               { name: "KPPSC past papers", path: "/government-exams/kppsc/past-papers" },
               { name: "Practice KPPSC MCQs", path: "/government-exams/kppsc/mcqs" },
               { name: "Latest KPPSC jobs", path: "/government-exams/kppsc/jobs" },
+              { name: "KPPSC test schedule", path: "/government-exams/kppsc/test-schedule" },
               { name: "Eligibility criteria", path: "/government-exams/kppsc/eligibility" },
               { name: "Preparation strategy", path: "/government-exams/kppsc/preparation" },
               { name: "KPPSC online tests", path: "/government-exams/kppsc/online-tests" },
