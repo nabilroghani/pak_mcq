@@ -86,6 +86,7 @@ const Header = () => {
 
   const mcqsLinks = [
     { name: "FPSC", path: "/mcqs/fpsc" },
+    { name: "MOD", path: "/mcqs/mod" },
     { name: "PPSC", path: "/mcqs/ppsc" },
     { name: "KPPSC", path: "/mcqs/kppsc" },
     { name: "ETEA", path: "/mcqs/etea" },
@@ -97,6 +98,7 @@ const Header = () => {
 
   const pastPapersLinks = [
     { name: "FPSC", path: "/past-papers/fpsc" },
+    { name: "MOD", path: "/past-papers/mod" },
     { name: "PPSC", path: "/past-papers/ppsc" },
     { name: "KPPSC", path: "/past-papers/kppsc" },
     { name: "ETEA", path: "/past-papers/etea" },
@@ -108,6 +110,7 @@ const Header = () => {
 
   const onlineTestsLinks = [
     { name: "FPSC", path: "/online-tests/fpsc" },
+    { name: "MOD", path: "/online-tests/mod" },
     { name: "PPSC", path: "/online-tests/ppsc" },
     { name: "KPPSC", path: "/government-exams/kppsc/online-tests" },
     { name: "ETEA", path: "/online-tests/etea" },

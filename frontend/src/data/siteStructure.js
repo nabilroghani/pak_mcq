@@ -6,9 +6,10 @@ export const siteSections = {
     title: "Government Exams",
     headline: "Pakistan Government Exams Preparation",
     description:
-      "Prepare for FPSC, PPSC, KPPSC, ETEA, NTS, OTS, SPSC, BPSC and AJKPSC with focused MCQs, past papers, online tests and job updates.",
+      "Prepare for FPSC, MOD, PPSC, KPPSC, ETEA, NTS, OTS, SPSC, BPSC and AJKPSC with focused MCQs, past papers, online tests and job updates.",
     links: [
       { name: "FPSC", path: "/government-exams/fpsc", note: "Federal Public Service Commission" },
+      { name: "MOD", path: "/government-exams/mod", note: "Ministry of Defence" },
       { name: "PPSC", path: "/government-exams/ppsc", note: "Punjab Public Service Commission" },
       { name: "KPPSC", path: "/government-exams/kppsc", note: "Khyber Pakhtunkhwa PSC" },
       { name: "BPSC", path: "/government-exams/bpsc", note: "Balochistan Public Service Commission" },
@@ -32,9 +33,10 @@ export const siteSections = {
     title: "MCQs",
     headline: "Exam-Wise MCQs for Competitive Exams",
     description:
-      "Practice FPSC, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC MCQs with focused question banks for each commission.",
+      "Practice FPSC, MOD, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC MCQs with focused question banks for each commission.",
     links: [
       { name: "FPSC MCQs", path: "/mcqs/fpsc", note: "Federal Public Service Commission" },
+      { name: "MOD MCQs", path: "/mcqs/mod", note: "Ministry of Defence" },
       { name: "PPSC MCQs", path: "/mcqs/ppsc", note: "Punjab Public Service Commission" },
       { name: "KPPSC MCQs", path: "/mcqs/kppsc", note: "Khyber Pakhtunkhwa PSC" },
       { name: "ETEA MCQs", path: "/mcqs/etea", note: "Educational Testing & Evaluation Agency" },
@@ -55,9 +57,10 @@ export const siteSections = {
     title: "Online Tests",
     headline: "Free Online Tests for Exam Practice",
     description:
-      "Attempt timed online tests for FPSC, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC to improve speed and accuracy.",
+      "Attempt timed online tests for FPSC, MOD, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC to improve speed and accuracy.",
     links: [
       { name: "FPSC Tests", path: "/online-tests/fpsc", note: "Federal Public Service Commission" },
+      { name: "MOD Tests", path: "/online-tests/mod", note: "Ministry of Defence" },
       { name: "PPSC Tests", path: "/online-tests/ppsc", note: "Punjab Public Service Commission" },
       { name: "KPPSC Tests", path: "/government-exams/kppsc/online-tests", note: "Khyber Pakhtunkhwa PSC" },
       { name: "ETEA Tests", path: "/online-tests/etea", note: "Educational Testing & Evaluation Agency" },
@@ -77,9 +80,10 @@ export const siteSections = {
     title: "Past Papers",
     headline: "Past Papers Collection for Competitive Exams",
     description:
-      "Access FPSC, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC past papers to understand exam patterns and most repeated questions.",
+      "Access FPSC, MOD, PPSC, KPPSC, ETEA, NTS, SPSC, BPSC and AJKPSC past papers to understand exam patterns and most repeated questions.",
     links: [
       { name: "FPSC Past Papers", path: "/past-papers/fpsc", note: "Federal Public Service Commission" },
+      { name: "MOD Past Papers", path: "/past-papers/mod", note: "Ministry of Defence" },
       { name: "PPSC Past Papers", path: "/past-papers/ppsc", note: "Punjab Public Service Commission" },
       { name: "KPPSC Past Papers", path: "/past-papers/kppsc", note: "Khyber Pakhtunkhwa PSC" },
       { name: "ETEA Past Papers", path: "/past-papers/etea", note: "Educational Testing & Evaluation Agency" },
@@ -225,6 +229,14 @@ export const governmentExamPillars = {
     description:
       "Prepare for OTS recruitment and admission tests with MCQs, past papers guidance and study resources.",
   },
+  mod: {
+    slug: "mod",
+    name: "MOD",
+    fullName: "Ministry of Defence",
+    headline: "MOD Jobs in Pakistan – Complete Guide, Eligibility & Test Preparation",
+    description:
+      "Complete guide to Ministry of Defence (MOD) jobs in Pakistan — eligibility, recruitment process, test pattern, syllabus, and preparation strategy for BS-01 to BS-18 civilian posts.",
+  },
 };
 
 /** Maps MCQ category slugs to government exam guide pages for SEO breadcrumbs & internal linking */
@@ -341,6 +353,17 @@ export const mcqExamPillars = {
     description:
       "Practice BPSC MCQs for Balochistan competitive exams. Question banks will be added here.",
   },
+  mod: {
+    slug: "mod",
+    name: "MOD",
+    fullName: "Ministry of Defence",
+    headline: "MOD MCQs – Practice Questions with Answers",
+    seoTitle: "MOD MCQs – 30 Practice Questions with Answers for Ministry of Defence Test",
+    description:
+      "Practice 30 MOD MCQs with answers — General Knowledge, Pakistan Studies, English, Math/Reasoning, and Islamic Studies for the Ministry of Defence screening test.",
+    metaDescription:
+      "Practice 30 MOD MCQs with answers — General Knowledge, Pakistan Studies, English, Math/Reasoning, and Islamic Studies for the Ministry of Defence screening test.",
+  },
   ajkpsc: {
     slug: "ajkpsc",
     name: "AJKPSC",
@@ -397,14 +420,38 @@ export const pastPaperPillars = {
     metaDescription:
       "Everything you need to know about AJKPSC past papers — why they matter, how to analyze them, and how to prepare for AJKPSC exams while papers are added to this page.",
   },
+  mod: {
+    slug: "mod",
+    name: "MOD",
+    fullName: "Ministry of Defence",
+    headline: "MOD Past Papers – Preparation Guide & Sample Practice Questions",
+    seoTitle: "MOD Past Papers – Ministry of Defence Test Preparation Guide & Sample Questions",
+    description:
+      "MOD past papers guide for Ministry of Defence recruitment tests — how to prepare, what to expect, and sample practice questions in the style of MOD's screening test.",
+    metaDescription:
+      "MOD past papers guide for Ministry of Defence recruitment tests — how to prepare, what to expect, and sample practice questions in the style of MOD's screening test.",
+  },
 };
 
 /** Online test pillars: /online-tests/:slug */
-export const onlineTestPillars = buildExamPillars(
-  "Online Tests",
-  (e) =>
-    `Attempt ${e.name} online practice tests. Timed quizzes and subject-wise tests will be added on this page.`
-);
+export const onlineTestPillars = {
+  ...buildExamPillars(
+    "Online Tests",
+    (e) =>
+      `Attempt ${e.name} online practice tests. Timed quizzes and subject-wise tests will be added on this page.`
+  ),
+  mod: {
+    slug: "mod",
+    name: "MOD",
+    fullName: "Ministry of Defence",
+    headline: "MOD Online Test – Timed Mock Practice for Ministry of Defence Screening",
+    seoTitle: "MOD Online Test – Free Timed Mock Test for Ministry of Defence Preparation",
+    description:
+      "Practice with a free MOD online mock test — timed, exam-style questions to build speed and accuracy for the Ministry of Defence screening test. Track your progress before test day.",
+    metaDescription:
+      "Practice with a free MOD online mock test — timed, exam-style questions to build speed and accuracy for the Ministry of Defence screening test. Track your progress before test day.",
+  },
+};
 
 /** Current affairs pillars: /current-affairs/:slug */
 export const currentAffairsPillars = {

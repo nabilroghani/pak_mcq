@@ -15,6 +15,7 @@ import { kppscMcqs } from "../data/kppscMcqs";
 import { kppscMcqsFaqs } from "../data/kppscMcqsFaqs";
 import { ajkpscMcqs } from "../data/ajkpscMcqs";
 import { ajkpscMcqsFaqs } from "../data/ajkpscMcqsFaqs";
+import ModMcqsContent from "../Components/ModMcqsContent";
 
 /**
  * Pillar page for each exam's MCQs.
@@ -595,6 +596,10 @@ const McqPillar = () => {
 
   if (exam.slug === "ajkpsc") {
     return <AjkpscMcqsContent />;
+  }
+
+  if (exam.slug === "mod") {
+    return <ModMcqsContent />;
   }
 
   return <GenericMcqPillar exam={exam} />;
