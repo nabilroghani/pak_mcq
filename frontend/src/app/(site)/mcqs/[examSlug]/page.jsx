@@ -1,6 +1,8 @@
 import McqPillar from "@/views/McqPillar";
+import FaqSchema from "@/seo/FaqSchema";
 import { buildExamPillarMetadata } from "@/seo/buildPageMetadata";
 import { mcqExamPillars } from "@/data/siteStructure";
+import { modMcqsFaqs } from "@/data/modMcqsFaqs";
 
 export function generateStaticParams() {
   return Object.keys(mcqExamPillars).map((examSlug) => ({ examSlug }));
@@ -13,6 +15,14 @@ export async function generateMetadata({ params }) {
   return buildExamPillarMetadata(exam, "/mcqs", "MCQs – Practice");
 }
 
-export default function Page() {
-  return <McqPillar />;
+export default async function Page({ params }) {
+  const { examSlug } = await params;
+  const isMod = examSlug?.toLowerCase() === "mod";
+
+  return (
+    <>
+      {isMod && <FaqSchema id="schema-faq-mod-mcqs" faqs={modMcqsFaqs} />}
+      <McqPillar />
+    </>
+  );
 }

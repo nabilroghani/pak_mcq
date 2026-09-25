@@ -3,7 +3,9 @@ import { buildExamPillarMetadata } from "@/seo/buildPageMetadata";
 import { onlineTestPillars } from "@/data/siteStructure";
 
 export function generateStaticParams() {
-  return Object.keys(onlineTestPillars).map((examSlug) => ({ examSlug }));
+  return Object.keys(onlineTestPillars)
+    .filter((slug) => slug !== "mod")
+    .map((examSlug) => ({ examSlug }));
 }
 
 export async function generateMetadata({ params }) {

@@ -228,7 +228,7 @@ export default function GovernmentExamsPillar() {
             aria-label="Types of government exams in Pakistan infographic — federal, provincial, and testing services"
           >
             {[
-              { title: "Federal", items: "FPSC · CSS · Federal jobs tests" },
+              { title: "Federal", items: "FPSC · CSS · MOD · Federal jobs tests" },
               { title: "Provincial", items: "PPSC · KPPSC · SPSC · BPSC · PMS" },
               { title: "Testing Services", items: "NTS · OTS · PTS · CTS" },
             ].map((col) => (
@@ -383,6 +383,27 @@ export default function GovernmentExamsPillar() {
               linkLabel="Open CSS page"
             />
             <ExamCard
+              title="MOD (Ministry of Defence)"
+              authority="Ministry of Defence, Islamabad — civilian recruitment, separate from armed forces enlistment."
+              eligibility="Varies by post, from Matric or Intermediate for support roles to Bachelor's, Master's, or professional degrees for administrative, technical, and medical posts. Age limits and relaxations are set in each advertisement."
+              pattern="General posts have used objective MCQ screening tests, with negative marking reported in at least one recent large advertisement. Technical posts add subject content. An interview typically follows the written stage."
+              tips={
+                <>
+                  Confirm fees, age limits, and the application channel from the official advertisement and{" "}
+                  <a href="https://www.mod.gov.pk" className="font-bold text-[#1565C0] hover:underline" target="_blank" rel="noopener noreferrer">
+                    mod.gov.pk
+                  </a>
+                  . Our{" "}
+                  <Link href="/government-exams/mod" className="font-bold text-[#1565C0] hover:underline">
+                    MOD jobs guide
+                  </Link>{" "}
+                  covers eligibility, syllabus, and preparation.
+                </>
+              }
+              link="/government-exams/mod"
+              linkLabel="Open MOD page"
+            />
+            <ExamCard
               title="Federal Jobs Tests (Other Departmental Recruitment)"
               authority="Varies — often the hiring department or a testing service acting on its behalf."
               eligibility="Set individually per advertisement; generally intermediate to graduate-level."
@@ -523,6 +544,13 @@ export default function GovernmentExamsPillar() {
                     "Federal",
                     "Varies by post — Intermediate to Master's",
                     "Recruitment into federal ministries, divisions, and attached departments",
+                  ],
+                  [
+                    "MOD",
+                    "Ministry of Defence",
+                    "Federal — civilian posts",
+                    "Varies by post — Matric to Master's or professional degree",
+                    "Civilian recruitment into MOD departments and attached organizations (BS-1 to BS-18)",
                   ],
                   [
                     "PMS",

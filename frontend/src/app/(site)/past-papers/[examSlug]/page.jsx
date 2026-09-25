@@ -4,7 +4,7 @@ import { pastPaperPillars } from "@/data/siteStructure";
 
 export function generateStaticParams() {
   return Object.keys(pastPaperPillars)
-    .filter((slug) => slug !== "fpsc" && slug !== "ppsc" && slug !== "kppsc")
+    .filter((slug) => slug !== "fpsc" && slug !== "ppsc" && slug !== "kppsc" && slug !== "mod")
     .map((examSlug) => ({ examSlug }));
 }
 
