@@ -7,6 +7,10 @@ import Breadcrumbs from "@/Components/Breadcrumbs";
 import { cssFaqs } from "@/data/cssFaqs";
 
 const prepLinks = [
+  {
+    name: "CSS MPT 2027 date & preparation",
+    path: "/blog/css-mpt-2027-date-format-preparation-guide",
+  },
   { name: "FPSC exam guide", path: "/government-exams/fpsc" },
   { name: "PMS preparation", path: "/government-exams/pms" },
   { name: "FPSC MCQs", path: "/mcqs/fpsc" },
@@ -118,6 +122,18 @@ export default function CssPillar() {
               </li>
             ))}
           </ul>
+          <p className="mt-4 text-sm text-slate-600 leading-relaxed">
+            Before the written examination, candidates must pass the MCQ-Based Preliminary Test
+            (MPT). Only those who clear it can apply for that year&apos;s written exam. For the 2027
+            cycle, FPSC has set the MPT for Saturday, 10 October 2026 — details are in the{" "}
+            <Link
+              href="/blog/css-mpt-2027-date-format-preparation-guide"
+              className="font-bold text-[#1565C0] hover:underline"
+            >
+              CSS MPT 2027 date, format and preparation guide
+            </Link>
+            .
+          </p>
         </section>
 
         <section className="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm">

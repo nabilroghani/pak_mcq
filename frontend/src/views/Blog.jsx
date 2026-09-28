@@ -17,7 +17,7 @@ import Breadcrumbs from "@/Components/Breadcrumbs";
 import BlogCoverArt, { getBlogCoverVariant } from "@/Components/BlogCoverArt";
 import { blogPostList } from "@/data/blogPosts";
 
-const categories = ["All", "KPPSC Preparation"];
+const categories = ["All", "FPSC Preparation", "KPPSC Preparation"];
 
 const cardAccents = {
   "KPPSC Preparation": {

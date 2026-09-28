@@ -81,9 +81,13 @@ export const fpscWrittenTestOctober2026 = {
         },
         {
           type: "paragraph",
-          text: "If you're specifically preparing for CSS, the written pattern and timeline are different (multiple subjective papers over several days rather than a single objective paper), so this particular time-boxed plan is less directly applicable — the FPSC Exam Guide covers CSS separately in more depth.",
+          text: "If you're specifically preparing for CSS, this Phase-3 plan is a different exam. The CSS 2027 cycle starts with the MCQ-Based Preliminary Test — the CSS MPT 2027 guide covers that date, format and pass marks — while the CSS exam guide covers compulsory papers, psychological assessment and interview.",
           links: [
-            { href: "/government-exams/fpsc", label: "FPSC Exam Guide" },
+            {
+              href: "/blog/css-mpt-2027-date-format-preparation-guide",
+              label: "CSS MPT 2027 guide",
+            },
+            { href: "/government-exams/css", label: "CSS exam guide" },
           ],
         },
       ],
