@@ -48,7 +48,17 @@ const examTypes = [
   },
   {
     title: "ASF (Airport Security Force)",
-    body: "FPSC-conducted recruitment for ASF-related federal posts generally requires candidates to meet both academic and physical eligibility standards, with a written test covering general knowledge and security-relevant awareness.",
+    body: (
+      <>
+        FPSC-conducted recruitment for ASF officer posts generally requires candidates to meet both academic
+        and physical eligibility standards, with a written test covering general knowledge and
+        security-relevant awareness. See our{" "}
+        <Link href="/government-exams/fpsc/asf" className="font-bold text-[#1565C0] hover:underline">
+          ASF jobs guide
+        </Link>{" "}
+        for eligibility, the selection process, and how to prepare.
+      </>
+    ),
   },
   {
     title: "FIA (Federal Investigation Agency)",
