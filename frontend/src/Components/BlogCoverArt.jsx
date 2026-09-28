@@ -11,6 +11,11 @@ const variants = {
     accent: "#99f6e4",
     label: "Past Papers & MCQs",
   },
+  "css-mpt": {
+    gradient: "from-[#0e7490] via-[#1565C0] to-[#1e3a8a]",
+    accent: "#a5f3fc",
+    label: "CSS MPT 2027",
+  },
   default: {
     gradient: "from-[#1565C0] via-[#2563eb] to-[#1e3a8a]",
     accent: "#bfdbfe",
@@ -107,6 +112,7 @@ function DefaultArt({ accent }) {
 const artMap = {
   "study-plan": StudyPlanArt,
   "past-papers-mcqs": PastPapersMcqsArt,
+  "css-mpt": StudyPlanArt,
   default: DefaultArt,
 };
 
