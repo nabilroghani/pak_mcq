@@ -168,11 +168,27 @@ function BlockRenderer({ block }) {
     case "table":
       return (
         <div className="overflow-x-auto rounded-xl border border-slate-200">
-          <table className="min-w-full text-left text-sm">
+          <table
+            className={`w-full text-left text-sm ${block.minWidthClass || "min-w-full"} ${
+              block.colWidths ? "table-fixed" : ""
+            }`}
+          >
+            {block.colWidths && (
+              <colgroup>
+                {block.colWidths.map((width, i) => (
+                  <col key={block.headers[i]} style={{ width }} />
+                ))}
+              </colgroup>
+            )}
             <thead className="bg-slate-50 text-slate-900">
               <tr>
                 {block.headers.map((h) => (
-                  <th key={h} className="px-4 py-3 font-black text-xs uppercase tracking-wide whitespace-nowrap">
+                  <th
+                    key={h}
+                    className={`px-4 py-3 font-black text-xs uppercase tracking-wide align-bottom ${
+                      block.colWidths ? "whitespace-normal break-words" : "whitespace-nowrap"
+                    }`}
+                  >
                     {h}
                   </th>
                 ))}
@@ -184,7 +200,9 @@ function BlockRenderer({ block }) {
                   {row.map((cell, i) => (
                     <td
                       key={`${row[0]}-${i}`}
-                      className={`px-4 py-3 leading-relaxed ${i === 0 ? "font-bold text-slate-900" : ""}`}
+                      className={`px-4 py-3 leading-relaxed ${
+                        block.colWidths ? "whitespace-normal break-words" : ""
+                      } ${i === 0 ? "font-bold text-slate-900" : ""}`}
                     >
                       {cell}
                     </td>

@@ -6,6 +6,7 @@ import { fpscVsPpscVsKppscGuide } from "./blogPosts/fpscVsPpscVsKppscGuide";
 import { bpsPayScale2026Pakistan } from "./blogPosts/bpsPayScale2026Pakistan";
 import { fpscOctober2026SubjectHub } from "./blogPosts/fpscOctober2026SubjectHub";
 import { cssMpt2027 } from "./blogPosts/cssMpt2027";
+import { kppscPmsOfficerWrittenExam2026 } from "./blogPosts/kppscPmsOfficerWrittenExam2026";
 
 export const blogPosts = {
   "how-to-prepare-for-kppsc-exams-2026": {
@@ -542,6 +543,8 @@ export const blogPosts = {
   "fpsc-october-2026-test-subject-wise-preparation-hub": fpscOctober2026SubjectHub,
 
   "css-mpt-2027-date-format-preparation-guide": cssMpt2027,
+
+  "kppsc-pms-officer-written-exam-2026-schedule-preparation": kppscPmsOfficerWrittenExam2026,
 };
 
 export const blogPostList = Object.values(blogPosts).sort(
