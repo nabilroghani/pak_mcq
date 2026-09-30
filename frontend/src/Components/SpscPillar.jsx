@@ -12,6 +12,19 @@ import { spscFaqs } from "@/data/spscFaqs";
 
 const examTypes = [
   {
+    title: "Combined Competitive Examination (CCE)",
+    body: (
+      <>
+        SPSC&apos;s flagship written exam for senior provincial civil service posts — 12 papers split equally
+        between compulsory and optional subjects, on the same general model as CSS and PMS. See our{" "}
+        <Link href="/government-exams/spsc/cce" className="font-bold text-[#1565C0] hover:underline">
+          SPSC CCE guide
+        </Link>{" "}
+        for the paper structure, eligibility, syllabus, and a preparation plan.
+      </>
+    ),
+  },
+  {
     title: "Administrative and Assistant Posts",
     body: "General administrative, secretariat-level, and clerical/assistant posts across Sindh government departments. Assistant-level posts typically accept Intermediate to Bachelor's-level qualifications with an MCQ-based test focused on general knowledge, basic English, and Urdu, while more senior administrative posts require a Bachelor's degree and may include a subjective written component alongside the objective paper, generally followed by an interview.",
   },
@@ -49,6 +62,7 @@ const eligibilityRows = [
 ];
 
 const spscExamComparisonRows = [
+  ["CCE (Combined Competitive Exam)", "Bachelor's (typically Second Division)", "12 written papers (compulsory + optional) + interview"],
   ["Assistant/Clerical", "Intermediate/Bachelor's", "Objective MCQ + interview (often)"],
   ["Administrative (general)", "Bachelor's", "Objective MCQ + interview"],
   ["Administrative (senior)", "Bachelor's", "Objective MCQ + subjective component + interview"],

@@ -29,6 +29,46 @@ function OfficialLink({ children, className = "font-bold text-[#1565C0] hover:un
   );
 }
 
+function ScheduleTable({ headers, rows, colWidths, minWidthClass }) {
+  return (
+    <div className="overflow-x-auto rounded-xl border border-slate-200">
+      <table className={`w-full ${minWidthClass} table-fixed text-left text-sm`}>
+        <colgroup>
+          {colWidths.map((width, i) => (
+            <col key={headers[i]} style={{ width }} />
+          ))}
+        </colgroup>
+        <thead className="bg-slate-50 text-slate-900">
+          <tr>
+            {headers.map((header) => (
+              <th
+                key={header}
+                className="px-3 py-3 font-black text-[10px] md:text-xs uppercase tracking-wide align-bottom whitespace-normal break-words"
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-100 text-slate-600">
+          {rows.map((row) => (
+            <tr key={row[0]} className="align-top">
+              {row.map((cell, i) => (
+                <td
+                  key={`${row[0]}-${i}`}
+                  className="px-3 py-3 leading-relaxed text-xs md:text-sm whitespace-normal break-words"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 const scheduleRows = [
   [
     "Assistant Superintendent Jail (Prison), BPS-16 — Home & Tribal Affairs Department",
@@ -37,6 +77,87 @@ const scheduleRows = [
     "30/09/2026",
     "Qayyum Sports Complex, Peshawar Cantt, Peshawar",
   ],
+  [
+    "Provincial Management Service (PMS) Officer, BPS-17",
+    "Written Examination",
+    "01/2026, Sr. No. 01",
+    "14 October – 31 October 2026",
+    "See full paper-wise schedule below",
+  ],
+];
+
+const pmsCompulsoryPapers = [
+  ["14.10.2026", "Wednesday", "English Essay", "09:00 AM – 12:00 Noon"],
+  ["15.10.2026", "Thursday", "English (Precis & Composition)", "09:00 AM – 12:00 Noon"],
+  ["16.10.2026", "Friday", "General Knowledge (Everyday Science)", "09:00 AM – 12:00 Noon"],
+  ["17.10.2026", "Saturday", "General Knowledge (Current Affairs)", "09:00 AM – 12:00 Noon"],
+  ["19.10.2026", "Monday", "General Knowledge (Pakistan Affairs)", "09:00 AM – 12:00 Noon"],
+  ["20.10.2026", "Tuesday", "Islamiat", "09:00 AM – 12:00 Noon"],
+];
+
+const pmsOptionalPapers = [
+  [
+    "21.10.2026",
+    "Wednesday",
+    "Islamic History & Culture / History of Pakistan & India / British History / European History (P-1) / History of USA",
+    "Islamic History & Culture / History of Pakistan & India / British History / European History (P-2)",
+  ],
+  [
+    "22.10.2026",
+    "Thursday",
+    "Political Science (P-1) / Forestry",
+    "Political Science (P-2) / Agriculture",
+  ],
+  [
+    "23.10.2026",
+    "Friday",
+    "English Literature (P-1) / Persian (P-1) / Arabic (P-1) / Urdu (P-1) / Pushto",
+    "English Literature (P-2) / Persian (P-2) / Arabic (P-2) / Urdu (P-2)",
+  ],
+  [
+    "24.10.2026",
+    "Saturday",
+    "Law (P-1) / International Law / International Relations",
+    "Law (P-2) / Constitutional Law",
+  ],
+  [
+    "26.10.2026",
+    "Monday",
+    "Accountancy & Auditing (P-1) / Economics (P-1) / Public Administration",
+    "Accountancy & Auditing (P-2) / Economics (P-2) / Business Administration",
+  ],
+  [
+    "27.10.2026",
+    "Tuesday",
+    "Physics / Geology / Geography / Chemistry / Botany / Zoology (Paper-1)",
+    "Physics / Geology / Geography / Chemistry / Botany / Zoology (Paper-2)",
+  ],
+  [
+    "28.10.2026",
+    "Wednesday",
+    "Philosophy (P-1) / Psychology including Experimental Psy. (P-1)",
+    "Philosophy (P-2) / Psychology including Experimental Psy. (P-2)",
+  ],
+  ["29.10.2026", "Thursday", "Sociology", "Journalism"],
+  ["30.10.2026", "Friday", "Muslim Law & Jurisprudence", "Mercantile Law"],
+  [
+    "31.10.2026",
+    "Saturday",
+    "Pure Mathematics / Applied Mathematics (P-1) / Computer Science",
+    "Pure Mathematics / Applied Mathematics (P-2) / Statistics",
+  ],
+];
+
+const pmsInstructions = [
+  "Candidates are provisionally admitted; before appearing, confirm you meet all eligibility criteria prescribed in Advertisement No. 01/2026.",
+  "The schedule is provisional, subject to availability of examination halls.",
+  "Download the syllabus and course contents from KPPSC's official website (www.kppsc.gov.pk).",
+  "Reach the examination centre within 30 minutes of the reporting time — the main gate closes after that.",
+  "Call letters/roll number slips are uploaded on KPPSC's website and can be downloaded 15 days before the examination.",
+  "Bring a printed call letter/roll number slip, original CNIC, and one attested passport-size photograph — without the call letter and original CNIC, entry is not permitted.",
+  "Mobile phones, electronic gadgets, and any other helping material are strictly prohibited in the examination hall and may lead to disqualification.",
+  "If you don't receive intimation via website, SMS, or email, confirm your status by contacting KPPSC's office directly.",
+  "Confirm your roll number and examination centre location one day before each paper to avoid inconvenience.",
 ];
 
 const physicalRequirements = [
@@ -188,6 +309,59 @@ export default function KppscTestSchedulePillar() {
             check directly with <OfficialLink>KPPSC&apos;s official website</OfficialLink>, since this table
             reflects a subset of schedules we&apos;ve verified, not a real-time feed of every notice KPPSC
             issues.
+          </p>
+        </Section>
+
+        <Section id="pms-written-schedule" title="PMS Officer Written Exam 2026 – Full Schedule">
+          <Prose>
+            <p>
+              KPPSC&apos;s 18th Schedule of 2026 (dated 14 September 2026) sets out the full written
+              examination timetable for Provincial Management Service Officer, BPS-17 (Advertisement No.
+              01/2026, Sr. No. 01). Candidates sit six compulsory papers first, followed by two optional
+              papers chosen from the list below.
+            </p>
+          </Prose>
+
+          <h3 className="mt-6 mb-3 text-base font-black text-slate-900">Compulsory Subjects</h3>
+          <ScheduleTable
+            headers={["Date", "Day", "Subject/Paper", "Time"]}
+            rows={pmsCompulsoryPapers}
+            colWidths={["18%", "16%", "40%", "26%"]}
+            minWidthClass="min-w-[36rem]"
+          />
+
+          <h3 className="mt-6 mb-1 text-base font-black text-slate-900">Optional Subjects</h3>
+          <p className="mb-3 text-sm text-slate-600 leading-relaxed">
+            Candidates select two; each date offers a morning and evening session for different subject
+            groups.
+          </p>
+          <ScheduleTable
+            headers={[
+              "Date",
+              "Day",
+              "Morning Session (9 AM–12 Noon)",
+              "Evening Session (2 PM–5 PM)",
+            ]}
+            rows={pmsOptionalPapers}
+            colWidths={["16%", "16%", "34%", "34%"]}
+            minWidthClass="min-w-[36rem]"
+          />
+
+          <h3 className="mt-6 mb-3 text-base font-black text-slate-900">
+            Important instructions for PMS candidates
+          </h3>
+          <p className="mb-3 text-sm text-slate-600 leading-relaxed">
+            From KPPSC&apos;s official notice:
+          </p>
+          <ul className="space-y-3 text-sm text-slate-600 leading-relaxed list-disc pl-5">
+            {pmsInstructions.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-5 text-sm text-slate-500 leading-relaxed italic">
+            Source: KPPSC 18th Schedule of 2026, dated 14 September 2026. Always cross-check against{" "}
+            <OfficialLink>KPPSC&apos;s official website</OfficialLink> for any updates, since the schedule
+            is explicitly stated as provisional.
           </p>
         </Section>
 
